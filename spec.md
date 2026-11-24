@@ -16,32 +16,36 @@ Minimum Elevation Filter: Slider or numeric box in feet ( Range: 6000ft6,000ftto
 Station Selection: Clicking a SNOTEL marker on the map or selecting a station from a searchable dropdown/list (Default: Highest-SWE station or state summary).
 
 Display Metric Toggle: Radio buttons to color-code map markers by either Current SWE (in) or Percent of 1991–2020 Median (%) (Default: Percent of Median).
-## Calculations (equations, thresholds/rules, data processing, all variables & units defined)
+## 3. Calculations
 
-- **Snow Water Equivalent (`SWE`, in):** Depth of liquid water contained in the snowpack, retrieved from the NRCS SNOTEL WTEQ sensor. The value is in inches.
+- **Snow Water Equivalent ($SWE$, in):** Depth of liquid water contained in the snowpack, retrieved from NRCS SNOTEL ($WTEQ$ sensor) in inches (in).
 
-- **Percent of Normal / Median (`P_median`, %):**
+- **Percent of Normal / Median ($P_{\mathrm{med}}$, %):**
 
-  ```text
-  P_median = (SWE_current / SWE_median) × 100
-  ```
+  $$
+  P_{\mathrm{med}} =
+  \left(\frac{SWE_{\mathrm{current}}}{SWE_{\mathrm{median}}}\right)\times 100
+  $$
 
-  If `SWE_median = 0` (including early- or late-season cases), display `N/A` instead of dividing by zero.
+  *(Handle edge cases where $SWE_{\mathrm{median}} = 0$ in early/late season by displaying `N/A` instead of dividing by zero.)*
 
-- **SWE Anomaly (`ΔSWE`, in):**
+- **SWE Anomaly ($\Delta SWE$, in):**
 
-  ```text
-  ΔSWE = SWE_current − SWE_median
-  ```
+  $$
+  \Delta SWE = SWE_{\mathrm{current}} - SWE_{\mathrm{median}}
+  $$
 
-- **Estimated Snow Density (`ρ_snow`, % or lb/ft³):** When snow depth (`D_snow`, in) is available and greater than zero:
+- **Estimated Snow Density ($\rho_{\mathrm{snow}}$, % or lb/ft$^3$):** When snow depth ($D_{\mathrm{snow}}$, in) is available ($D_{\mathrm{snow}} > 0$):
 
-  ```text
-  Density (%) = (SWE_current / D_snow) × 100
-  ρ_snow (lb/ft³) = (SWE_current / D_snow) × 62.4 lb/ft³
-  ```
+  $$
+  \text{Density (\%)} =
+  \left(\frac{SWE_{\mathrm{current}}}{D_{\mathrm{snow}}}\right)\times 100,
+  \qquad
+  \rho_{\mathrm{snow}} =
+  \left(\frac{SWE_{\mathrm{current}}}{D_{\mathrm{snow}}}\right)\times 62.4\ \mathrm{lb/ft^3}
+  $$
 
-- **Basin Average SWE and Percent of Median:** Arithmetic means of `SWE_current` and `P_median` across all active, non-null stations within the selected basin and elevation filter.
+- **Basin Average SWE & Percent of Median:** Arithmetic means of $SWE_{\mathrm{current}}$ and $P_{\mathrm{med}}$ across all active, non-null stations within the selected basin and elevation filter.
 
 - **Marker Status Thresholds (Color Rules):**
   - `<70%`: Red (Well Below Normal)

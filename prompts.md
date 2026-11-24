@@ -17,3 +17,12 @@
 
 - Changed: Reformatted the calculations section in `spec.md` into readable Markdown lists and equations; no app code was built.
 - Worked: Yes; the calculations are now consistently formatted and will be included in the requested commit.
+
+## 4
+
+> yeah! should be like this
+
+> Reference: attached screenshot showing numbered heading, bullet descriptions, and typeset inline/display equations.
+
+- Changed: Matched the calculations section in `spec.md` to the screenshot's numbered heading, bullet layout, and typeset equations.
+- Worked: Yes; verified the section formatting and included the change in the requested commit.
