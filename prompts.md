@@ -51,3 +51,10 @@
 
 - Changed: Standardized the spec's numbered section headings, bold-labeled bullet lists, and section spacing while preserving its requirements.
 - Worked: Yes; the sections now follow one consistent structure and will be included in the requested commit.
+
+## 8
+
+> I have drafted my initial `spec.md` for the Utah Snowpack Map app, including my hand-worked validation case under Validation. Review `spec.md` to confirm all seven required sections are present without rewriting my engineering equations or changing my validation numbers. Stage and commit the project setup and first draft of `spec.md` with a clear commit message.
+
+- Changed: Reviewed the seven numbered sections and confirmed the hand-worked inputs and expected results are unchanged. No `spec.md` edits were needed because the project setup and draft are already committed.
+- Worked: Yes; the project setup is in `692ea3c` and the full draft is in `ca0958d`. This review prompt is recorded here.
