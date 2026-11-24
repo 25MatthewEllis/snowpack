@@ -72,3 +72,17 @@
 
 - Changed: Prepared a focused v1 recommendation based on the open decisions in `spec.md`; no application code or spec changes were made.
 - Worked: Yes; the recommended scope and decisions are provided in the response.
+
+## 11
+
+> https://wcc.sc.egov.usda.gov/awdbRestApi/swagger-ui/index.html
+
+- Changed: Reviewed the AWDB REST API documentation; no application code or spec changes were made.
+- Worked: Yes; verified station metadata, data retrieval, and 30-year median support in the API description.
+
+## 12
+
+> https://www.nrcs.usda.gov/conservation-basics/conservation-by-state/utah/utah-snow-survey
+
+- Changed: Checked the Utah Snow Survey page URL; no application code or spec changes were made.
+- Worked: The supplied URL returned 404 during review; this is noted for follow-up.
