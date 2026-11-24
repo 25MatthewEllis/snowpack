@@ -1,21 +1,18 @@
 # Problem 6: Utah Snowpack Map
 
-## Status
+## 1. Purpose
 
-## Purpose
-map of the SNOTEL snow-monitoring sites in Utah that shows how this year's snowpack compares to normal.
-Water resource engineers, hydrologists, municipal water planners, and backcountry recreationists evaluating Utah's spring runoff potential and drought/flood status.
+- **Overview:** Map the SNOTEL snow-monitoring sites in Utah and show how this year's snowpack compares to normal.
+- **Audience:** Water resource engineers, hydrologists, municipal water planners, and backcountry recreationists evaluating Utah's spring runoff potential and drought/flood status.
 
-## Inputs (values, units, ranges, defaults, controls)
-Basin / Watershed Filter: Dropdown selector (Options: All Utah Basins, Bear, Weber, Provo–Utah Lake–Jordan, Duchesne, Price–San Rafael, Sevier, Virgin, etc.; Default: All Utah Basins).
+## 2. Inputs
 
-Target Date / Water Year Selector: Date picker or water-year dropdown (Range: Oct 1 of selected water year to current date; Default: Today's latest reading).
+- **Basin / Watershed Filter:** Dropdown selector. Options include All Utah Basins, Bear, Weber, Provo–Utah Lake–Jordan, Duchesne, Price–San Rafael, Sevier, and Virgin. Default: All Utah Basins.
+- **Target Date / Water Year Selector:** Date picker or water-year dropdown. Range: October 1 of the selected water year through the current date. Default: today's latest reading.
+- **Minimum Elevation Filter:** Slider or numeric box in feet. Range: 6,000–11,500 ft; step: 250 ft; default: 6,000 ft.
+- **Station Selection:** Select a SNOTEL marker on the map or choose a station from a searchable dropdown/list. Default: highest-SWE station or state summary.
+- **Display Metric Toggle:** Radio buttons to color-code map markers by Current SWE (in) or Percent of 1991–2020 Median (%). Default: Percent of Median.
 
-Minimum Elevation Filter: Slider or numeric box in feet ( Range: 6000ft6,000ftto11500 ft11,500 ft, Step: 250ft250 ft, Default: 6,000ft 6,000 ft).
-
-Station Selection: Clicking a SNOTEL marker on the map or selecting a station from a searchable dropdown/list (Default: Highest-SWE station or state summary).
-
-Display Metric Toggle: Radio buttons to color-code map markers by either Current SWE (in) or Percent of 1991–2020 Median (%) (Default: Percent of Median).
 ## 3. Calculations
 
 - **Snow Water Equivalent ($SWE$, in):** Depth of liquid water contained in the snowpack, retrieved from NRCS SNOTEL ($WTEQ$ sensor) in inches (in).
@@ -54,10 +51,40 @@ Display Metric Toggle: Radio buttons to color-code map markers by either Current
   - `110% to 129%`: Light Blue (Above Normal)
   - `≥130%`: Dark Blue / Purple (Well Above Normal)
 
-## Outputs (numbers with units, tables, plots, diagrams)
+## 4. Outputs
 
-## Look and feel (layout, initial view on load, mobile/phone behavior)
+- **Interactive Map (Leaflet):** Utah map showing color-coded circular station markers, clickable popups, and a color-scale legend.
 
-## Validation (at least one hand-worked case with exact inputs and expected outputs)
+- **Summary KPI Cards:** Statewide or selected-basin average $SWE$ (in), average Percent of Median (%), active station count ($n$), and peak station reading (in).
 
-## Out of scope
+- **Station Detail Panel & Time-Series Plot (Chart.js / Plotly):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 30-year median curve.
+
+- **Sortable Station Data Table:** Columns for Station Name, Basin, Elevation (ft), Current $SWE$ (in), Median $SWE$ (in), % of Median, and Status.
+
+## 5. Look and Feel
+
+- **Desktop Layout:** Clean two-column dashboard with a top header bar containing the title and global filters (Basin, Date, Elevation, Metric Toggle); the left 60% shows the interactive map with a floating legend; the right 40% stacks KPI summary cards above the selected station's SWE time-series chart, with the sortable station table below.
+- **Initial View on Load:** Center on Utah (latitude 39.3, longitude −111.7, zoom 7) and show all active Utah SNOTEL sites colored by Percent of 30-Year Median for the most recent available date, with statewide summary metrics populated.
+- **Mobile / Phone Behavior:** Use a single-column vertical stack below 768 px wide. Collapse the filter bar into a stacked group, resize the map to 50vh with touch-friendly markers, and allow horizontal table scrolling without breaking page width.
+
+## 6. Validation
+
+- **Hand-Worked Test Case (e.g., Trial Lake SNOTEL — Site 828, Elevation 9,992 ft, Provo–Utah Lake–Jordan Basin):**
+  - **Inputs:**
+    - $SWE_{\mathrm{current}} = 24.6\ \mathrm{in}$
+    - $SWE_{\mathrm{median}} = 20.5\ \mathrm{in}$
+    - $D_{\mathrm{snow}} = 72.0\ \mathrm{in}$
+  - **Expected Outputs:**
+    - $P_{\mathrm{med}} = \frac{24.6}{20.5} \times 100 = 120.0\%$
+    - $\Delta SWE = 24.6 - 20.5 = +4.1\ \mathrm{in}$
+    - Density (%) $= \frac{24.6}{72.0} \times 100 = 34.2\%$ ($\rho_{\mathrm{snow}} = 21.3\ \mathrm{lb/ft^3}$)
+    - **Marker Color Category:** Light Blue (Above Normal, since $110\% \le 120.0\% \le 129\%$)
+
+- *(Plus a multi-station basin average check with 2–3 stations to verify your basin aggregation math.)*
+
+## 7. Out of Scope
+
+- Streamflow runoff volume forecasting or reservoir routing models (e.g., acre-feet inflow predictions).
+- Avalanche danger ratings or slope-aspect stability modeling.
+- User accounts, custom data uploads, or backend server databases; everything runs client-side in a single `index.html` file.
+- SNOTEL stations outside Utah, except if explicitly included for border basins like Bear River.

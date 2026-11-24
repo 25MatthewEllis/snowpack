@@ -26,3 +26,28 @@
 
 - Changed: Matched the calculations section in `spec.md` to the screenshot's numbered heading, bullet layout, and typeset equations.
 - Worked: Yes; verified the section formatting and included the change in the requested commit.
+
+## 5
+
+> make the outputs look like this
+
+> Reference: attached screenshot showing the numbered Outputs heading and four bulleted output descriptions.
+
+- Changed: Reformatted the Outputs section in `spec.md` to match the screenshot.
+- Worked: Yes; verified the section content and formatting, and included the change in the requested commit.
+
+## 6
+
+> add this to validation
+
+> Reference: attached screenshot showing a hand-worked Trial Lake test case and multi-station basin-average check.
+
+- Changed: Added the screenshot's hand-worked inputs, expected calculations, marker color, and basin-average check to Validation in `spec.md`.
+- Worked: Yes; verified the listed calculations and included the change in the requested commit.
+
+## 7
+
+> look at the spec and make all of the sections the same style
+
+- Changed: Standardized the spec's numbered section headings, bold-labeled bullet lists, and section spacing while preserving its requirements.
+- Worked: Yes; the sections now follow one consistent structure and will be included in the requested commit.
