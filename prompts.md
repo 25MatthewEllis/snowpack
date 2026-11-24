@@ -10,3 +10,10 @@
 
 - Changed: Added the two requested instructions to `AGENTS.md` and recorded this prompt.
 - Worked: Yes; verified the requested instructions and log entry, and included the project changes in the requested commit.
+
+## 3
+
+> dont build anything - fix the format of the calculations info in the spec
+
+- Changed: Reformatted the calculations section in `spec.md` into readable Markdown lists and equations; no app code was built.
+- Worked: Yes; the calculations are now consistently formatted and will be included in the requested commit.
