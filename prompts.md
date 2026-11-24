@@ -86,3 +86,10 @@
 
 - Changed: Checked the Utah Snow Survey page URL; no application code or spec changes were made.
 - Worked: The supplied URL returned 404 during review; this is noted for follow-up.
+
+## 13
+
+> give me questions for things to change and give suggestions, ill pick the thing i want until our spec is clear
+
+- Changed: Started an iterative spec-clarification process with a recommended first decision; no spec or application-code changes were made.
+- Worked: Yes; the first decision is presented for the user to choose.
