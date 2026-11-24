@@ -17,6 +17,8 @@
 
 - **Snow Water Equivalent ($SWE$, in):** Depth of liquid water contained in the snowpack, retrieved from NRCS SNOTEL ($WTEQ$ sensor) in inches (in).
 
+- **Historical Baseline:** Use the fixed 1991–2020 period for median comparisons. Confirm the AWDB median field matches this period before using it.
+
 - **Percent of Normal / Median ($P_{\mathrm{med}}$, %):**
 
   $$
@@ -57,14 +59,14 @@
 
 - **Summary KPI Cards:** Statewide or selected-basin average $SWE$ (in), average Percent of Median (%), active station count ($n$), and peak station reading (in).
 
-- **Station Detail Panel & Time-Series Plot (Chart.js / Plotly):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 30-year median curve.
+- **Station Detail Panel & Time-Series Plot (Chart.js / Plotly):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 1991–2020 median curve.
 
 - **Sortable Station Data Table:** Columns for Station Name, Basin, Elevation (ft), Current $SWE$ (in), Median $SWE$ (in), % of Median, and Status.
 
 ## 5. Look and Feel
 
 - **Desktop Layout:** Clean two-column dashboard with a top header bar containing the title and global filters (Basin, Date, Elevation, Metric Toggle); the left 60% shows the interactive map with a floating legend; the right 40% stacks KPI summary cards above the selected station's SWE time-series chart, with the sortable station table below.
-- **Initial View on Load:** Center on Utah (latitude 39.3, longitude −111.7, zoom 7) and show all active Utah SNOTEL sites colored by Percent of 30-Year Median for the most recent available date, with statewide summary metrics populated.
+- **Initial View on Load:** Center on Utah (latitude 39.3, longitude −111.7, zoom 7) and show all active Utah SNOTEL sites colored by Percent of 1991–2020 Median for the most recent available date, with statewide summary metrics populated.
 - **Mobile / Phone Behavior:** Use a single-column vertical stack below 768 px wide. Collapse the filter bar into a stacked group, resize the map to 50vh with touch-friendly markers, and allow horizontal table scrolling without breaking page width.
 
 ## 6. Validation

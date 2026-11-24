@@ -93,3 +93,8 @@
 
 - Changed: Started an iterative spec-clarification process with a recommended first decision; no spec or application-code changes were made.
 - Worked: Yes; the first decision is presented for the user to choose.
+
+> Fixed 1991–2020.
+
+- Changed: Recorded the fixed 1991–2020 baseline in `spec.md` and aligned chart references; flagged that the AWDB median field must be verified against that period.
+- Worked: Yes; the baseline is now consistent across the spec.
