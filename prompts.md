@@ -98,3 +98,8 @@
 
 - Changed: Recorded the fixed 1991–2020 baseline in `spec.md` and aligned chart references; flagged that the AWDB median field must be verified against that period.
 - Worked: Yes; the baseline is now consistent across the spec.
+
+> dynamic_visible_range
+
+- Changed: Specified that Current SWE marker colors use the filtered visible stations' SWE range and that the legend updates accordingly.
+- Worked: Yes; the raw-SWE marker scale is now defined in the spec.

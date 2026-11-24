@@ -53,6 +53,8 @@
   - `110% to 129%`: Light Blue (Above Normal)
   - `≥130%`: Dark Blue / Purple (Well Above Normal)
 
+- **Current SWE Color Scale:** When Current SWE is selected, use a sequential color scale based on the minimum and maximum SWE values of the currently visible stations. Update the legend to show that range.
+
 ## 4. Outputs
 
 - **Interactive Map (Leaflet):** Utah map showing color-coded circular station markers, clickable popups, and a color-scale legend.
