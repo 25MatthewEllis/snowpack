@@ -58,3 +58,10 @@
 
 - Changed: Reviewed the seven numbered sections and confirmed the hand-worked inputs and expected results are unchanged. No `spec.md` edits were needed because the project setup and draft are already committed.
 - Worked: Yes; the project setup is in `692ea3c` and the full draft is in `ca0958d`. This review prompt is recorded here.
+
+## 9
+
+> Read `spec.md` carefully. Do not write any application code yet. Tell me what is unclear, ambiguous, or missing across the seven sections for a Utah snowpack map web app, and list questions I should answer before we build.
+
+- Changed: Reviewed all seven sections and recorded the request; no application code or spec changes were made.
+- Worked: Yes; the review findings and questions are provided in the response.
