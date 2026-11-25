@@ -228,3 +228,10 @@
 
 - Changed: Specified daily AWDB data consistently for current measurements, historical medians, and all views.
 - Worked: Yes; data resolution is now explicit.
+
+## 14
+
+> Read `spec.md`. Don't write any code. Write a short overview of the whole app, then suggest how to build it in 4 to 6 stages, starting with a mockup of the page layout. For each stage, tell me what will be built and what I should check when it's done.
+
+- Changed: Prepared a six-stage build outline beginning with a static layout mockup; no application code or spec changes were made.
+- Worked: Yes; each stage includes its build scope and completion checks.
