@@ -148,3 +148,8 @@
 
 - Changed: Selected Chart.js for the water-year SWE chart and named it in the runtime and output requirements.
 - Worked: Yes; the charting library is now specified.
+
+> filtered_selected_date
+
+- Changed: Defined the peak KPI as the highest current SWE among stations remaining after filters on the selected date, and to include its station name.
+- Worked: Yes; the peak KPI scope is now explicit.

@@ -63,7 +63,7 @@
 
 - **Interactive Map (Leaflet):** Utah map showing color-coded circular station markers, clickable popups, and a color-scale legend.
 
-- **Summary KPI Cards:** Statewide or selected-basin average $SWE$ (in), average Percent of Median (%), active station count ($n$), and peak station reading (in).
+- **Summary KPI Cards:** Statewide or selected-basin average $SWE$ (in), average Percent of Median (%), active station count ($n$), and the highest current SWE reading (in) among stations remaining after the active filters, with station name.
 
 - **Station Detail Panel & Time-Series Plot (Chart.js):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 1991–2020 median curve.
 
