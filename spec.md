@@ -14,14 +14,14 @@ This single-file, client-side app maps Utah SNOTEL stations using daily AWDB dat
 - **Minimum Elevation Filter:** Slider or numeric box in feet. Range: 6,000–11,500 ft; step: 250 ft; default: 6,000 ft.
 - **Station Selection:** Select a SNOTEL marker on the map or choose a station from a searchable dropdown/list. Default: statewide summary with no station selected.
 - **Display Metric Toggle:** Radio buttons to color-code map markers by Current SWE (in) or Percent of 1991–2020 Median (%). Default: Percent of Median.
-- **Data Source and Runtime:** Retrieve station metadata and DAILY SWE, snow-depth, and historical-median data from the NRCS AWDB REST API directly in the browser. Use daily data consistently across the map, KPIs, table, and chart. The app requires internet access; load Leaflet and Chart.js from a CDN. Verify AWDB browser access (CORS) before implementation. If requests fail, show a clear error with a retry option; do not present missing values as zero or as a successful load.
+- **Data Source and Runtime:** Retrieve station metadata and DAILY SWE and snow-depth observations from the NRCS AWDB REST API directly in the browser. Calculate the fixed 1991–2020 baseline from historical daily SWE observations. Use daily data consistently across the map, KPIs, table, and chart. The app requires internet access; load Leaflet and Chart.js from a CDN. Verify AWDB browser access (CORS) before implementation. If requests fail, show a clear error with a retry option; do not present missing values as zero or as a successful load.
 - **Filter Scope:** Apply basin, target-date, and elevation filters to the map, KPIs, station table, and station selection. If filters exclude the selected station, clear the selection and return to the summary state.
 
 ## 3. Calculations
 
 - **Snow Water Equivalent ($SWE$, in):** Depth of liquid water contained in the snowpack, retrieved from NRCS SNOTEL ($WTEQ$ sensor) in inches (in).
 
-- **Historical Baseline:** Use the fixed 1991–2020 period and compare each selected date with the median for the same day of water year. Use the same aligned series in the chart and calculate medians from available historical observations only. Use the AWDB median field only if its period and alignment match; otherwise, source or calculate 1991–2020 medians rather than substituting an unspecified 30-year median.
+- **Historical Baseline:** Use water years 1991–2020, covering October 1, 1990 through September 30, 2020. For each station and day of water year, calculate the median from available daily AWDB WTEQ observations in that window. Include observed zero SWE values; exclude missing or non-finite observations without interpolation. Use that same aligned series in the chart, and show the number of contributing water years for the selected station and date. Use the AWDB median field only if its period and alignment match; otherwise, calculate this baseline rather than substituting an unspecified 30-year median.
 
 - **Percent of Normal / Median ($P_{\mathrm{med}}$, %):**
 

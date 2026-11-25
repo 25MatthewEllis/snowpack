@@ -850,6 +850,13 @@
         font-weight: 650;
       }
 
+      .detail-item small {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted-light);
+        font-size: 9px;
+      }
+
       .chart-container {
         position: relative;
         height: 230px;
@@ -1348,7 +1355,7 @@
           <div>
             <p class="eyebrow">Utah · SNOTEL network</p>
             <h1>Utah Snowpack Map</h1>
-            <p class="intro-copy">Explore current Utah snowpack. AWDB provides a 30-year median without reference years, so 1991–2020 comparisons are withheld.</p>
+            <p class="intro-copy">Explore current Utah snowpack against a calculated 1991–2020 water-year median.</p>
           </div>
           <div class="data-note">
             <span class="data-dot" id="connection-dot" aria-hidden="true"></span>
@@ -1501,7 +1508,11 @@
               <div class="detail-item"><span>Current SWE</span><strong id="detail-swe">—</strong></div>
               <div class="detail-item"><span>Snow depth</span><strong id="detail-depth">—</strong></div>
               <div class="detail-item"><span>Density</span><strong id="detail-density">—</strong></div>
-              <div class="detail-item"><span>SWE anomaly</span><strong id="detail-anomaly">—</strong></div>
+              <div class="detail-item">
+                <span>SWE anomaly</span>
+                <strong id="detail-anomaly">—</strong>
+                <small id="detail-baseline-note" hidden></small>
+              </div>
               <div class="detail-item"><span>Status</span><strong id="detail-status">—</strong></div>
             </div>
 
@@ -1631,7 +1642,7 @@
         </div>
       </section>
 
-      <p class="mockup-footer">Stage 6 validation complete · the AWDB 30-year median reference period is unverified, so 1991–2020 comparisons remain unavailable. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
+      <p class="mockup-footer">Stage 6 validation complete · Percent of Median and SWE anomaly use medians calculated from available daily AWDB SWE observations in water years 1991–2020. The API's unlabeled 30-year median is not used for those calculations. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
     </main>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -1642,7 +1653,11 @@
       const REQUEST_BATCH_SIZE = 12;
       const REQUEST_CONCURRENCY = 3;
       const REQUEST_TIMEOUT_MS = 30000;
-      const BASELINE_PERIOD_VERIFIED = false;
+      const BASELINE_FIRST_WATER_YEAR = 1991;
+      const BASELINE_LAST_WATER_YEAR = 2020;
+      const BASELINE_BEGIN_DATE = "1990-10-01";
+      const BASELINE_END_DATE = "2020-09-30";
+      const BASELINE_WATER_YEAR_COUNT = BASELINE_LAST_WATER_YEAR - BASELINE_FIRST_WATER_YEAR + 1;
       const LIQUID_WATER_DENSITY_LB_FT3 = 62.4;
       const WBD_HUC8_BASINS = {
         "14030005": "Upper Colorado-Kane Springs",
@@ -1722,6 +1737,7 @@
       const detailDepth = document.querySelector("#detail-depth");
       const detailDensity = document.querySelector("#detail-density");
       const detailAnomaly = document.querySelector("#detail-anomaly");
+      const detailBaselineNote = document.querySelector("#detail-baseline-note");
       const detailStatus = document.querySelector("#detail-status");
       const chartHeading = document.querySelector("#chart-heading");
       const chartDate = document.querySelector("#chart-date");
@@ -1857,12 +1873,9 @@
           "Percent of Median",
           isFiniteNumber(station.metrics.percentOfMedian)
             ? `${formatFixed(station.metrics.percentOfMedian)}%`
-            : BASELINE_PERIOD_VERIFIED
-              ? "N/A"
-              : "Unavailable: baseline period unverified"
+            : "N/A"
         );
-        const status = station.metrics.status?.label ||
-          (BASELINE_PERIOD_VERIFIED ? "N/A · no valid median" : "N/A · baseline unverified");
+        const status = station.metrics.status?.label || "N/A · no valid median";
         appendPopupRow(content, "Status", status);
         const selectButton = document.createElement("button");
         selectButton.className = "popup-select";
@@ -1883,14 +1896,6 @@
         heading.className = "legend-heading";
         heading.textContent = metric === "swe" ? "Current SWE · marker scale" : "Percent of Median";
         mapLegendContent.append(heading);
-
-        if (metric === "percent" && !BASELINE_PERIOD_VERIFIED) {
-          const message = document.createElement("p");
-          message.className = "legend-placeholder";
-          message.textContent = "Neutral markers: the 1991–2020 reference period is unverified.";
-          mapLegendContent.append(message);
-          return;
-        }
 
         if (metric === "percent") {
           const bands = [
@@ -1982,9 +1987,6 @@
         const currentSwe = dates.map(date => stationReadings.wteq.get(date) ?? null);
         const hasCurrentSwe = currentSwe.some(isFiniteNumber);
         const notices = [];
-        if (!BASELINE_PERIOD_VERIFIED) {
-          notices.push("The AWDB 30-year median period is unverified; the 1991–2020 curve is omitted.");
-        }
         if (!hasCurrentSwe) {
           notices.push("No daily SWE observations are available for this station through the selected date.");
           chartContainer.hidden = true;
@@ -2010,10 +2012,11 @@
           spanGaps: false,
           tension: 0
         }];
-        if (BASELINE_PERIOD_VERIFIED) {
+        const baselineSwe = dates.map(date => stationReadings.median.get(date) ?? null);
+        if (baselineSwe.some(isFiniteNumber)) {
           datasets.push({
             label: "1991–2020 median SWE",
-            data: dates.map(date => stationReadings.median.get(date) ?? null),
+            data: baselineSwe,
             borderColor: "#7783a0",
             borderWidth: 2,
             borderDash: [5, 4],
@@ -2022,6 +2025,8 @@
             spanGaps: false,
             tension: 0
           });
+        } else {
+          notices.push("No 1991–2020 median observations are available for this station's water-year chart.");
         }
         chartContainer.hidden = false;
         chartNote.textContent = notices.join(" ");
@@ -2091,8 +2096,12 @@
         detailAnomaly.textContent = selected
           ? isFiniteNumber(station.metrics.sweAnomaly) ? `${formatSigned(station.metrics.sweAnomaly)} in` : "Unavailable"
           : "—";
+        detailBaselineNote.hidden = !selected;
+        detailBaselineNote.textContent = selected && station.baselineSampleCount
+          ? `Median from ${station.baselineSampleCount} of ${BASELINE_WATER_YEAR_COUNT} water years.`
+          : selected ? "No historical observations for this date." : "";
         detailStatus.textContent = selected
-          ? station.metrics.status?.label || (BASELINE_PERIOD_VERIFIED ? "N/A" : "N/A · baseline unverified")
+          ? station.metrics.status?.label || "N/A"
           : "—";
         updateStationChart(station);
       }
@@ -2326,6 +2335,29 @@
         return available.reduce((sum, value) => sum + value, 0) / available.length;
       }
 
+      function calculateMedian(values) {
+        const available = values.filter(isFiniteNumber).sort((a, b) => a - b);
+        if (available.length === 0) return null;
+        const midpoint = Math.floor(available.length / 2);
+        return available.length % 2
+          ? available[midpoint]
+          : (available[midpoint - 1] + available[midpoint]) / 2;
+      }
+
+      function getWaterYearInfo(dateString) {
+        if (typeof dateString !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+          return null;
+        }
+        const [year, month, day] = dateString.split("-").map(Number);
+        const date = Date.UTC(year, month - 1, day);
+        if (new Date(date).toISOString().slice(0, 10) !== dateString) return null;
+        const startYear = month >= 10 ? year : year - 1;
+        return {
+          waterYear: month >= 10 ? year + 1 : year,
+          dayOfWaterYear: Math.floor((date - Date.UTC(startYear, 9, 1)) / 86400000)
+        };
+      }
+
       function calculateBasinSummary(stations) {
         const currentStations = stations.filter(station => isFiniteNumber(station.currentSwe));
         const comparableStations = stations.filter(station =>
@@ -2468,6 +2500,11 @@
           [130, "Well Above Normal"]
         ];
         const checks = [
+          ["Baseline median handles even samples", nearlyEqual(calculateMedian([1, 2, 3, 4]), 2.5)],
+          ["Baseline median includes zero observations", nearlyEqual(calculateMedian([0, 2, 4]), 2)],
+          ["Baseline window starts at water year 1991",
+            getWaterYearInfo("1990-10-01")?.waterYear === 1991 &&
+            getWaterYearInfo("1990-10-01")?.dayOfWaterYear === 0],
           ["Trial Lake Percent of Median", nearlyEqual(trial.percentOfMedian, 120)],
           ["Trial Lake SWE anomaly", nearlyEqual(trial.sweAnomaly, 4.1)],
           ["Trial Lake density percent", nearlyEqual(trial.snowDensityPercent, 34.1666666667)],
@@ -2591,7 +2628,7 @@
         return result;
       }
 
-      async function fetchDataBatch(stations, elements, beginDate, endDate) {
+      async function fetchDataBatch(stations, elements, beginDate, endDate, centralTendencyType = "MEDIAN") {
         const params = new URLSearchParams({
           stationTriplets: stations.map(station => station.stationTriplet).join(","),
           elements: elements.join(","),
@@ -2599,7 +2636,7 @@
           beginDate,
           endDate,
           periodRef: "END",
-          centralTendencyType: "MEDIAN"
+          centralTendencyType
         });
         const url = `${AWDB_BASE}/services/v1/data?${params}`;
 
@@ -2617,8 +2654,8 @@
           ) {
             const midpoint = Math.ceil(stations.length / 2);
             const [left, right] = await Promise.all([
-              fetchDataBatch(stations.slice(0, midpoint), elements, beginDate, endDate),
-              fetchDataBatch(stations.slice(midpoint), elements, beginDate, endDate)
+              fetchDataBatch(stations.slice(0, midpoint), elements, beginDate, endDate, centralTendencyType),
+              fetchDataBatch(stations.slice(midpoint), elements, beginDate, endDate, centralTendencyType)
             ]);
             return left.concat(right);
           }
@@ -2626,10 +2663,15 @@
         }
       }
 
-      async function fetchAllDailyData(stations, beginDate, endDate, onProgress) {
+      async function fetchAllDailyData(stations, beginDate, endDate, onProgress, options = {}) {
+        const { includeSnowDepth = true, centralTendencyType = "MEDIAN" } = options;
         const requests = [];
-        const withSnowDepth = stations.filter(station => station.hasSnowDepth);
-        const withoutSnowDepth = stations.filter(station => !station.hasSnowDepth);
+        const withSnowDepth = includeSnowDepth
+          ? stations.filter(station => station.hasSnowDepth)
+          : [];
+        const withoutSnowDepth = includeSnowDepth
+          ? stations.filter(station => !station.hasSnowDepth)
+          : stations;
         for (const batch of chunk(withSnowDepth, REQUEST_BATCH_SIZE)) {
           requests.push({ stations: batch, elements: ["WTEQ", "SNWD"] });
         }
@@ -2648,7 +2690,13 @@
             const index = nextRequest;
             nextRequest += 1;
             const request = requests[index];
-            results[index] = await fetchDataBatch(request.stations, request.elements, beginDate, endDate);
+            results[index] = await fetchDataBatch(
+              request.stations,
+              request.elements,
+              beginDate,
+              endDate,
+              centralTendencyType
+            );
             completed += 1;
             onProgress(completed, requests.length);
           }
@@ -2667,7 +2715,14 @@
       function collectStationReadings(stations, apiData) {
         const readings = new Map(stations.map(station => [
           station.stationTriplet,
-          { wteq: new Map(), snwd: new Map(), median: new Map(), errors: [] }
+          {
+            wteq: new Map(),
+            snwd: new Map(),
+            awdbMedian: new Map(),
+            median: new Map(),
+            baselineSampleCount: new Map(),
+            errors: []
+          }
         ]));
 
         for (const response of apiData) {
@@ -2695,24 +2750,66 @@
                 stationReadings.snwd.set(item.date, item.value);
               }
               if (code === "WTEQ" && typeof item.median === "number" && Number.isFinite(item.median)) {
-                stationReadings.median.set(item.date, item.median);
+                stationReadings.awdbMedian.set(item.date, item.median);
               }
             }
           }
         }
 
-        const stationsWithErrors = [];
-        for (const station of stations) {
-          const stationReadings = readings.get(station.stationTriplet);
-          if (stationReadings.errors.length) {
-            stationsWithErrors.push({
-              stationTriplet: station.stationTriplet,
-              name: station.name,
-              errors: stationReadings.errors
-            });
+        return readings;
+      }
+
+      function collectHistoricalBaseline(stations, readings, apiData, currentBeginDate, currentEndDate) {
+        const samplesByStation = new Map(stations.map(station => [
+          station.stationTriplet,
+          new Map()
+        ]));
+        for (const response of apiData) {
+          const stationReadings = readings.get(response.stationTriplet);
+          const samplesByDay = samplesByStation.get(response.stationTriplet);
+          if (!stationReadings || !samplesByDay) continue;
+          if (response.error) stationReadings.errors.push(`Historical SWE: ${response.error}`);
+
+          for (const series of response.data || []) {
+            if (series.stationElement?.elementCode !== "WTEQ") continue;
+            if (series.error) {
+              stationReadings.errors.push(`Historical WTEQ: ${series.error}`);
+              continue;
+            }
+            for (const item of series.values || []) {
+              const info = getWaterYearInfo(item.date);
+              if (
+                !info ||
+                info.waterYear < BASELINE_FIRST_WATER_YEAR ||
+                info.waterYear > BASELINE_LAST_WATER_YEAR ||
+                !isFiniteNumber(item.value)
+              ) {
+                continue;
+              }
+              const dayValues = samplesByDay.get(info.dayOfWaterYear) || [];
+              dayValues.push(item.value);
+              samplesByDay.set(info.dayOfWaterYear, dayValues);
+            }
           }
         }
-        return { readings, stationsWithErrors };
+
+        for (const station of stations) {
+          const stationReadings = readings.get(station.stationTriplet);
+          const samplesByDay = samplesByStation.get(station.stationTriplet);
+          const mediansByDay = new Map();
+          const countsByDay = new Map();
+          for (const [day, values] of samplesByDay) {
+            mediansByDay.set(day, calculateMedian(values));
+            countsByDay.set(day, values.length);
+          }
+
+          for (const date of getWaterYearDates(currentBeginDate, currentEndDate)) {
+            const day = getWaterYearInfo(date)?.dayOfWaterYear;
+            const median = mediansByDay.get(day);
+            if (isFiniteNumber(median)) stationReadings.median.set(date, median);
+            stationReadings.baselineSampleCount.set(date, countsByDay.get(day) || 0);
+          }
+        }
       }
 
       function createCell(text, className = "") {
@@ -2726,16 +2823,17 @@
         return stations.map(station => {
           const stationReadings = readings.get(station.stationTriplet);
           const currentSwe = stationReadings.wteq.get(latestDate) ?? null;
-          const awdbMedian = stationReadings.median.get(latestDate) ?? null;
+          const awdbMedian = stationReadings.awdbMedian.get(latestDate) ?? null;
+          const medianSwe = stationReadings.median.get(latestDate) ?? null;
           const snowDepth = stationReadings.snwd.get(latestDate) ?? null;
-          const comparableMedian = BASELINE_PERIOD_VERIFIED ? awdbMedian : null;
           return {
             ...station,
             currentSwe,
             awdbMedian,
-            medianSwe: comparableMedian,
+            medianSwe,
+            baselineSampleCount: stationReadings.baselineSampleCount.get(latestDate) || 0,
             snowDepth,
-            metrics: calculateStationMetrics(currentSwe, comparableMedian, snowDepth)
+            metrics: calculateStationMetrics(currentSwe, medianSwe, snowDepth)
           };
         });
       }
@@ -2750,14 +2848,11 @@
         peakStationOutput.textContent = summary.peakStation
           ? summary.peakStation.name
           : "No stations have current SWE";
-        averagePercentNote.textContent = BASELINE_PERIOD_VERIFIED
-          ? "1991–2020 baseline"
-          : "Unavailable: AWDB median period unverified";
+        averagePercentNote.textContent = "1991–2020 baseline";
       }
 
       function getStationStatusLabel(station) {
         if (!isFiniteNumber(station.currentSwe)) return "N/A · no current SWE";
-        if (!BASELINE_PERIOD_VERIFIED) return "N/A · baseline unverified";
         return station.metrics.status?.label || "N/A · no valid median";
       }
 
@@ -2871,8 +2966,10 @@
           count + (readings.get(station.stationTriplet).wteq.has(latestDate) ? 1 : 0), 0);
         const snowDepthReadings = stations.reduce((count, station) =>
           count + (readings.get(station.stationTriplet).snwd.has(latestDate) ? 1 : 0), 0);
-        const medianReadings = stations.reduce((count, station) =>
+        const baselineMedianReadings = stations.reduce((count, station) =>
           count + (readings.get(station.stationTriplet).median.has(latestDate) ? 1 : 0), 0);
+        const awdbMedianReadings = stations.reduce((count, station) =>
+          count + (readings.get(station.stationTriplet).awdbMedian.has(latestDate) ? 1 : 0), 0);
         const missingHucStations = stations.filter(station => !station.huc);
         const unmappedHucStations = stations.filter(station =>
           station.huc && station.basinName.startsWith("Unmapped HUC")
@@ -2902,9 +2999,10 @@
         statusPanel.className = `panel awdb-status ${warnings.length ? "status-warning" : "status-success"}`;
         statusTitle.textContent = warnings.length ? "AWDB data loaded with coverage warnings" : "AWDB data loaded";
         statusMessage.textContent =
-          `Loaded daily station data from ${formatDate(beginDate)} through ${formatDate(latestDate)}. ` +
+          `Loaded current daily station data from ${formatDate(beginDate)} through ${formatDate(latestDate)}. ` +
           `${readingsOnLatestDate} of ${stations.length} active Utah stations have SWE readings on the latest date; ` +
           `${snowDepthReadings} also have snow-depth readings. ` +
+          `${baselineMedianReadings} have a calculated 1991–2020 median for that date. ` +
           (warnings.length ? warnings.join("; ") + "." : "All station data requests completed.");
         retryButton.hidden = true;
         retryButton.disabled = true;
@@ -2914,12 +3012,12 @@
         stationCount.textContent = String(stations.length);
         latestDateLabel.textContent = formatDate(latestDate);
         readingCount.textContent =
-          `${readingsOnLatestDate} SWE · ${snowDepthReadings} depth · ${medianReadings} median`;
+          `${readingsOnLatestDate} SWE · ${snowDepthReadings} depth · ${baselineMedianReadings} baseline`;
         baselineNotice.hidden = false;
-        baselineNotice.textContent = medianReadings
-          ? `AWDB returned a 30-year median for ${medianReadings} stations, but its response does not identify the reference years. ` +
-            "It is not being treated as the specified 1991–2020 baseline; Percent of Median stays uncalculated until that baseline is verified."
-          : "AWDB did not return median values for the latest date. The reference period is unverified, so Percent of Median stays uncalculated.";
+        baselineNotice.textContent =
+          `Calculated 1991–2020 medians from available daily SWE observations in water years 1991–2020; ` +
+          `${baselineMedianReadings} stations have a median for ${formatDate(latestDate)}. ` +
+          `AWDB's generic 30-year median (${awdbMedianReadings} stations) is shown separately and is not used.`;
         coverageErrors.replaceChildren();
         for (const detail of coverageDetails) {
           const item = document.createElement("li");
@@ -2955,11 +3053,29 @@
           const endDate = localDateString(now);
           const apiData = await fetchAllDailyData(stations, beginDate, endDate, (completed, total) => {
             statusMessage.textContent =
-              `Loaded metadata for ${stations.length} stations. Fetching daily WTEQ, snow depth, and AWDB median data ` +
+              `Loaded metadata for ${stations.length} stations. Fetching current daily WTEQ, snow depth, and AWDB median data ` +
               `(${completed} of ${total} batches)…`;
           });
 
-          const { readings, stationsWithErrors } = collectStationReadings(stations, apiData);
+          statusMessage.textContent =
+            `Loaded current readings for ${stations.length} stations. Fetching daily SWE for the 1991–2020 water-year baseline…`;
+          const historicalData = await fetchAllDailyData(
+            stations,
+            BASELINE_BEGIN_DATE,
+            BASELINE_END_DATE,
+            (completed, total) => {
+              statusMessage.textContent =
+                `Calculating 1991–2020 medians from available historical SWE observations ` +
+                `(${completed} of ${total} batches)…`;
+            },
+            { includeSnowDepth: false, centralTendencyType: "NONE" }
+          );
+          const readings = collectStationReadings(stations, apiData);
+          collectHistoricalBaseline(stations, readings, historicalData, beginDate, endDate);
+          const stationsWithErrors = stations.flatMap(station => {
+            const errors = readings.get(station.stationTriplet).errors;
+            return errors.length ? [{ ...station, errors }] : [];
+          });
           const latestDate = stations.reduce((latest, station) => {
             const dates = [...readings.get(station.stationTriplet).wteq.keys()];
             dates.sort();

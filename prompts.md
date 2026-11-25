@@ -323,3 +323,17 @@
 
 - Changed: Completed Stage 6 responsive and end-to-end validation, fixed the stale map data-error message after a successful retry, marked the app complete, and clarified that 1991–2020 comparisons remain withheld until the AWDB median reference period is verified.
 - Worked: Yes; verified live AWDB load and recovery after a simulated outage, filters and no-data state, chart and station selection, mobile layout with no page overflow and a horizontally scrollable table, and all 24 calculation checks.
+
+## 25
+
+> wha5 do 6ou need now? the naomoly is still blank
+
+- Changed: Traced the unavailable anomaly to the app withholding AWDB's unspecified 30-year median, checked that raw historical daily SWE can support a fixed baseline, and asked which baseline to use.
+- Worked: Yes; confirmed the source path and received the choice to preserve 1991–2020.
+
+## 26
+
+> preserve_1991_2020
+
+- Changed: Calculated daily medians from available AWDB observations in water years 1991–2020, connected them to the map, KPIs, station details, and chart, and showed the selected date's contributing-water-year count. Clarified the baseline window and data method in `spec.md`.
+- Worked: Yes; live AWDB loaded 141 stations and calculated a median for 132 on Nov 23, 2026. Lakefork #3 (1116:UT:SNTL) now displays `+0.8 in` anomaly (`1.8 − 1.0`), based on 11 of 30 available water years. Date changes update the anomaly, mobile layout remains overflow-free, and all 27 calculation checks pass.
