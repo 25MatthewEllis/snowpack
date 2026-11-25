@@ -153,3 +153,8 @@
 
 - Changed: Defined the peak KPI as the highest current SWE among stations remaining after filters on the selected date, and to include its station name.
 - Worked: Yes; the peak KPI scope is now explicit.
+
+> global_clear_excluded
+
+- Changed: Specified that filters apply across all views and clear a station selection if it becomes excluded.
+- Worked: Yes; filter interaction behavior is now explicit.
