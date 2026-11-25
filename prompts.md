@@ -188,3 +188,8 @@
 
 - Changed: Aligned 1991–2020 median comparisons and the chart to the same day of water year, using available historical observations.
 - Worked: Yes; the comparison period and date alignment are now specified.
+
+> awdb_plus_curated
+
+- Changed: Specified AWDB station basin metadata as the first mapping source, with a curated mapping for stations without assignments.
+- Worked: Yes; basin membership now has a defined source/fallback.
