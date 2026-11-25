@@ -12,7 +12,7 @@
 - **Minimum Elevation Filter:** Slider or numeric box in feet. Range: 6,000–11,500 ft; step: 250 ft; default: 6,000 ft.
 - **Station Selection:** Select a SNOTEL marker on the map or choose a station from a searchable dropdown/list. Default: statewide summary with no station selected.
 - **Display Metric Toggle:** Radio buttons to color-code map markers by Current SWE (in) or Percent of 1991–2020 Median (%). Default: Percent of Median.
-- **Data Source and Runtime:** Retrieve station metadata and data from the NRCS AWDB REST API directly in the browser. The app requires internet access; load Leaflet and the selected charting library from a CDN. Verify AWDB browser access (CORS) before implementation.
+- **Data Source and Runtime:** Retrieve station metadata and data from the NRCS AWDB REST API directly in the browser. The app requires internet access; load Leaflet and Chart.js from a CDN. Verify AWDB browser access (CORS) before implementation.
 
 ## 3. Calculations
 
@@ -65,7 +65,7 @@
 
 - **Summary KPI Cards:** Statewide or selected-basin average $SWE$ (in), average Percent of Median (%), active station count ($n$), and peak station reading (in).
 
-- **Station Detail Panel & Time-Series Plot (Chart.js / Plotly):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 1991–2020 median curve.
+- **Station Detail Panel & Time-Series Plot (Chart.js):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 1991–2020 median curve.
 
 - **Sortable Station Data Table:** Columns for Station Name, Basin, Elevation (ft), Current $SWE$ (in), Median $SWE$ (in), % of Median, and Status.
 

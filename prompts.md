@@ -143,3 +143,8 @@
 
 - Changed: Specified an online-only client-side app that calls AWDB directly and loads map/chart libraries from a CDN, subject to CORS verification.
 - Worked: Yes; the runtime assumption is now explicit.
+
+> chartjs
+
+- Changed: Selected Chart.js for the water-year SWE chart and named it in the runtime and output requirements.
+- Worked: Yes; the charting library is now specified.
