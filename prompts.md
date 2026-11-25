@@ -113,3 +113,8 @@
 
 - Changed: Defined the active station count and metric-specific average eligibility, including handling for missing or zero medians.
 - Worked: Yes; KPI inclusion rules are now explicit in the spec.
+
+> date_picker_latest_available
+
+- Changed: Specified a date picker from October 1 of the selected water year through the latest date with AWDB data, defaulting to that latest date.
+- Worked: Yes; date-control and default behavior are now explicit in the spec.
