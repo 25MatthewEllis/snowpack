@@ -16,6 +16,7 @@ This single-file, client-side app maps Utah SNOTEL stations using daily AWDB dat
 - **Display Metric Toggle:** Radio buttons to color-code map markers by Current SWE (in) or Percent of 1991–2020 Median (%). Default: Percent of Median.
 - **Data Source and Runtime:** Retrieve station metadata and DAILY SWE and snow-depth observations from the NRCS AWDB REST API directly in the browser. Calculate the fixed 1991–2020 baseline from historical daily SWE observations. Use daily data consistently across the map, KPIs, table, and chart. The app requires internet access; load Leaflet and Chart.js from a CDN. Verify AWDB browser access (CORS) before implementation. If requests fail, show a clear error with a retry option; do not present missing values as zero or as a successful load.
 - **Filter Scope:** Apply basin, target-date, and elevation filters to the map, KPIs, station table, and station selection. If filters exclude the selected station, clear the selection and return to the summary state.
+- **Ski Resort Finder:** A starting-city selector for Utah cities, defaulting to Provo. Pair each listed Utah ski resort with a nearby active Utah SNOTEL station by curated station-name match or nearest currently filtered station coordinates.
 
 ## 3. Calculations
 
@@ -64,11 +65,23 @@ This single-file, client-side app maps Utah SNOTEL stations using daily AWDB dat
 
 - **Current SWE Color Scale:** When Current SWE is selected, use a sequential color scale based on the minimum and maximum SWE values of the currently visible stations. Update the legend to show that range.
 
+- **Ski Recommendation Score:** List the 10 Utah ski resorts closest to the selected city. For the top recommendation, calculate a distance-aware score:
+
+  $$
+  \text{Score} =
+  SWE_{\mathrm{current}} -
+  (0.05 \times \text{city-to-resort distance in miles})
+  $$
+
+  Rank valid current-SWE readings by the highest score, using Percent of Median as a tie-breaker. Missing SWE readings remain visible with `N/A` but do not outrank valid readings. SNOTEL readings represent snowpack at the sensor, not official resort base depth.
+
 ## 4. Outputs
 
 - **Interactive Map (Leaflet):** Utah map showing color-coded circular station markers and a color-scale legend. Clicking a marker opens a popup with station name, current $SWE$, Percent of Median/status, elevation, and basin; selecting the popup opens that station's detail panel.
 
 - **Summary KPI Cards:** Statewide or selected-basin average $SWE$ (in), average Percent of Median (%), active station count ($n$), and the highest current SWE reading (in) among stations remaining after the active filters, with station name.
+
+- **Ski Snow Finder:** Display a recommendation card and a ranked 10-resort list. Each resort must show the resort name, city distance, resort-to-paired-station distance, current SWE, snow depth, and Percent of Median. Each resort and recommendation must clearly show the paired SNOTEL station name and triplet. Include the note that SNOTEL measures snowpack at the sensor rather than official resort base depth.
 
 - **Station Detail Panel & Time-Series Plot (Chart.js):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 1991–2020 median curve. Show gaps for missing observations; do not interpolate them or replace them with zero. When no station is selected, keep KPI cards visible, show a “Select a station” prompt, and hide the station-specific chart.
 

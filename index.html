@@ -368,6 +368,166 @@
         gap: 16px;
       }
 
+      .ski-finder-panel {
+        margin-bottom: 20px;
+        padding: 20px 22px 22px;
+      }
+
+      .ski-finder-layout {
+        display: grid;
+        grid-template-columns: 180px minmax(240px, 0.8fr) minmax(300px, 1.2fr);
+        align-items: stretch;
+        gap: 14px;
+      }
+
+      .ski-city-control {
+        min-width: 0;
+      }
+
+      .ski-recommendation {
+        min-width: 0;
+        padding: 14px;
+        border: 1px solid #d8e9dd;
+        border-radius: 13px;
+        background: linear-gradient(145deg, #f7fcf8, #eef7f1);
+      }
+
+      .ski-recommendation-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+
+      .ski-recommendation h3,
+      .ski-list h3 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 760;
+      }
+
+      .ski-recommendation-name {
+        margin: 3px 0 9px;
+        color: var(--green-dark);
+        font-size: 18px;
+        font-weight: 780;
+        letter-spacing: -0.02em;
+      }
+
+      .ski-paired-station {
+        margin: -4px 0 9px;
+        color: #64736a;
+        font-size: 10px;
+      }
+
+      .ski-sensor-note {
+        grid-column: 1 / -1;
+        margin: 0;
+        color: #735b32;
+        font-size: 10px;
+      }
+
+      .ski-recommendation-metrics {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+
+      .ski-recommendation-metrics div {
+        padding: 7px 8px;
+        border-radius: 8px;
+        background: rgb(255 255 255 / 82%);
+        color: #64736a;
+        font-size: 10px;
+      }
+
+      .ski-recommendation-metrics strong {
+        display: block;
+        margin-top: 2px;
+        color: #33473a;
+        font-size: 12px;
+      }
+
+      .ski-list {
+        min-width: 0;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: #fcfdfc;
+      }
+
+      .ski-list-items {
+        display: grid;
+        max-height: 178px;
+        margin-top: 8px;
+        gap: 5px;
+        overflow-y: auto;
+      }
+
+      .ski-list-item {
+        display: grid;
+        grid-template-columns: 22px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        min-height: 38px;
+        padding: 5px 7px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        background: transparent;
+        color: #43534a;
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+      }
+
+      .ski-list-item:hover,
+      .ski-list-item:focus-visible,
+      .ski-list-item.recommended {
+        border-color: #d3e5d8;
+        background: #f1f7f3;
+      }
+
+      .ski-list-item:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 1px;
+      }
+
+      .ski-rank {
+        color: var(--muted-light);
+        font-size: 10px;
+        font-weight: 750;
+        text-align: center;
+      }
+
+      .ski-list-name {
+        min-width: 0;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .ski-list-name small {
+        display: block;
+        color: var(--muted-light);
+        font-size: 9px;
+        font-weight: 600;
+      }
+
+      .ski-list-value {
+        color: var(--green-dark);
+        font-size: 10px;
+        font-weight: 750;
+        white-space: nowrap;
+      }
+
+      .ski-validation {
+        grid-column: 1 / -1;
+        margin: 0;
+        color: var(--muted-light);
+        font-size: 10px;
+      }
+
       .filter-field {
         min-width: 0;
       }
@@ -561,6 +721,49 @@
         border: 1px solid #e1e9e3;
         border-radius: 14px;
         background: #edf3ef;
+      }
+
+      .selected-snowflake-icon {
+        background: transparent;
+        border: 0;
+      }
+
+      .selected-snowflake-icon span {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border: 3px solid #20352a;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.96);
+        color: #277454;
+        box-shadow: 0 4px 14px rgba(25, 54, 38, 0.28);
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .snowfall-overlay {
+        position: absolute;
+        z-index: 800;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .snowflake {
+        position: absolute;
+        top: -24px;
+        color: rgba(255, 255, 255, 0.96);
+        text-shadow: 0 1px 2px rgba(39, 116, 84, 0.45);
+        animation-name: snow-fall;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes snow-fall {
+        to {
+          transform: translate3d(var(--snow-drift), 520px, 0) rotate(360deg);
+        }
       }
 
       .map-status {
@@ -911,6 +1114,10 @@
           min-height: 430px;
         }
 
+        .ski-finder-layout {
+          grid-template-columns: 150px minmax(220px, 0.8fr) minmax(260px, 1.2fr);
+        }
+
       }
 
       @media (max-width: 767px) {
@@ -994,6 +1201,18 @@
         .filter-grid {
           grid-template-columns: 1fr;
           gap: 12px;
+        }
+
+        .ski-finder-panel {
+          padding: 17px;
+        }
+
+        .ski-finder-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .ski-list-items {
+          max-height: 220px;
         }
 
         .dashboard-grid {
@@ -1148,6 +1367,46 @@
         </div>
       </section>
 
+      <section class="panel ski-finder-panel" aria-labelledby="ski-finder-title">
+        <div class="filter-heading">
+          <h2 id="ski-finder-title">Ski snow finder</h2>
+          <p class="static-note">Compare nearby Utah resorts using the nearest station.</p>
+        </div>
+        <div class="ski-finder-layout">
+          <div class="ski-city-control">
+            <label class="filter-label" for="ski-city-filter">Starting city</label>
+            <div class="select-wrap">
+              <select class="filter-select" id="ski-city-filter" disabled>
+                <option value="Provo">Provo</option>
+              </select>
+              <span class="chevron" aria-hidden="true"></span>
+            </div>
+          </div>
+          <article class="ski-recommendation" aria-live="polite">
+            <div class="ski-recommendation-top">
+              <h3>Best snow nearby</h3>
+              <span class="empty-tag" id="ski-recommendation-rank">Waiting</span>
+            </div>
+            <p class="ski-recommendation-name" id="ski-recommendation-name">Loading resorts…</p>
+            <p class="ski-paired-station" id="ski-recommendation-paired">Paired SNOTEL station: —</p>
+            <div class="ski-recommendation-metrics">
+              <div>Distance<strong id="ski-recommendation-distance">—</strong></div>
+              <div>Current SWE<strong id="ski-recommendation-swe">—</strong></div>
+              <div>Snow depth<strong id="ski-recommendation-depth">—</strong></div>
+              <div>% of Median<strong id="ski-recommendation-percent">—</strong></div>
+            </div>
+            <p class="ski-sensor-note">SNOTEL measures snowpack at the sensor location, not official resort base depth.</p>
+          </article>
+          <div class="ski-list">
+            <h3>10 closest resorts</h3>
+            <div class="ski-list-items" id="ski-list-items" aria-live="polite">
+              <p class="validation-caption">Loading resort recommendations…</p>
+            </div>
+          </div>
+          <p class="ski-validation" id="ski-validation"></p>
+        </div>
+      </section>
+
       <div class="dashboard-grid">
         <section class="panel map-card" aria-labelledby="map-title">
           <div class="section-heading">
@@ -1244,6 +1503,37 @@
       const BASELINE_BEGIN_DATE = "1990-10-01";
       const BASELINE_END_DATE = "2020-09-30";
       const BASELINE_WATER_YEAR_COUNT = BASELINE_LAST_WATER_YEAR - BASELINE_FIRST_WATER_YEAR + 1;
+      const EARTH_RADIUS_MILES = 3958.8;
+      const SWE_DISTANCE_PENALTY_PER_MILE = 0.05;
+      const SKI_CITIES = [
+        { name: "Provo", latitude: 40.2338, longitude: -111.6585 },
+        { name: "Salt Lake City", latitude: 40.7608, longitude: -111.8910 },
+        { name: "Orem", latitude: 40.2969, longitude: -111.6946 },
+        { name: "Ogden", latitude: 41.2230, longitude: -111.9738 },
+        { name: "Logan", latitude: 41.7370, longitude: -111.8338 },
+        { name: "Park City", latitude: 40.6461, longitude: -111.4980 },
+        { name: "Heber City", latitude: 40.5069, longitude: -111.4140 },
+        { name: "St. George", latitude: 37.0965, longitude: -113.5684 },
+        { name: "Cedar City", latitude: 37.6775, longitude: -113.0619 },
+        { name: "Vernal", latitude: 40.4555, longitude: -109.5287 },
+        { name: "Price", latitude: 39.5994, longitude: -110.8107 }
+      ];
+      const SKI_RESORTS = [
+        { name: "Alta", latitude: 40.5880, longitude: -111.6380, stationHints: ["Alta"] },
+        { name: "Snowbird", latitude: 40.5811, longitude: -111.6564, stationHints: ["Snowbird"] },
+        { name: "Brighton", latitude: 40.5980, longitude: -111.5819, stationHints: ["Brighton"] },
+        { name: "Solitude", latitude: 40.6199, longitude: -111.5919, stationHints: ["Brighton", "Snowbird"] },
+        { name: "Deer Valley", latitude: 40.6374, longitude: -111.4780, stationHints: [] },
+        { name: "Park City Mountain", latitude: 40.6514, longitude: -111.5070, stationHints: [] },
+        { name: "Snowbasin", latitude: 41.2160, longitude: -111.8566, stationHints: [] },
+        { name: "Powder Mountain", latitude: 41.3790, longitude: -111.7800, stationHints: ["Powder Mountain"] },
+        { name: "Nordic Valley", latitude: 41.3080, longitude: -111.8670, stationHints: [] },
+        { name: "Beaver Mountain", latitude: 41.9680, longitude: -111.5430, stationHints: ["Beaver"] },
+        { name: "Brian Head", latitude: 37.7020, longitude: -112.8510, stationHints: ["Brian Head"] },
+        { name: "Sundance", latitude: 40.3930, longitude: -111.5790, stationHints: [] },
+        { name: "Cherry Peak", latitude: 41.9280, longitude: -111.7550, stationHints: [] },
+        { name: "Eagle Point", latitude: 38.2600, longitude: -112.3510, stationHints: [] }
+      ];
       const LIQUID_WATER_DENSITY_LB_FT3 = 62.4;
       const WBD_HUC8_BASINS = {
         "14030005": "Upper Colorado-Kane Springs",
@@ -1305,6 +1595,16 @@
       const elevationFilter = document.querySelector("#elevation-filter");
       const elevationValue = document.querySelector("#elevation-value");
       const metricInputs = [...document.querySelectorAll('input[name="display-metric"]')];
+      const skiCityFilter = document.querySelector("#ski-city-filter");
+      const skiRecommendationRank = document.querySelector("#ski-recommendation-rank");
+      const skiRecommendationName = document.querySelector("#ski-recommendation-name");
+      const skiRecommendationPaired = document.querySelector("#ski-recommendation-paired");
+      const skiRecommendationDistance = document.querySelector("#ski-recommendation-distance");
+      const skiRecommendationSwe = document.querySelector("#ski-recommendation-swe");
+      const skiRecommendationDepth = document.querySelector("#ski-recommendation-depth");
+      const skiRecommendationPercent = document.querySelector("#ski-recommendation-percent");
+      const skiListItems = document.querySelector("#ski-list-items");
+      const skiValidation = document.querySelector("#ski-validation");
       const averageSweOutput = document.querySelector("#kpi-average-swe");
       const averagePercentOutput = document.querySelector("#kpi-average-percent");
       const stationCountOutput = document.querySelector("#kpi-station-count");
@@ -1336,6 +1636,7 @@
       let currentStationRows = [];
       let selectedStationTriplet = null;
       let stationChart = null;
+      let snowfallTimer = null;
 
       class AwdbRequestError extends Error {
         constructor(message, status = null) {
@@ -1694,11 +1995,13 @@
         selectedStationTriplet = stationTriplet;
         updateStationDetailPanel(station);
         updateStationMap(currentStationRows);
+        triggerSnowfall();
       }
 
       function clearStationSelection() {
         selectedStationTriplet = null;
         updateStationDetailPanel(null);
+        stopSnowfall();
       }
 
       function updateStationMap(stations) {
@@ -1723,15 +2026,29 @@
               ? getSweMarkerColor(station.currentSwe, minimum, maximum)
               : station.metrics.status.color;
           const selected = station.stationTriplet === selectedStationTriplet;
-          L.circleMarker(coordinates, {
-            radius: selected ? 9 : 7,
-            color: selected ? "#20352a" : "#ffffff",
-            weight: selected ? 3 : 2,
-            fillColor: color,
-            fillOpacity: 0.92
-          })
-            .bindPopup(createStationPopup(station), { maxWidth: 280 })
-            .addTo(stationMarkers);
+          if (selected) {
+            L.marker(coordinates, {
+              icon: L.divIcon({
+                className: "selected-snowflake-icon",
+                html: "<span aria-hidden=\"true\">❄</span>",
+                iconSize: [34, 34],
+                iconAnchor: [17, 17]
+              }),
+              zIndexOffset: 1000
+            })
+              .bindPopup(createStationPopup(station), { maxWidth: 280 })
+              .addTo(stationMarkers);
+          } else {
+            L.circleMarker(coordinates, {
+              radius: 7,
+              color: "#ffffff",
+              weight: 2,
+              fillColor: color,
+              fillOpacity: 0.92
+            })
+              .bindPopup(createStationPopup(station), { maxWidth: 280 })
+              .addTo(stationMarkers);
+          }
         }
 
         updateMapLegend(stations, metric);
@@ -1758,11 +2075,222 @@
         for (const date of dates) {
           dateFilter.add(new Option(formatDate(date), date));
         }
+        skiCityFilter.replaceChildren();
+        for (const city of SKI_CITIES) {
+          skiCityFilter.add(new Option(city.name, city.name));
+        }
+        skiCityFilter.value = "Provo";
         basinFilter.disabled = false;
         dateFilter.disabled = false;
         elevationFilter.disabled = false;
+        skiCityFilter.disabled = false;
         for (const input of metricInputs) input.disabled = false;
         elevationValue.textContent = `${formatNumber(Number(elevationFilter.value), 0)} ft`;
+      }
+
+      function haversineDistanceMiles(first, second) {
+        if (!first?.latitude || !second?.latitude) return null;
+        const toRadians = degrees => degrees * Math.PI / 180;
+        const latitudeDistance = toRadians(second.latitude - first.latitude);
+        const longitudeDistance = toRadians(second.longitude - first.longitude);
+        const firstLatitude = toRadians(first.latitude);
+        const secondLatitude = toRadians(second.latitude);
+        const haversine =
+          Math.sin(latitudeDistance / 2) ** 2 +
+          Math.cos(firstLatitude) *
+          Math.cos(secondLatitude) *
+          Math.sin(longitudeDistance / 2) ** 2;
+        return 2 * EARTH_RADIUS_MILES * Math.asin(Math.sqrt(haversine));
+      }
+
+      function getNearestStation(resort, stations) {
+        for (const hint of resort.stationHints || []) {
+          const hintedStation = stations.find(station =>
+            `${station.name || ""} ${station.stationTriplet || ""}`
+              .toLowerCase()
+              .includes(hint.toLowerCase())
+          );
+          if (hintedStation) {
+            const coordinates = getStationCoordinates(hintedStation);
+            const distance = coordinates
+              ? haversineDistanceMiles(
+                  { latitude: resort.latitude, longitude: resort.longitude },
+                  { latitude: coordinates[0], longitude: coordinates[1] }
+                )
+              : null;
+            if (isFiniteNumber(distance)) {
+              return { station: hintedStation, distance };
+            }
+          }
+        }
+
+        let nearest = null;
+        let nearestDistance = Infinity;
+        for (const station of stations) {
+          const coordinates = getStationCoordinates(station);
+          if (!coordinates) continue;
+          const distance = haversineDistanceMiles(
+            { latitude: resort.latitude, longitude: resort.longitude },
+            { latitude: coordinates[0], longitude: coordinates[1] }
+          );
+          if (isFiniteNumber(distance) && distance < nearestDistance) {
+            nearest = station;
+            nearestDistance = distance;
+          }
+        }
+        return nearest ? { station: nearest, distance: nearestDistance } : null;
+      }
+
+      function renderSkiFinder(stations) {
+        const city = SKI_CITIES.find(item => item.name === skiCityFilter.value) || SKI_CITIES[0];
+        const resorts = SKI_RESORTS.map(resort => {
+          const nearest = getNearestStation(resort, stations);
+          if (!nearest) return null;
+          return {
+            ...resort,
+            cityDistance: haversineDistanceMiles(city, resort),
+            station: nearest.station,
+            stationDistance: nearest.distance
+          };
+        }).filter(Boolean);
+
+        resorts.sort((a, b) => a.cityDistance - b.cityDistance);
+        const closest = resorts.slice(0, 10);
+        skiListItems.replaceChildren();
+
+        if (!closest.length) {
+          skiRecommendationRank.textContent = "No data";
+          skiRecommendationName.textContent = "No nearby stations";
+          skiRecommendationPaired.textContent = "Paired SNOTEL station: —";
+          skiRecommendationDistance.textContent = "—";
+          skiRecommendationSwe.textContent = "—";
+          skiRecommendationDepth.textContent = "—";
+          skiRecommendationPercent.textContent = "—";
+          const message = document.createElement("p");
+          message.className = "validation-caption";
+          message.textContent = "No resort can be paired with a station in the current filter view.";
+          skiListItems.append(message);
+          renderSkiValidation(city);
+          return;
+        }
+
+        const withSwe = closest.filter(item => isFiniteNumber(item.station.currentSwe));
+        const recommendation = withSwe.length
+          ? [...withSwe].sort((a, b) => {
+              const aScore = a.station.currentSwe -
+                SWE_DISTANCE_PENALTY_PER_MILE * a.cityDistance;
+              const bScore = b.station.currentSwe -
+                SWE_DISTANCE_PENALTY_PER_MILE * b.cityDistance;
+              if (bScore !== aScore) return bScore - aScore;
+              const aPercent = isFiniteNumber(a.station.metrics.percentOfMedian)
+                ? a.station.metrics.percentOfMedian
+                : -Infinity;
+              const bPercent = isFiniteNumber(b.station.metrics.percentOfMedian)
+                ? b.station.metrics.percentOfMedian
+                : -Infinity;
+              return bPercent - aPercent;
+            })[0]
+          : closest[0];
+
+        skiRecommendationRank.textContent = "Top pick";
+        skiRecommendationName.textContent = recommendation.name;
+        skiRecommendationPaired.textContent =
+          `Paired SNOTEL: ${recommendation.station.name || "Unnamed station"} ` +
+          `(${recommendation.station.stationTriplet}) · ` +
+          `${formatFixed(recommendation.stationDistance, 1)} mi from resort`;
+        skiRecommendationDistance.textContent = `${formatFixed(recommendation.cityDistance, 1)} mi`;
+        skiRecommendationSwe.textContent =
+          isFiniteNumber(recommendation.station.currentSwe)
+            ? `${formatFixed(recommendation.station.currentSwe)} in`
+            : "N/A";
+        skiRecommendationDepth.textContent =
+          isFiniteNumber(recommendation.station.snowDepth)
+            ? `${formatFixed(recommendation.station.snowDepth)} in`
+            : "N/A";
+        skiRecommendationPercent.textContent =
+          isFiniteNumber(recommendation.station.metrics.percentOfMedian)
+            ? `${formatFixed(recommendation.station.metrics.percentOfMedian)}%`
+            : "N/A";
+
+        closest.forEach((resort, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "ski-list-item";
+          if (resort.name === recommendation.name) button.classList.add("recommended");
+
+          const rank = document.createElement("span");
+          rank.className = "ski-rank";
+          rank.textContent = String(index + 1);
+
+          const name = document.createElement("span");
+          name.className = "ski-list-name";
+          name.append(document.createTextNode(resort.name));
+          const stationName = document.createElement("small");
+          stationName.textContent =
+            `Paired SNOTEL: ${resort.station.name || "Unnamed station"} ` +
+            `(${resort.station.stationTriplet}) · ` +
+            `${formatFixed(resort.stationDistance, 1)} mi from resort`;
+          name.append(stationName);
+
+          const value = document.createElement("span");
+          value.className = "ski-list-value";
+          value.textContent = `${formatFixed(resort.cityDistance, 1)} mi · ${
+            isFiniteNumber(resort.station.currentSwe)
+              ? `${formatFixed(resort.station.currentSwe)} in SWE`
+              : "N/A"
+          }`;
+
+          button.append(rank, name, value);
+          button.addEventListener("click", () => {
+            const coordinates = getStationCoordinates(resort.station);
+            if (coordinates && stationMap) {
+              stationMap.setView(coordinates, 10, { animate: true });
+            }
+            selectStation(resort.station.stationTriplet);
+          });
+          skiListItems.append(button);
+        });
+        renderSkiValidation(city);
+      }
+
+      function renderSkiValidation(city) {
+        const alta = SKI_RESORTS.find(resort => resort.name === "Alta");
+        const distance = haversineDistanceMiles(city, alta);
+        skiValidation.textContent =
+          `Haversine check: ${city.name} → Alta is ${formatFixed(distance, 1)} mi ` +
+          `(${EARTH_RADIUS_MILES.toLocaleString()} mi Earth radius). ` +
+          `Balanced rank: SWE minus ${SWE_DISTANCE_PENALTY_PER_MILE} in per mile; ` +
+          `Percent of Median breaks equal SWE. SNOTEL readings are sensor snowpack, not resort base depth.`;
+      }
+
+      function stopSnowfall() {
+        if (snowfallTimer) {
+          window.clearTimeout(snowfallTimer);
+          snowfallTimer = null;
+        }
+        mapElement.querySelector(".snowfall-overlay")?.remove();
+      }
+
+      function triggerSnowfall() {
+        stopSnowfall();
+        const overlay = document.createElement("div");
+        overlay.className = "snowfall-overlay";
+        overlay.setAttribute("aria-hidden", "true");
+
+        for (let index = 0; index < 28; index += 1) {
+          const flake = document.createElement("span");
+          flake.className = "snowflake";
+          flake.textContent = index % 3 === 0 ? "✦" : "❄";
+          flake.style.left = `${Math.random() * 100}%`;
+          flake.style.fontSize = `${8 + Math.random() * 10}px`;
+          flake.style.opacity = `${0.55 + Math.random() * 0.45}`;
+          flake.style.animationDuration = `${2.8 + Math.random() * 1.8}s`;
+          flake.style.animationDelay = `${Math.random() * 1.2}s`;
+          flake.style.setProperty("--snow-drift", `${-50 + Math.random() * 100}px`);
+          overlay.append(flake);
+        }
+        mapElement.append(overlay);
+        snowfallTimer = window.setTimeout(stopSnowfall, 5000);
       }
 
       function applyFilters() {
@@ -1790,6 +2318,7 @@
         }
         renderSummaryKpis(calculateBasinSummary(stationRows));
         updateStationMap(stationRows);
+        renderSkiFinder(stationRows);
       }
 
       function setLoading(message) {
@@ -1825,6 +2354,7 @@
         basinFilter.disabled = true;
         dateFilter.disabled = true;
         elevationFilter.disabled = true;
+        skiCityFilter.disabled = true;
         for (const input of metricInputs) input.disabled = true;
         setMapStatus("Station data is unavailable. Use Retry data load to request it again.", true);
       }
@@ -2407,6 +2937,9 @@
 
       basinFilter.addEventListener("change", applyFilters);
       dateFilter.addEventListener("change", applyFilters);
+      skiCityFilter.addEventListener("change", () => {
+        renderSkiFinder(currentStationRows);
+      });
       elevationFilter.addEventListener("input", () => {
         elevationValue.textContent = `${formatNumber(Number(elevationFilter.value), 0)} ft`;
         applyFilters();

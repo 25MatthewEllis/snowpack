@@ -351,3 +351,17 @@
 
 - Changed: Replaced the rough planning notes with a clean, structured description of the Ski Recommendation Finder and Selected-Station Snowflake Highlight features, preserving their inputs, calculations, outputs, behavior, and constraints.
 - Worked: Yes; verified both suggestions are now clearly formatted in `00_planning/README.md`.
+
+## 29
+
+> lets make those features happen
+
+- Changed: Added the Ski Snow Finder with Utah city selection, the 10 closest resort rankings, live resort-to-nearest-SNOTEL pairing, distance-aware recommendation ranking, selected-station snowflake highlighting, and a 5-second snowfall overlay.
+- Worked: Yes; live browser verification loaded 141 Utah stations and populated the finder with resort names, paired station names/triplets, distance, SWE, snow depth, and Percent of Median.
+
+## 30
+
+> Map actual ski resorts to nearby SNOTEL stations and clearly display both names and the SNOTEL sensor caveat. Include both distance and snowpack in ranking/recommendation so a far-away option with only one more inch does not beat a closer option.
+
+- Changed: Added resort-name hints and nearest-active-station fallback pairing, showed resort distance and resort-to-SNOTEL distance, and added a transparent distance penalty to the recommendation score.
+- Worked: Yes; updated the planning and specification documents and verified live Provo results such as Snowbird paired to Snowbird (766:UT:SNTL), plus the SNOTEL sensor caveat.
