@@ -249,3 +249,10 @@
 
 - Changed: Created a static responsive layout mockup in `index.html` with visual-only filters, a map placeholder, empty KPI cards, station-detail/chart placeholders, and an empty station table. No data fetching, calculations, or working filters were added.
 - Worked: Yes; opened the page in a browser and verified the desktop two-column proportions, mobile stacking order, and absence of horizontal page overflow.
+
+## 17
+
+> I've checked Stage 1 in the browser and [describe any tweaks made or confirm it matches what you want]. Commit Stage 1 to Git.
+
+- Changed: No additional UI tweaks were specified. Stage 1 was already committed as `56bd68a`; recorded this review and commit request.
+- Worked: Yes; confirmed the Stage 1 commit is present and the worktree had no pending changes.
