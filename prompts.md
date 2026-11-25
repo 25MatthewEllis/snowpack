@@ -309,3 +309,10 @@
 
 - Changed: No application code. Clarified that Stage 4 is complete, while Stages 5 and 6 remain.
 - Worked: Yes; also noted the 1991–2020 median period is still unverified, so live median comparisons remain unavailable.
+
+## 23
+
+> would any of this help? how can we get this app continuing
+
+- Changed: Reviewed the attached AWDB Swagger screenshot and OpenAPI schema, then continued with Stage 5: added the Chart.js water-year SWE hydrograph, omitted the unverified median curve with an explicit note, implemented sortable table columns with Percent of Median ascending and N/A last by default, and made the station count reflect the filtered active stations.
+- Worked: Yes; live browser checks confirmed the chart, date updates, sorting, station selection, 140 filtered stations, no console errors, and no mobile page overflow. The API documents a generic 30-year median but does not identify its reference years; Stage 6 remains.

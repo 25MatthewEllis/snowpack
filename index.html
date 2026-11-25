@@ -850,45 +850,23 @@
         font-weight: 650;
       }
 
-      .chart-placeholder {
+      .chart-container {
         position: relative;
-        display: flex;
-        min-height: 133px;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
+        height: 230px;
         border: 1px solid #e7ede8;
         border-radius: 11px;
-        background:
-          linear-gradient(to bottom, transparent calc(25% - 1px), #e9efeb 25%, transparent calc(25% + 1px)),
-          linear-gradient(to bottom, transparent calc(50% - 1px), #e9efeb 50%, transparent calc(50% + 1px)),
-          linear-gradient(to bottom, transparent calc(75% - 1px), #e9efeb 75%, transparent calc(75% + 1px)),
-          #fbfcfb;
+        background: #fbfcfb;
       }
 
-      .chart-placeholder p {
-        position: relative;
-        z-index: 1;
-        max-width: 220px;
-        margin: 0;
-        padding: 8px 11px;
-        border: 1px solid #e5ebe6;
-        border-radius: 8px;
-        background: rgb(255 255 255 / 94%);
-        color: #748178;
+      .chart-container canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .chart-note {
+        margin: -5px 0 10px;
+        color: #735b32;
         font-size: 10px;
-        text-align: center;
-      }
-
-      .chart-axis {
-        position: absolute;
-        right: 10px;
-        bottom: 7px;
-        left: 10px;
-        display: flex;
-        justify-content: space-between;
-        color: #9aa59e;
-        font-size: 9px;
       }
 
       .table-card {
@@ -935,6 +913,39 @@
         letter-spacing: 0.045em;
         text-transform: uppercase;
         white-space: nowrap;
+      }
+
+      .table-sort {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        letter-spacing: inherit;
+        text-transform: inherit;
+      }
+
+      .table-sort:hover,
+      .table-sort:focus-visible {
+        color: var(--green-dark);
+      }
+
+      .table-sort:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 3px;
+      }
+
+      .sort-indicator {
+        color: var(--muted-light);
+        font-size: 11px;
+      }
+
+      .table-sort[aria-pressed="true"] .sort-indicator {
+        color: var(--green-dark);
       }
 
       td {
@@ -1330,7 +1341,7 @@
             <div class="brand-mark" aria-hidden="true">UT</div>
             <p class="brand-name">Snow Survey</p>
           </div>
-          <span class="mockup-badge">Stage 4 · Interactive map</span>
+          <span class="mockup-badge">Stage 5 · Station details</span>
         </div>
 
         <div class="intro">
@@ -1458,9 +1469,9 @@
               <p class="kpi-note" id="kpi-percent-note">1991–2020 baseline</p>
             </article>
             <article class="kpi-card">
-              <p class="kpi-label">Stations with readings</p>
+              <p class="kpi-label">Active stations</p>
               <p class="kpi-value"><span id="kpi-station-count">—</span> <small>stations</small></p>
-              <p class="kpi-note">Current SWE available</p>
+              <p class="kpi-note">Remaining after filters</p>
             </article>
             <article class="kpi-card">
               <p class="kpi-label">Peak station reading</p>
@@ -1496,14 +1507,11 @@
 
             <div class="card-heading" id="chart-heading" hidden>
               <h2>Water-year SWE</h2>
-              <span class="static-note">Chart preview</span>
+              <span class="static-note" id="chart-date"></span>
             </div>
-            <div class="chart-placeholder" id="chart-preview" role="img" aria-label="Chart placeholder; time-series display is planned for Stage 5" hidden>
-              <p>Water-year SWE series will be available for the station chart in Stage 5.</p>
-              <div class="chart-axis" aria-hidden="true">
-                <span>Oct 1</span>
-                <span>Selected date</span>
-              </div>
+            <p class="chart-note" id="chart-note" role="status" hidden></p>
+            <div class="chart-container" id="chart-container" hidden>
+              <canvas id="station-chart" role="img" aria-label="Daily snow water equivalent during the current water year"></canvas>
             </div>
           </section>
         </aside>
@@ -1604,14 +1612,14 @@
           <table>
             <thead>
               <tr>
-                <th scope="col">Station Name</th>
-                <th scope="col">Basin (HUC-8)</th>
-                <th scope="col">Elevation (ft)</th>
-                <th scope="col">Current SWE (in)</th>
-                <th scope="col">AWDB median (in; period unverified)</th>
-                <th scope="col">Snow depth (in)</th>
-                <th scope="col">% of 1991–2020 Median</th>
-                <th scope="col">Status</th>
+                <th scope="col" data-sort-header="name" aria-sort="none"><button class="table-sort" type="button" data-sort-key="name">Station Name <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
+                <th scope="col" data-sort-header="basin" aria-sort="none"><button class="table-sort" type="button" data-sort-key="basin">Basin (HUC-8) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
+                <th scope="col" data-sort-header="elevation" aria-sort="none"><button class="table-sort" type="button" data-sort-key="elevation">Elevation (ft) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
+                <th scope="col" data-sort-header="swe" aria-sort="none"><button class="table-sort" type="button" data-sort-key="swe">Current SWE (in) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
+                <th scope="col" data-sort-header="median" aria-sort="none"><button class="table-sort" type="button" data-sort-key="median">AWDB median (in; period unverified) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
+                <th scope="col" data-sort-header="depth" aria-sort="none"><button class="table-sort" type="button" data-sort-key="depth">Snow depth (in) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
+                <th scope="col" data-sort-header="percent" aria-sort="ascending"><button class="table-sort" type="button" data-sort-key="percent" aria-pressed="true">% of 1991–2020 Median <span class="sort-indicator" aria-hidden="true">↑</span></button></th>
+                <th scope="col" data-sort-header="status" aria-sort="none"><button class="table-sort" type="button" data-sort-key="status">Status <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
               </tr>
             </thead>
             <tbody id="station-table-body">
@@ -1623,9 +1631,10 @@
         </div>
       </section>
 
-      <p class="mockup-footer">Stage 4 interactive map · live median comparisons remain unavailable until the AWDB reference period is verified. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
+      <p class="mockup-footer">Stage 5 station details · the AWDB 30-year median reference period is unverified, so 1991–2020 comparisons remain unavailable. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
     </main>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <script>
       "use strict";
 
@@ -1715,7 +1724,10 @@
       const detailAnomaly = document.querySelector("#detail-anomaly");
       const detailStatus = document.querySelector("#detail-status");
       const chartHeading = document.querySelector("#chart-heading");
-      const chartPreview = document.querySelector("#chart-preview");
+      const chartDate = document.querySelector("#chart-date");
+      const chartNote = document.querySelector("#chart-note");
+      const chartContainer = document.querySelector("#chart-container");
+      const chartCanvas = document.querySelector("#station-chart");
       let stationMap = null;
       let stationMarkers = null;
       let mapLegendContent = null;
@@ -1723,6 +1735,9 @@
       let loadedData = null;
       let currentStationRows = [];
       let selectedStationTriplet = null;
+      let stationChart = null;
+      let tableSortKey = "percent";
+      let tableSortDirection = 1;
 
       class AwdbRequestError extends Error {
         constructor(message, status = null) {
@@ -1847,7 +1862,7 @@
               : "Unavailable: baseline period unverified"
         );
         const status = station.metrics.status?.label ||
-          (BASELINE_PERIOD_VERIFIED ? "N/A · no valid median" : "Baseline unverified");
+          (BASELINE_PERIOD_VERIFIED ? "N/A · no valid median" : "N/A · baseline unverified");
         appendPopupRow(content, "Status", status);
         const selectButton = document.createElement("button");
         selectButton.className = "popup-select";
@@ -1925,6 +1940,135 @@
         mapLegendContent.append(gradient, range);
       }
 
+      function getWaterYearDates(beginDate, endDate) {
+        const [startYear, startMonth, startDay] = beginDate.split("-").map(Number);
+        const [endYear, endMonth, endDay] = endDate.split("-").map(Number);
+        const start = Date.UTC(startYear, startMonth - 1, startDay);
+        const end = Date.UTC(endYear, endMonth - 1, endDay);
+        const dates = [];
+        for (let time = start; time <= end; time += 24 * 60 * 60 * 1000) {
+          dates.push(new Date(time).toISOString().slice(0, 10));
+        }
+        return dates;
+      }
+
+      function formatChartAxisDate(date) {
+        const [year, month, day] = date.split("-").map(Number);
+        return new Intl.DateTimeFormat(undefined, {
+          month: "short",
+          day: "numeric",
+          timeZone: "UTC"
+        }).format(new Date(Date.UTC(year, month - 1, day)));
+      }
+
+      function updateStationChart(station) {
+        if (stationChart) {
+          stationChart.destroy();
+          stationChart = null;
+        }
+        chartHeading.hidden = !station;
+        chartContainer.hidden = !station;
+        chartNote.hidden = !station;
+        if (!station) return;
+
+        const selectedDate = dateFilter.value || loadedData.latestDate;
+        chartDate.textContent = `Through ${formatDate(selectedDate)}`;
+        chartCanvas.setAttribute(
+          "aria-label",
+          `Water-year SWE for ${station.name || "selected station"} through ${formatDate(selectedDate)}`
+        );
+        const stationReadings = loadedData.readings.get(station.stationTriplet);
+        const dates = getWaterYearDates(loadedData.beginDate, selectedDate);
+        const currentSwe = dates.map(date => stationReadings.wteq.get(date) ?? null);
+        const hasCurrentSwe = currentSwe.some(isFiniteNumber);
+        const notices = [];
+        if (!BASELINE_PERIOD_VERIFIED) {
+          notices.push("The AWDB 30-year median period is unverified; the 1991–2020 curve is omitted.");
+        }
+        if (!hasCurrentSwe) {
+          notices.push("No daily SWE observations are available for this station through the selected date.");
+          chartContainer.hidden = true;
+          chartNote.textContent = notices.join(" ");
+          return;
+        }
+        if (typeof Chart === "undefined") {
+          notices.push("The chart library did not load, so the hydrograph cannot be displayed.");
+          chartContainer.hidden = true;
+          chartNote.textContent = notices.join(" ");
+          return;
+        }
+
+        const datasets = [{
+          label: "Current water-year SWE",
+          data: currentSwe,
+          borderColor: "#277454",
+          backgroundColor: "rgba(39, 116, 84, 0.12)",
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 3,
+          fill: true,
+          spanGaps: false,
+          tension: 0
+        }];
+        if (BASELINE_PERIOD_VERIFIED) {
+          datasets.push({
+            label: "1991–2020 median SWE",
+            data: dates.map(date => stationReadings.median.get(date) ?? null),
+            borderColor: "#7783a0",
+            borderWidth: 2,
+            borderDash: [5, 4],
+            pointRadius: 0,
+            fill: false,
+            spanGaps: false,
+            tension: 0
+          });
+        }
+        chartContainer.hidden = false;
+        chartNote.textContent = notices.join(" ");
+        chartNote.hidden = notices.length === 0;
+        try {
+          stationChart = new Chart(chartCanvas, {
+            type: "line",
+            data: { labels: dates, datasets },
+            options: {
+              animation: false,
+              maintainAspectRatio: false,
+              responsive: true,
+              interaction: { mode: "index", intersect: false },
+              plugins: {
+                legend: { position: "bottom", labels: { boxWidth: 10, usePointStyle: true } },
+                tooltip: {
+                  callbacks: {
+                    title: items => items.length ? formatDate(items[0].label) : "",
+                    label: context => `${context.dataset.label}: ${formatFixed(context.parsed.y)} in`
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  grid: { display: false },
+                  ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 8,
+                    callback: (_value, index) => formatChartAxisDate(dates[index])
+                  }
+                },
+                y: {
+                  beginAtZero: true,
+                  title: { display: true, text: "SWE (in)" }
+                }
+              }
+            }
+          });
+        } catch (error) {
+          console.error("Station hydrograph rendering failed:", error);
+          chartContainer.hidden = true;
+          chartNote.hidden = false;
+          chartNote.textContent =
+            `${notices.join(" ")} The station hydrograph could not be rendered.`;
+        }
+      }
+
       function updateStationDetailPanel(station) {
         const selected = Boolean(station);
         selectionStatus.textContent = selected ? "Selected station" : "No selection";
@@ -1948,10 +2092,9 @@
           ? isFiniteNumber(station.metrics.sweAnomaly) ? `${formatSigned(station.metrics.sweAnomaly)} in` : "Unavailable"
           : "—";
         detailStatus.textContent = selected
-          ? station.metrics.status?.label || (BASELINE_PERIOD_VERIFIED ? "N/A" : "Baseline unverified")
+          ? station.metrics.status?.label || (BASELINE_PERIOD_VERIFIED ? "N/A" : "N/A · baseline unverified")
           : "—";
-        chartHeading.hidden = !selected;
-        chartPreview.hidden = !selected;
+        updateStationChart(station);
       }
 
       function selectStation(stationTriplet) {
@@ -2209,6 +2352,7 @@
           averagePercentOfMedian,
           averageSweAnomaly,
           ratioOfMeans,
+          stationCount: stations.length,
           currentSweCount: currentStations.length,
           peakStation
         };
@@ -2599,7 +2743,7 @@
       function renderSummaryKpis(summary) {
         averageSweOutput.textContent = formatNumber(summary.averageSwe);
         averagePercentOutput.textContent = formatNumber(summary.averagePercentOfMedian);
-        stationCountOutput.textContent = String(summary.currentSweCount);
+        stationCountOutput.textContent = String(summary.stationCount);
         peakSweOutput.textContent = summary.peakStation
           ? formatNumber(summary.peakStation.currentSwe)
           : "N/A";
@@ -2611,9 +2755,70 @@
           : "Unavailable: AWDB median period unverified";
       }
 
+      function getStationStatusLabel(station) {
+        if (!isFiniteNumber(station.currentSwe)) return "N/A · no current SWE";
+        if (!BASELINE_PERIOD_VERIFIED) return "N/A · baseline unverified";
+        return station.metrics.status?.label || "N/A · no valid median";
+      }
+
+      function getStationTableSortValue(station, key) {
+        switch (key) {
+          case "name":
+            return station.name || "Unnamed station";
+          case "basin":
+            return station.basinName;
+          case "elevation":
+            return station.elevation;
+          case "swe":
+            return station.currentSwe;
+          case "median":
+            return station.awdbMedian;
+          case "depth":
+            return station.snowDepth;
+          case "percent":
+            return station.metrics.percentOfMedian;
+          case "status":
+            return getStationStatusLabel(station);
+          default:
+            return null;
+        }
+      }
+
+      function compareStations(a, b) {
+        const aValue = getStationTableSortValue(a, tableSortKey);
+        const bValue = getStationTableSortValue(b, tableSortKey);
+        const aMissing = aValue === null || aValue === undefined || aValue === "" ||
+          (typeof aValue === "number" && !Number.isFinite(aValue));
+        const bMissing = bValue === null || bValue === undefined || bValue === "" ||
+          (typeof bValue === "number" && !Number.isFinite(bValue));
+        if (aMissing !== bMissing) return aMissing ? 1 : -1;
+
+        const comparison = typeof aValue === "number" && typeof bValue === "number"
+          ? aValue - bValue
+          : String(aValue).localeCompare(String(bValue));
+        if (comparison) return comparison * tableSortDirection;
+        return String(a.name || "").localeCompare(String(b.name || ""));
+      }
+
+      function updateSortHeaders() {
+        for (const header of document.querySelectorAll("[data-sort-header]")) {
+          const button = header.querySelector(".table-sort");
+          const indicator = button.querySelector(".sort-indicator");
+          const active = button.dataset.sortKey === tableSortKey;
+          header.setAttribute(
+            "aria-sort",
+            active ? tableSortDirection === 1 ? "ascending" : "descending" : "none"
+          );
+          button.setAttribute("aria-pressed", String(active));
+          indicator.textContent = active
+            ? tableSortDirection === 1 ? "↑" : "↓"
+            : "↕";
+        }
+      }
+
       function renderStationTable(stations) {
         const fragment = document.createDocumentFragment();
-        const orderedStations = [...stations].sort((a, b) => a.name.localeCompare(b.name));
+        const orderedStations = [...stations].sort(compareStations);
 
         for (const station of orderedStations) {
           const row = document.createElement("tr");
@@ -2641,12 +2846,7 @@
             ? `${formatFixed(station.metrics.percentOfMedian)}%`
             : "N/A";
           row.append(createCell(percent, "table-metric-na"));
-          const status = !isFiniteNumber(station.currentSwe)
-            ? "N/A · no current SWE"
-            : !BASELINE_PERIOD_VERIFIED
-              ? "Baseline unverified"
-              : station.metrics.status?.label || "N/A · no valid median";
-          row.append(createCell(status, "table-metric-na"));
+          row.append(createCell(getStationStatusLabel(station), "table-metric-na"));
           fragment.append(row);
         }
 
@@ -2660,6 +2860,7 @@
           fragment.append(row);
         }
         tableBody.replaceChildren(fragment);
+        updateSortHeaders();
       }
 
       function showLoadedData(stations, readings, latestDate, stationsWithErrors, beginDate) {
@@ -2731,7 +2932,7 @@
             [...readings.get(station.stationTriplet).wteq.keys()]
           )
         )].sort((a, b) => b.localeCompare(a));
-        loadedData = { stations, readings, latestDate, dates };
+        loadedData = { stations, readings, latestDate, dates, beginDate };
         fitMapToAllStations(stations);
         populateFilters(stations, dates);
         applyFilters();
@@ -2781,9 +2982,21 @@
           applyFilters();
         });
       }
+      for (const button of document.querySelectorAll(".table-sort")) {
+        button.addEventListener("click", () => {
+          if (button.dataset.sortKey === tableSortKey) {
+            tableSortDirection *= -1;
+          } else {
+            tableSortKey = button.dataset.sortKey;
+            tableSortDirection = 1;
+          }
+          renderStationTable(currentStationRows);
+        });
+      }
 
       retryButton.addEventListener("click", loadAwdbData);
       initializeMap();
+      updateSortHeaders();
       renderCalculationValidation();
       loadAwdbData();
     </script>
