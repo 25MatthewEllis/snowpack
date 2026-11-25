@@ -123,3 +123,8 @@
 
 - Changed: Defined continuous marker bands using the unrounded Percent of Median value, with no gaps between thresholds.
 - Worked: Yes; every numeric Percent of Median value now falls into a defined color category.
+
+> preserve_fixed_baseline
+
+- Changed: Specified that AWDB medians are used only if they match 1991–2020; otherwise, the app must source or calculate the matching baseline.
+- Worked: Yes; the fallback preserves the chosen baseline rather than silently substituting another period.

@@ -17,7 +17,7 @@
 
 - **Snow Water Equivalent ($SWE$, in):** Depth of liquid water contained in the snowpack, retrieved from NRCS SNOTEL ($WTEQ$ sensor) in inches (in).
 
-- **Historical Baseline:** Use the fixed 1991–2020 period for median comparisons. Confirm the AWDB median field matches this period before using it.
+- **Historical Baseline:** Use the fixed 1991–2020 period for median comparisons. Use the AWDB median field only if its baseline matches; otherwise, source or calculate 1991–2020 medians rather than substituting an unspecified 30-year median.
 
 - **Percent of Normal / Median ($P_{\mathrm{med}}$, %):**
 
