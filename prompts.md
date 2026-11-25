@@ -183,3 +183,8 @@
 
 - Changed: Specified that missing hydrograph observations appear as gaps rather than zeroes or interpolated values.
 - Worked: Yes; missing chart-data behavior is now explicit.
+
+> same_water_year_day
+
+- Changed: Aligned 1991–2020 median comparisons and the chart to the same day of water year, using available historical observations.
+- Worked: Yes; the comparison period and date alignment are now specified.
