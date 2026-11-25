@@ -116,5 +116,10 @@
 
 > date_picker_latest_available
 
-- Changed: Specified a date picker from October 1 of the selected water year through the latest date with AWDB data, defaulting to that latest date.
+- Changed: Specified a date picker limited to dates with AWDB data, defaulting to the latest date; the selected date determines the water-year chart window.
 - Worked: Yes; date-control and default behavior are now explicit in the spec.
+
+> continuous_unrounded
+
+- Changed: Defined continuous marker bands using the unrounded Percent of Median value, with no gaps between thresholds.
+- Worked: Yes; every numeric Percent of Median value now falls into a defined color category.

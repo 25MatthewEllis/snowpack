@@ -49,11 +49,12 @@
 - **Station Inclusion for Counts and Averages:** Count stations with a non-null current SWE value for the selected date. Calculate each average using only stations with valid values for that metric. A missing or zero median makes $P_{\mathrm{med}}$ `N/A` and excludes that station from the Percent of Median average, but not from the current-SWE average or station count.
 
 - **Marker Status Thresholds (Color Rules):**
-  - `<70%`: Red (Well Below Normal)
-  - `70% to 89%`: Orange (Below Normal)
-  - `90% to 109%`: Green (Near Normal)
-  - `110% to 129%`: Light Blue (Above Normal)
-  - `≥130%`: Dark Blue / Purple (Well Above Normal)
+  - Classify using the unrounded $P_{\mathrm{med}}$ value.
+  - $P_{\mathrm{med}} < 70\%$: Red (Well Below Normal)
+  - $70\% \le P_{\mathrm{med}} < 90\%$: Orange (Below Normal)
+  - $90\% \le P_{\mathrm{med}} < 110\%$: Green (Near Normal)
+  - $110\% \le P_{\mathrm{med}} < 130\%$: Light Blue (Above Normal)
+  - $P_{\mathrm{med}} \ge 130\%$: Dark Blue / Purple (Well Above Normal)
 
 - **Current SWE Color Scale:** When Current SWE is selected, use a sequential color scale based on the minimum and maximum SWE values of the currently visible stations. Update the legend to show that range.
 
