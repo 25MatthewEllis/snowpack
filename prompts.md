@@ -208,3 +208,8 @@
 
 - Changed: Specified that active stations with no current reading remain visible with a neutral marker and `N/A`, but are excluded from counts and averages.
 - Worked: Yes; missing-current-reading visibility is explicit.
+
+> map_first
+
+- Changed: Specified the mobile content order as filters, map, KPIs, selected-station details/chart, then table.
+- Worked: Yes; mobile stack order is now clear.

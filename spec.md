@@ -76,7 +76,7 @@
 
 - **Desktop Layout:** Clean two-column dashboard with a top header bar containing the title and global filters (Basin, Date, Elevation, Metric Toggle); the left 60% shows the interactive map with a floating legend; the right 40% stacks KPI summary cards above the selected station's SWE time-series chart, with the sortable station table below.
 - **Initial View on Load:** Center on Utah (latitude 39.3, longitude −111.7, zoom 7) and show all active Utah SNOTEL sites colored by Percent of 1991–2020 Median for the most recent available date, with statewide summary metrics populated and no station selected.
-- **Mobile / Phone Behavior:** Use a single-column vertical stack below 768 px wide. Collapse the filter bar into a stacked group, resize the map to 50vh with touch-friendly markers, and allow horizontal table scrolling without breaking page width.
+- **Mobile / Phone Behavior:** Below 768 px wide, use a single-column order of filters, map, KPI cards, selected-station details/chart, and table. Collapse the filter bar into a stacked group, resize the map to 50vh with touch-friendly markers, and allow horizontal table scrolling without breaking page width.
 
 ## 6. Validation
 
