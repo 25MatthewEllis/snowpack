@@ -138,3 +138,8 @@
 
 - Changed: Replaced the open-ended basin list with all basins represented by included Utah SNOTEL stations and required a canonical station-to-basin mapping.
 - Worked: Yes; the filter scope no longer relies on an unspecified “etc.” list.
+
+> online_direct_api
+
+- Changed: Specified an online-only client-side app that calls AWDB directly and loads map/chart libraries from a CDN, subject to CORS verification.
+- Worked: Yes; the runtime assumption is now explicit.
