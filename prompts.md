@@ -242,3 +242,10 @@
 
 - Changed: Added the overview and six build stages to `spec.md`; left `index.html` untouched.
 - Worked: Yes; the documentation changes are verified and committed.
+
+## 16
+
+> Build stage 1 from the `Build stages` section of `spec.md`. Only build this stage.
+
+- Changed: Created a static responsive layout mockup in `index.html` with visual-only filters, a map placeholder, empty KPI cards, station-detail/chart placeholders, and an empty station table. No data fetching, calculations, or working filters were added.
+- Worked: Yes; opened the page in a browser and verified the desktop two-column proportions, mobile stacking order, and absence of horizontal page overflow.
