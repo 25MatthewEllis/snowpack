@@ -12,7 +12,7 @@
 - **Minimum Elevation Filter:** Slider or numeric box in feet. Range: 6,000–11,500 ft; step: 250 ft; default: 6,000 ft.
 - **Station Selection:** Select a SNOTEL marker on the map or choose a station from a searchable dropdown/list. Default: statewide summary with no station selected.
 - **Display Metric Toggle:** Radio buttons to color-code map markers by Current SWE (in) or Percent of 1991–2020 Median (%). Default: Percent of Median.
-- **Data Source and Runtime:** Retrieve station metadata and data from the NRCS AWDB REST API directly in the browser. The app requires internet access; load Leaflet and Chart.js from a CDN. Verify AWDB browser access (CORS) before implementation.
+- **Data Source and Runtime:** Retrieve station metadata and data from the NRCS AWDB REST API directly in the browser. The app requires internet access; load Leaflet and Chart.js from a CDN. Verify AWDB browser access (CORS) before implementation. If requests fail, show a clear error with a retry option; do not present missing values as zero or as a successful load.
 - **Filter Scope:** Apply basin, target-date, and elevation filters to the map, KPIs, station table, and station selection. If filters exclude the selected station, clear the selection and return to the summary state.
 
 ## 3. Calculations

@@ -193,3 +193,8 @@
 
 - Changed: Specified AWDB station basin metadata as the first mapping source, with a curated mapping for stations without assignments.
 - Worked: Yes; basin membership now has a defined source/fallback.
+
+> visible_error_retry
+
+- Changed: Specified a visible AWDB error and retry state, with no zero-value or success-shaped fallback.
+- Worked: Yes; external data failure behavior is now explicit.
