@@ -163,3 +163,8 @@
 
 - Changed: Defined the table Status column to use the map's Percent-of-Median categories and show `N/A` when unavailable.
 - Worked: Yes; table status behavior now matches the map legend.
+
+> percent_median_ascending
+
+- Changed: Set the station table's default sort to Percent of Median ascending, with unavailable values last.
+- Worked: Yes; the initial table order is now specified.
