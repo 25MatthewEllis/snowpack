@@ -294,3 +294,11 @@
 - Clarification: Build Stage 3 calculations now, add an in-app validation panel, and include the supplied basin test as an additional case without replacing the existing spec test.
 - Changed: Added shared metric and basin-summary calculations, a labeled UI panel that computes the Trial Lake, existing spec, and supplemental basin cases, live SWE summary outputs, missing-value handling, and threshold checks. Saved hand calculations and browser results in `02_validation/stage_3_calculation_results.md`. Live Percent of Median stays unavailable because the AWDB median period is unverified.
 - Worked: Yes; the browser panel reports 24 passing calculation, missing-value, and threshold checks. The supplied basin mean-of-station-percentages result is 92.7%; 95.0% is shown as a comparison only.
+
+## 21
+
+> keep validating
+
+- Clarification: Stage 4 was selected; build only the map and global filters, then pause for review.
+- Changed: Added a Leaflet Utah station map, AWDB-derived basin/date/elevation filters, a Percent of Median / Current SWE toggle, a data-scaled SWE legend, neutral markers while the median period remains unverified, station popups and selection, and synchronized KPI/table/detail updates. Kept map/data loading failures visible.
+- Worked: Yes; live browser testing loaded 141 stations, verified all filters and selection clearing, confirmed the statewide map and station popup, and found no horizontal overflow at 375 px.

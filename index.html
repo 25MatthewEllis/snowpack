@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f4f7f5">
     <title>Utah Snowpack Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <style>
       :root {
         color-scheme: light;
@@ -25,6 +26,10 @@
 
       * {
         box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
       }
 
       body {
@@ -369,6 +374,12 @@
         min-width: 0;
       }
 
+      .metric-field {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
       .filter-label {
         display: block;
         margin-bottom: 7px;
@@ -392,6 +403,39 @@
         font-weight: 590;
       }
 
+      .select-wrap {
+        position: relative;
+      }
+
+      .select-wrap .chevron {
+        position: absolute;
+        top: 50%;
+        right: 14px;
+        transform: translateY(-65%) rotate(45deg);
+        pointer-events: none;
+      }
+
+      .filter-select {
+        width: 100%;
+        min-height: 43px;
+        appearance: none;
+        padding: 0 36px 0 13px;
+        border: 1px solid #dfe7e1;
+        border-radius: 10px;
+        background: var(--surface-soft);
+        color: #35463c;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 590;
+      }
+
+      .filter-select:focus-visible,
+      .elevation-slider:focus-visible,
+      .metric-option:focus-within {
+        outline: 3px solid rgb(39 116 84 / 25%);
+        outline-offset: 2px;
+      }
+
       .chevron {
         width: 8px;
         height: 8px;
@@ -402,36 +446,30 @@
       }
 
       .range-control {
+        display: grid;
         min-height: 43px;
-        padding: 4px 2px 0;
+        align-content: center;
+        gap: 7px;
       }
 
-      .range-track {
-        position: relative;
-        height: 5px;
-        margin: 7px 3px 8px;
-        border-radius: 999px;
-        background: #e4ebe6;
+      .elevation-slider {
+        width: 100%;
+        margin: 0;
+        accent-color: var(--green);
       }
 
-      .range-fill {
-        width: 15%;
-        height: 100%;
-        border-radius: inherit;
-        background: #91b9a1;
+      .range-value {
+        color: var(--green-dark);
+        font-variant-numeric: tabular-nums;
       }
 
-      .range-knob {
-        position: absolute;
-        top: 50%;
-        left: 15%;
-        width: 15px;
-        height: 15px;
-        transform: translate(-50%, -50%);
-        border: 3px solid white;
-        border-radius: 50%;
-        background: var(--green);
-        box-shadow: 0 0 0 1px #b5cdbd, 0 2px 5px rgb(25 54 38 / 15%);
+      .range-topline {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        color: #536258;
+        font-size: 12px;
+        font-weight: 700;
       }
 
       .range-caption {
@@ -448,6 +486,7 @@
       }
 
       .metric-option {
+        position: relative;
         display: inline-flex;
         min-height: 33px;
         flex: 1 1 0;
@@ -460,6 +499,16 @@
         font-weight: 650;
         text-align: center;
         white-space: nowrap;
+      }
+
+      .metric-option input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        clip-path: inset(50%);
       }
 
       .metric-option.selected {
@@ -509,140 +558,52 @@
 
       .map-canvas {
         position: relative;
-        display: grid;
+        display: block;
+        height: 464px;
         min-height: 464px;
         overflow: hidden;
-        place-items: center;
         border: 1px solid #e1e9e3;
         border-radius: 14px;
-        background-color: #edf3ef;
-        background-image:
-          linear-gradient(rgb(255 255 255 / 52%) 1px, transparent 1px),
-          linear-gradient(90deg, rgb(255 255 255 / 52%) 1px, transparent 1px),
-          radial-gradient(ellipse at 52% 46%, #f8fbf8 0, #f2f7f3 44%, #e8f0ea 100%);
-        background-size: 42px 42px, 42px 42px, auto;
+        background: #edf3ef;
       }
 
-      .map-canvas::before,
-      .map-canvas::after {
+      .map-status {
         position: absolute;
-        z-index: 0;
-        content: "";
-        pointer-events: none;
-      }
-
-      .map-canvas::before {
-        top: 13%;
-        left: -8%;
-        width: 58%;
-        height: 23%;
-        transform: rotate(-17deg);
-        border: 1px solid rgb(139 177 151 / 20%);
-        border-radius: 50%;
-        background: rgb(255 255 255 / 18%);
-      }
-
-      .map-canvas::after {
-        right: -14%;
-        bottom: 8%;
-        width: 69%;
-        height: 22%;
-        transform: rotate(12deg);
-        border: 1px solid rgb(139 177 151 / 18%);
-        border-radius: 50%;
-      }
-
-      .map-toolbar {
-        position: absolute;
-        z-index: 1;
-        top: 14px;
-        left: 14px;
-        padding: 7px 10px;
-        border: 1px solid rgb(219 229 221 / 90%);
-        border-radius: 8px;
-        background: rgb(255 255 255 / 88%);
-        color: #627268;
-        font-size: 11px;
-        font-weight: 650;
-      }
-
-      .map-placeholder {
-        position: relative;
-        z-index: 1;
-        width: min(290px, calc(100% - 40px));
-        padding: 23px;
-        border: 1px solid rgb(219 229 221 / 90%);
-        border-radius: 16px;
-        background: rgb(255 255 255 / 91%);
-        box-shadow: 0 8px 24px rgb(33 69 47 / 7%);
-        text-align: center;
-      }
-
-      .map-placeholder-mark {
-        display: grid;
-        width: 48px;
-        height: 48px;
-        margin: 0 auto 13px;
-        place-items: center;
-        border: 1px solid #d9e8dd;
-        border-radius: 15px;
-        background: var(--green-wash);
-        color: var(--green-dark);
-        font-size: 13px;
-        font-weight: 800;
-        letter-spacing: 0.06em;
-      }
-
-      .map-placeholder h3 {
-        margin-bottom: 5px;
-        font-size: 15px;
-        font-weight: 720;
-      }
-
-      .map-placeholder p {
-        margin-bottom: 0;
-        color: var(--muted);
-        font-size: 12px;
-      }
-
-      .zoom-controls {
-        position: absolute;
-        z-index: 1;
-        top: 14px;
-        right: 14px;
-        display: grid;
-        overflow: hidden;
-        border: 1px solid #dce5de;
+        z-index: 1000;
+        top: 12px;
+        left: 12px;
+        max-width: min(360px, calc(100% - 24px));
+        margin: 0;
+        padding: 8px 11px;
+        border: 1px solid #e7d8b8;
         border-radius: 9px;
-        background: white;
-        box-shadow: 0 2px 7px rgb(25 54 38 / 7%);
+        background: rgb(255 253 247 / 95%);
+        color: #735b32;
+        font-size: 11px;
+        box-shadow: 0 2px 8px rgb(25 54 38 / 10%);
       }
 
-      .zoom-controls span {
-        display: grid;
-        width: 34px;
-        height: 34px;
-        place-items: center;
-        color: #5d6e63;
-        font-size: 19px;
-        font-weight: 500;
+      .map-status.error {
+        border-color: #efd0cc;
+        background: rgb(255 250 250 / 96%);
+        color: #9c3e36;
       }
 
-      .zoom-controls span + span {
-        border-top: 1px solid var(--line);
-      }
-
-      .legend-preview {
-        position: absolute;
-        z-index: 1;
-        right: 14px;
-        bottom: 14px;
-        width: min(228px, calc(100% - 28px));
+      .map-legend {
+        width: 228px;
         padding: 12px;
         border: 1px solid rgb(219 229 221 / 94%);
         border-radius: 11px;
-        background: rgb(255 255 255 / 93%);
-        box-shadow: 0 4px 15px rgb(25 54 38 / 6%);
+        background: rgb(255 255 255 / 95%);
+        box-shadow: 0 4px 15px rgb(25 54 38 / 9%);
+      }
+
+      .leaflet-bottom.leaflet-right .leaflet-control {
+        margin: 0 12px 12px 0;
+      }
+
+      .leaflet-container {
+        font: inherit;
       }
 
       .legend-heading {
@@ -658,6 +619,95 @@
         margin: 0;
         color: var(--muted-light);
         font-size: 10px;
+      }
+
+      .legend-gradient {
+        height: 8px;
+        margin: 9px 0 4px;
+        border-radius: 999px;
+      }
+
+      .legend-range {
+        display: flex;
+        justify-content: space-between;
+        color: #68776e;
+        font-size: 9px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .legend-bands {
+        display: grid;
+        gap: 5px;
+        margin-top: 8px;
+      }
+
+      .legend-band {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #58675e;
+        font-size: 9px;
+      }
+
+      .legend-swatch {
+        width: 9px;
+        height: 9px;
+        flex: 0 0 auto;
+        border-radius: 50%;
+      }
+
+      .station-select {
+        display: grid;
+        gap: 2px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--green-dark);
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+      }
+
+      .station-select:hover span:first-child,
+      .station-select:focus-visible span:first-child {
+        text-decoration: underline;
+      }
+
+      .station-select:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 3px;
+      }
+
+      .popup-title {
+        margin-bottom: 2px;
+        color: #1d2b24;
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .popup-id {
+        margin: 0 0 8px;
+        color: #758279;
+        font-size: 10px;
+      }
+
+      .popup-row {
+        margin: 3px 0;
+        color: #43534a;
+        font-size: 11px;
+      }
+
+      .popup-select {
+        margin-top: 8px;
+        padding: 6px 9px;
+        border: 1px solid #cfe0d4;
+        border-radius: 7px;
+        background: #f3f8f4;
+        color: var(--green-dark);
+        cursor: pointer;
+        font: inherit;
+        font-size: 11px;
+        font-weight: 700;
       }
 
       .side-column {
@@ -1222,6 +1272,7 @@
         }
 
         .map-canvas {
+          height: 50vh;
           min-height: 50vh;
         }
 
@@ -1279,7 +1330,7 @@
             <div class="brand-mark" aria-hidden="true">UT</div>
             <p class="brand-name">Snow Survey</p>
           </div>
-          <span class="mockup-badge">Stage 3 · Calculations</span>
+          <span class="mockup-badge">Stage 4 · Interactive map</span>
         </div>
 
         <div class="intro">
@@ -1326,32 +1377,36 @@
       <section class="panel filters-panel" aria-labelledby="filters-title">
         <div class="filter-heading">
           <h2 id="filters-title">Map filters</h2>
-          <p class="static-note">Filter controls become interactive in Stage 4</p>
+          <p class="static-note">Filters update the map, station list and summary.</p>
         </div>
         <div class="filter-grid">
           <div class="filter-field">
-            <span class="filter-label">Basin / watershed</span>
-            <div class="mock-control" aria-label="Basin filter mockup">
-              <span>All Utah Basins</span>
+            <label class="filter-label" for="basin-filter">Basin / watershed</label>
+            <div class="select-wrap">
+              <select class="filter-select" id="basin-filter" disabled>
+                <option value="all">All Utah Basins</option>
+              </select>
               <span class="chevron" aria-hidden="true"></span>
             </div>
           </div>
 
           <div class="filter-field">
-            <span class="filter-label">Target date</span>
-            <div class="mock-control" aria-label="Target date mockup">
-              <span>Latest available date</span>
+            <label class="filter-label" for="date-filter">Target date</label>
+            <div class="select-wrap">
+              <select class="filter-select" id="date-filter" disabled>
+                <option value="">Latest available date</option>
+              </select>
               <span class="chevron" aria-hidden="true"></span>
             </div>
           </div>
 
           <div class="filter-field">
-            <span class="filter-label">Minimum elevation</span>
-            <div class="range-control" aria-label="Minimum elevation filter mockup">
-              <div class="range-track" aria-hidden="true">
-                <div class="range-fill"></div>
-                <div class="range-knob"></div>
-              </div>
+            <label class="range-topline" for="elevation-filter">
+              <span>Minimum elevation</span>
+              <strong class="range-value" id="elevation-value">6,000 ft</strong>
+            </label>
+            <div class="range-control">
+              <input class="elevation-slider" id="elevation-filter" type="range" min="6000" max="11500" step="100" value="6000" disabled>
               <div class="range-caption">
                 <span>6,000 ft</span>
                 <span>11,500 ft</span>
@@ -1359,13 +1414,19 @@
             </div>
           </div>
 
-          <div class="filter-field">
-            <span class="filter-label">Display metric</span>
-            <div class="mock-control metric-control" aria-label="Display metric mockup">
-              <span class="metric-option selected">Percent of Median</span>
-              <span class="metric-option">Current SWE</span>
+          <fieldset class="filter-field metric-field">
+            <legend class="filter-label">Display metric</legend>
+            <div class="mock-control metric-control" role="radiogroup" aria-label="Display metric">
+              <label class="metric-option selected">
+                <input type="radio" name="display-metric" value="percent" checked disabled>
+                <span>Percent of Median</span>
+              </label>
+              <label class="metric-option">
+                <input type="radio" name="display-metric" value="swe" disabled>
+                <span>Current SWE</span>
+              </label>
             </div>
-          </div>
+          </fieldset>
         </div>
       </section>
 
@@ -1374,29 +1435,13 @@
           <div class="section-heading">
             <div>
               <h2 id="map-title">Utah station map</h2>
-              <p>Station locations and values · map build planned for Stage 4</p>
+              <p>Live SNOTEL stations · select a marker for station details</p>
             </div>
-            <span class="map-label">Map preview</span>
+            <span class="map-label">Interactive map</span>
           </div>
 
-          <div class="map-canvas" role="img" aria-label="Utah station map placeholder; interactive map is planned for Stage 4">
-            <div class="map-toolbar">Utah · station locations</div>
-            <div class="zoom-controls" aria-hidden="true">
-              <span>+</span>
-              <span>−</span>
-            </div>
-            <div class="map-placeholder">
-              <div class="map-placeholder-mark" aria-hidden="true">UT</div>
-              <h3 id="map-preview-title">Station inventory loading</h3>
-              <p id="map-preview-message">Station coordinates and current readings will be connected to the interactive map in Stage 4.</p>
-            </div>
-            <div class="legend-preview">
-              <div class="legend-heading">
-                <span>Marker color scale</span>
-                <span>Stage 4</span>
-              </div>
-              <p class="legend-placeholder">Metric colors and legend are added with the interactive map.</p>
-            </div>
+          <div class="map-canvas" id="station-map" role="region" aria-label="Interactive map of Utah SNOTEL stations">
+            <p class="map-status" id="map-status" role="status" hidden></p>
           </div>
         </section>
 
@@ -1427,31 +1472,33 @@
           <section class="panel station-card" aria-labelledby="station-title">
             <div class="card-heading">
               <h2 id="station-title">Station details</h2>
-              <span class="status-pill">No selection</span>
+              <span class="status-pill" id="selection-status">No selection</span>
             </div>
 
-            <div class="station-empty">
+            <div class="station-empty" id="station-selection">
               <div class="station-empty-icon" aria-hidden="true">i</div>
               <div>
-                <strong>Select a station</strong>
-                <p>Choose a map marker or table row to view station details.</p>
+                <strong id="selection-title">Select a station</strong>
+                <p id="selection-message">Choose a map marker or table row to view station details.</p>
               </div>
             </div>
 
-            <div class="detail-grid" aria-label="Station detail placeholders">
-              <div class="detail-item"><span>Station</span><strong>—</strong></div>
-              <div class="detail-item"><span>Basin</span><strong>—</strong></div>
-              <div class="detail-item"><span>Elevation</span><strong>—</strong></div>
-              <div class="detail-item"><span>Current SWE</span><strong>—</strong></div>
-              <div class="detail-item"><span>Snow depth</span><strong>—</strong></div>
-              <div class="detail-item"><span>Density / anomaly</span><strong>—</strong></div>
+            <div class="detail-grid" aria-label="Selected station details">
+              <div class="detail-item"><span>Station</span><strong id="detail-station">—</strong></div>
+              <div class="detail-item"><span>Basin</span><strong id="detail-basin">—</strong></div>
+              <div class="detail-item"><span>Elevation</span><strong id="detail-elevation">—</strong></div>
+              <div class="detail-item"><span>Current SWE</span><strong id="detail-swe">—</strong></div>
+              <div class="detail-item"><span>Snow depth</span><strong id="detail-depth">—</strong></div>
+              <div class="detail-item"><span>Density</span><strong id="detail-density">—</strong></div>
+              <div class="detail-item"><span>SWE anomaly</span><strong id="detail-anomaly">—</strong></div>
+              <div class="detail-item"><span>Status</span><strong id="detail-status">—</strong></div>
             </div>
 
-            <div class="card-heading">
+            <div class="card-heading" id="chart-heading" hidden>
               <h2>Water-year SWE</h2>
               <span class="static-note">Chart preview</span>
             </div>
-            <div class="chart-placeholder" role="img" aria-label="Chart placeholder; time-series display is planned for Stage 5">
+            <div class="chart-placeholder" id="chart-preview" role="img" aria-label="Chart placeholder; time-series display is planned for Stage 5" hidden>
               <p>Water-year SWE series will be available for the station chart in Stage 5.</p>
               <div class="chart-axis" aria-hidden="true">
                 <span>Oct 1</span>
@@ -1576,8 +1623,9 @@
         </div>
       </section>
 
-      <p class="mockup-footer">Stage 3 calculations · live median comparisons remain unavailable until the AWDB reference period is verified. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>. Interactive map and filters arrive in Stage 4.</p>
+      <p class="mockup-footer">Stage 4 interactive map · live median comparisons remain unavailable until the AWDB reference period is verified. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
     </main>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
       "use strict";
 
@@ -1640,8 +1688,13 @@
       const stationCount = document.querySelector("#station-count");
       const latestDateLabel = document.querySelector("#latest-date");
       const readingCount = document.querySelector("#reading-count");
-      const mapPreviewTitle = document.querySelector("#map-preview-title");
-      const mapPreviewMessage = document.querySelector("#map-preview-message");
+      const mapElement = document.querySelector("#station-map");
+      const mapStatus = document.querySelector("#map-status");
+      const basinFilter = document.querySelector("#basin-filter");
+      const dateFilter = document.querySelector("#date-filter");
+      const elevationFilter = document.querySelector("#elevation-filter");
+      const elevationValue = document.querySelector("#elevation-value");
+      const metricInputs = [...document.querySelectorAll('input[name="display-metric"]')];
       const tableCaption = document.querySelector("#table-caption");
       const tableBody = document.querySelector("#station-table-body");
       const averageSweOutput = document.querySelector("#kpi-average-swe");
@@ -1650,6 +1703,26 @@
       const peakSweOutput = document.querySelector("#kpi-peak-swe");
       const peakStationOutput = document.querySelector("#kpi-peak-station");
       const averagePercentNote = document.querySelector("#kpi-percent-note");
+      const selectionStatus = document.querySelector("#selection-status");
+      const selectionTitle = document.querySelector("#selection-title");
+      const selectionMessage = document.querySelector("#selection-message");
+      const detailStation = document.querySelector("#detail-station");
+      const detailBasin = document.querySelector("#detail-basin");
+      const detailElevation = document.querySelector("#detail-elevation");
+      const detailSwe = document.querySelector("#detail-swe");
+      const detailDepth = document.querySelector("#detail-depth");
+      const detailDensity = document.querySelector("#detail-density");
+      const detailAnomaly = document.querySelector("#detail-anomaly");
+      const detailStatus = document.querySelector("#detail-status");
+      const chartHeading = document.querySelector("#chart-heading");
+      const chartPreview = document.querySelector("#chart-preview");
+      let stationMap = null;
+      let stationMarkers = null;
+      let mapLegendContent = null;
+      let mapTileWarningShown = false;
+      let loadedData = null;
+      let currentStationRows = [];
+      let selectedStationTriplet = null;
 
       class AwdbRequestError extends Error {
         constructor(message, status = null) {
@@ -1657,6 +1730,336 @@
           this.name = "AwdbRequestError";
           this.status = status;
         }
+      }
+
+      function setMapStatus(message, isError = false) {
+        mapStatus.hidden = !message;
+        mapStatus.textContent = message;
+        mapStatus.classList.toggle("error", isError);
+      }
+
+      function initializeMap() {
+        if (typeof L === "undefined") {
+          setMapStatus("The map library did not load. Station data and filters remain available below.", true);
+          return;
+        }
+
+        try {
+          stationMap = L.map(mapElement, { scrollWheelZoom: false }).setView([39.3, -111.7], 7);
+          stationMarkers = L.layerGroup().addTo(stationMap);
+          const tiles = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(stationMap);
+          tiles.on("tileerror", () => {
+            if (!mapTileWarningShown) {
+              mapTileWarningShown = true;
+              setMapStatus("Map tiles could not be loaded. Check your connection; station data may still be available.", true);
+            }
+          });
+          const legend = L.control({ position: "bottomright" });
+          legend.onAdd = () => {
+            mapLegendContent = L.DomUtil.create("div", "map-legend");
+            mapLegendContent.setAttribute("aria-label", "Map marker legend");
+            L.DomEvent.disableClickPropagation(mapLegendContent);
+            L.DomEvent.disableScrollPropagation(mapLegendContent);
+            return mapLegendContent;
+          };
+          legend.addTo(stationMap);
+        } catch (error) {
+          stationMap = null;
+          stationMarkers = null;
+          console.error("Interactive map initialization failed:", error);
+          setMapStatus("The interactive map could not be initialized. Station data and filters remain available below.", true);
+        }
+      }
+
+      function getSelectedMetric() {
+        return metricInputs.find(input => input.checked)?.value || "percent";
+      }
+
+      function getStationCoordinates(station) {
+        if (
+          station.latitude === null ||
+          station.latitude === undefined ||
+          station.latitude === "" ||
+          station.longitude === null ||
+          station.longitude === undefined ||
+          station.longitude === ""
+        ) {
+          return null;
+        }
+        const latitude = typeof station.latitude === "number" ? station.latitude : Number(station.latitude);
+        const longitude = typeof station.longitude === "number" ? station.longitude : Number(station.longitude);
+        if (
+          !Number.isFinite(latitude) ||
+          !Number.isFinite(longitude) ||
+          latitude < -90 ||
+          latitude > 90 ||
+          longitude < -180 ||
+          longitude > 180
+        ) {
+          return null;
+        }
+        return [latitude, longitude];
+      }
+
+      function getSweMarkerColor(value, minimum, maximum) {
+        const low = [221, 238, 226];
+        const high = [36, 112, 75];
+        const proportion = maximum > minimum
+          ? Math.min(1, Math.max(0, (value - minimum) / (maximum - minimum)))
+          : 0.5;
+        const channels = low.map((channel, index) =>
+          Math.round(channel + (high[index] - channel) * proportion)
+        );
+        return `#${channels.map(channel => channel.toString(16).padStart(2, "0")).join("")}`;
+      }
+
+      function appendPopupRow(container, label, value) {
+        const row = document.createElement("p");
+        row.className = "popup-row";
+        const strong = document.createElement("strong");
+        strong.textContent = `${label}: `;
+        row.append(strong, document.createTextNode(value));
+        container.append(row);
+      }
+
+      function createStationPopup(station) {
+        const content = document.createElement("div");
+        const title = document.createElement("div");
+        title.className = "popup-title";
+        title.textContent = station.name || "Unnamed station";
+        const id = document.createElement("p");
+        id.className = "popup-id";
+        id.textContent = station.stationTriplet;
+        content.append(title, id);
+        appendPopupRow(content, "Basin", station.basinName);
+        appendPopupRow(content, "Elevation", `${formatNumber(station.elevation, 0)} ft`);
+        appendPopupRow(content, "Current SWE", isFiniteNumber(station.currentSwe) ? `${formatFixed(station.currentSwe)} in` : "N/A");
+        appendPopupRow(
+          content,
+          "Percent of Median",
+          isFiniteNumber(station.metrics.percentOfMedian)
+            ? `${formatFixed(station.metrics.percentOfMedian)}%`
+            : BASELINE_PERIOD_VERIFIED
+              ? "N/A"
+              : "Unavailable: baseline period unverified"
+        );
+        const status = station.metrics.status?.label ||
+          (BASELINE_PERIOD_VERIFIED ? "N/A · no valid median" : "Baseline unverified");
+        appendPopupRow(content, "Status", status);
+        const selectButton = document.createElement("button");
+        selectButton.className = "popup-select";
+        selectButton.type = "button";
+        selectButton.textContent = "Show station details";
+        selectButton.addEventListener("click", () => {
+          selectStation(station.stationTriplet);
+          stationMap.closePopup();
+        });
+        content.append(selectButton);
+        return content;
+      }
+
+      function updateMapLegend(stations, metric) {
+        if (!mapLegendContent) return;
+        mapLegendContent.replaceChildren();
+        const heading = document.createElement("div");
+        heading.className = "legend-heading";
+        heading.textContent = metric === "swe" ? "Current SWE · marker scale" : "Percent of Median";
+        mapLegendContent.append(heading);
+
+        if (metric === "percent" && !BASELINE_PERIOD_VERIFIED) {
+          const message = document.createElement("p");
+          message.className = "legend-placeholder";
+          message.textContent = "Neutral markers: the 1991–2020 reference period is unverified.";
+          mapLegendContent.append(message);
+          return;
+        }
+
+        if (metric === "percent") {
+          const bands = [
+            { label: "Well Below Normal · <70%", color: "#c94d4d" },
+            { label: "Below Normal · 70–<90%", color: "#e79a50" },
+            { label: "Near Normal · 90–<110%", color: "#59a878" },
+            { label: "Above Normal · 110–<130%", color: "#64b7d6" },
+            { label: "Well Above Normal · ≥130%", color: "#6053a8" }
+          ];
+          const list = document.createElement("div");
+          list.className = "legend-bands";
+          for (const band of bands) {
+            const item = document.createElement("div");
+            item.className = "legend-band";
+            const swatch = document.createElement("span");
+            swatch.className = "legend-swatch";
+            swatch.style.backgroundColor = band.color;
+            item.append(swatch, document.createTextNode(band.label));
+            list.append(item);
+          }
+          mapLegendContent.append(list);
+          return;
+        }
+
+        const values = stations
+          .map(station => station.currentSwe)
+          .filter(isFiniteNumber);
+        if (!values.length) {
+          const message = document.createElement("p");
+          message.className = "legend-placeholder";
+          message.textContent = "No current SWE readings in this view.";
+          mapLegendContent.append(message);
+          return;
+        }
+        const minimum = Math.min(...values);
+        const maximum = Math.max(...values);
+        const gradient = document.createElement("div");
+        gradient.className = "legend-gradient";
+        gradient.style.background = "linear-gradient(90deg, #ddeee2, #24704b)";
+        const range = document.createElement("div");
+        range.className = "legend-range";
+        const low = document.createElement("span");
+        low.textContent = `${formatFixed(minimum)} in`;
+        const high = document.createElement("span");
+        high.textContent = `${formatFixed(maximum)} in`;
+        range.append(low, high);
+        mapLegendContent.append(gradient, range);
+      }
+
+      function updateStationDetailPanel(station) {
+        const selected = Boolean(station);
+        selectionStatus.textContent = selected ? "Selected station" : "No selection";
+        selectionTitle.textContent = selected ? station.name || "Unnamed station" : "Select a station";
+        selectionMessage.textContent = selected
+          ? `Station ${station.stationTriplet} · readings for ${formatDate(dateFilter.value || loadedData.latestDate)}.`
+          : "Choose a map marker or table row to view station details.";
+        detailStation.textContent = selected ? station.stationTriplet : "—";
+        detailBasin.textContent = selected ? station.basinName : "—";
+        detailElevation.textContent = selected ? `${formatNumber(station.elevation, 0)} ft` : "—";
+        detailSwe.textContent = selected && isFiniteNumber(station.currentSwe)
+          ? `${formatFixed(station.currentSwe)} in`
+          : selected ? "N/A" : "—";
+        detailDepth.textContent = selected && isFiniteNumber(station.snowDepth)
+          ? `${formatFixed(station.snowDepth)} in`
+          : selected ? "N/A" : "—";
+        detailDensity.textContent = selected && isFiniteNumber(station.metrics.snowDensityPercent)
+          ? `${formatFixed(station.metrics.snowDensityPercent)}% (${formatFixed(station.metrics.snowDensityLbFt3)} lb/ft³)`
+          : selected ? "N/A" : "—";
+        detailAnomaly.textContent = selected
+          ? isFiniteNumber(station.metrics.sweAnomaly) ? `${formatSigned(station.metrics.sweAnomaly)} in` : "Unavailable"
+          : "—";
+        detailStatus.textContent = selected
+          ? station.metrics.status?.label || (BASELINE_PERIOD_VERIFIED ? "N/A" : "Baseline unverified")
+          : "—";
+        chartHeading.hidden = !selected;
+        chartPreview.hidden = !selected;
+      }
+
+      function selectStation(stationTriplet) {
+        const station = currentStationRows.find(row => row.stationTriplet === stationTriplet);
+        if (!station) return;
+        selectedStationTriplet = stationTriplet;
+        updateStationDetailPanel(station);
+        renderStationTable(currentStationRows);
+        updateStationMap(currentStationRows);
+      }
+
+      function clearStationSelection() {
+        selectedStationTriplet = null;
+        updateStationDetailPanel(null);
+      }
+
+      function updateStationMap(stations) {
+        if (!stationMap || !stationMarkers) return;
+        stationMarkers.clearLayers();
+        const metric = getSelectedMetric();
+        const values = stations
+          .map(station => station.currentSwe)
+          .filter(isFiniteNumber);
+        const minimum = values.length ? Math.min(...values) : 0;
+        const maximum = values.length ? Math.max(...values) : 0;
+
+        for (const station of stations) {
+          const coordinates = getStationCoordinates(station);
+          if (!coordinates) continue;
+          const hasValue = metric === "swe"
+            ? isFiniteNumber(station.currentSwe)
+            : isFiniteNumber(station.metrics.percentOfMedian);
+          const color = !hasValue
+            ? "#9aa59e"
+            : metric === "swe"
+              ? getSweMarkerColor(station.currentSwe, minimum, maximum)
+              : station.metrics.status.color;
+          const selected = station.stationTriplet === selectedStationTriplet;
+          L.circleMarker(coordinates, {
+            radius: selected ? 9 : 7,
+            color: selected ? "#20352a" : "#ffffff",
+            weight: selected ? 3 : 2,
+            fillColor: color,
+            fillOpacity: 0.92
+          })
+            .bindPopup(createStationPopup(station), { maxWidth: 280 })
+            .addTo(stationMarkers);
+        }
+
+        updateMapLegend(stations, metric);
+      }
+
+      function fitMapToAllStations(stations) {
+        if (!stationMap) return;
+        const bounds = stations
+          .map(getStationCoordinates)
+          .filter(Boolean);
+        if (!bounds.length) return;
+        stationMap.invalidateSize({ pan: false });
+        stationMap.fitBounds(bounds, { padding: [28, 28], maxZoom: 7 });
+      }
+
+      function populateFilters(stations, dates) {
+        const basinNames = [...new Set(stations.map(station => station.basinName))]
+          .sort((a, b) => a.localeCompare(b));
+        basinFilter.replaceChildren(new Option("All Utah Basins", "all"));
+        for (const basinName of basinNames) {
+          basinFilter.add(new Option(basinName, basinName));
+        }
+        dateFilter.replaceChildren();
+        for (const date of dates) {
+          dateFilter.add(new Option(formatDate(date), date));
+        }
+        basinFilter.disabled = false;
+        dateFilter.disabled = false;
+        elevationFilter.disabled = false;
+        for (const input of metricInputs) input.disabled = false;
+        elevationValue.textContent = `${formatNumber(Number(elevationFilter.value), 0)} ft`;
+      }
+
+      function applyFilters() {
+        if (!loadedData) return;
+        const selectedDate = dateFilter.value || loadedData.latestDate;
+        const minimumElevation = Number(elevationFilter.value);
+        const stationRows = buildLiveStationRows(
+          loadedData.stations,
+          loadedData.readings,
+          selectedDate
+        ).filter(station =>
+          (basinFilter.value === "all" || station.basinName === basinFilter.value) &&
+          (!isFiniteNumber(station.elevation) || station.elevation >= minimumElevation)
+        );
+        currentStationRows = stationRows;
+        if (
+          selectedStationTriplet &&
+          !stationRows.some(station => station.stationTriplet === selectedStationTriplet)
+        ) {
+          clearStationSelection();
+        } else if (selectedStationTriplet) {
+          updateStationDetailPanel(
+            stationRows.find(station => station.stationTriplet === selectedStationTriplet)
+          );
+        }
+        renderSummaryKpis(calculateBasinSummary(stationRows));
+        renderStationTable(stationRows);
+        updateStationMap(stationRows);
+        tableCaption.textContent =
+          `Daily readings as of ${formatDate(selectedDate)} · ${stationRows.length} station(s) after filters`;
       }
 
       function setLoading(message) {
@@ -1684,8 +2087,16 @@
         statusFacts.hidden = true;
         baselineNotice.hidden = true;
         coverageErrors.hidden = true;
-        mapPreviewTitle.textContent = "Station inventory unavailable";
-        mapPreviewMessage.textContent = "Use Retry data load to request the Utah station metadata and daily observations again.";
+        loadedData = null;
+        currentStationRows = [];
+        clearStationSelection();
+        if (stationMarkers) stationMarkers.clearLayers();
+        if (stationMap) updateMapLegend([], getSelectedMetric());
+        basinFilter.disabled = true;
+        dateFilter.disabled = true;
+        elevationFilter.disabled = true;
+        for (const input of metricInputs) input.disabled = true;
+        setMapStatus("Station data is unavailable. Use Retry data load to request it again.", true);
         tableBody.replaceChildren();
         const row = document.createElement("tr");
         const cell = document.createElement("td");
@@ -2207,11 +2618,18 @@
         for (const station of orderedStations) {
           const row = document.createElement("tr");
           const nameCell = document.createElement("td");
-          nameCell.textContent = station.name || "Unnamed station";
+          const selectButton = document.createElement("button");
+          selectButton.className = "station-select";
+          selectButton.type = "button";
+          selectButton.setAttribute("aria-label", `Show details for ${station.name || "unnamed station"}`);
+          const name = document.createElement("span");
+          name.textContent = station.name || "Unnamed station";
           const id = document.createElement("span");
           id.className = "station-id";
           id.textContent = station.stationTriplet;
-          nameCell.append(id);
+          selectButton.append(name, id);
+          selectButton.addEventListener("click", () => selectStation(station.stationTriplet));
+          nameCell.append(selectButton);
           row.append(nameCell);
 
           row.append(createCell(station.basinName));
@@ -2232,6 +2650,15 @@
           fragment.append(row);
         }
 
+        if (!orderedStations.length) {
+          const row = document.createElement("tr");
+          const cell = document.createElement("td");
+          cell.className = "empty-row";
+          cell.colSpan = 8;
+          cell.textContent = "No stations match the selected filters.";
+          row.append(cell);
+          fragment.append(row);
+        }
         tableBody.replaceChildren(fragment);
       }
 
@@ -2299,14 +2726,15 @@
           coverageErrors.append(item);
         }
         coverageErrors.hidden = coverageDetails.length === 0;
-        mapPreviewTitle.textContent = `${stations.length} stations loaded`;
-        mapPreviewMessage.textContent =
-          `Latest daily SWE date: ${formatDate(latestDate)}. Station coordinates and values will be mapped in Stage 4.`;
-        tableCaption.textContent =
-          `Daily readings as of ${formatDate(latestDate)} · basin names mapped from AWDB HUC-8 codes`;
-        const stationRows = buildLiveStationRows(stations, readings, latestDate);
-        renderSummaryKpis(calculateBasinSummary(stationRows));
-        renderStationTable(stationRows);
+        const dates = [...new Set(
+          stations.flatMap(station =>
+            [...readings.get(station.stationTriplet).wteq.keys()]
+          )
+        )].sort((a, b) => b.localeCompare(a));
+        loadedData = { stations, readings, latestDate, dates };
+        fitMapToAllStations(stations);
+        populateFilters(stations, dates);
+        applyFilters();
       }
 
       async function loadAwdbData() {
@@ -2339,7 +2767,23 @@
         }
       }
 
+      basinFilter.addEventListener("change", applyFilters);
+      dateFilter.addEventListener("change", applyFilters);
+      elevationFilter.addEventListener("input", () => {
+        elevationValue.textContent = `${formatNumber(Number(elevationFilter.value), 0)} ft`;
+        applyFilters();
+      });
+      for (const input of metricInputs) {
+        input.addEventListener("change", () => {
+          for (const option of metricInputs) {
+            option.closest(".metric-option").classList.toggle("selected", option.checked);
+          }
+          applyFilters();
+        });
+      }
+
       retryButton.addEventListener("click", loadAwdbData);
+      initializeMap();
       renderCalculationValidation();
       loadAwdbData();
     </script>
