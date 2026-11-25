@@ -58,8 +58,7 @@
       .card-heading,
       .map-meta,
       .legend-heading,
-      .station-heading,
-      .table-heading {
+      .station-heading {
         display: flex;
         align-items: center;
       }
@@ -350,8 +349,7 @@
 
       .filter-heading h2,
       .section-heading h2,
-      .card-heading h2,
-      .table-heading h2 {
+      .card-heading h2 {
         margin: 0;
         font-size: 15px;
         font-weight: 730;
@@ -526,15 +524,13 @@
       }
 
       .map-card,
-      .station-card,
-      .table-card {
+      .station-card {
         min-width: 0;
         padding: 20px;
       }
 
       .section-heading,
-      .card-heading,
-      .table-heading {
+      .card-heading {
         justify-content: space-between;
         gap: 12px;
       }
@@ -876,20 +872,6 @@
         font-size: 10px;
       }
 
-      .table-card {
-        overflow: hidden;
-      }
-
-      .table-heading {
-        margin-bottom: 14px;
-      }
-
-      .table-heading p {
-        margin: 4px 0 0;
-        color: var(--muted);
-        font-size: 12px;
-      }
-
       .empty-tag {
         padding: 6px 9px;
         background: #f1f4f2;
@@ -898,265 +880,10 @@
         letter-spacing: 0.04em;
       }
 
-      .table-wrap {
-        overflow-x: auto;
-        border: 1px solid var(--line);
-        border-radius: 11px;
-      }
-
-      table {
-        width: 100%;
-        min-width: 760px;
-        border-collapse: collapse;
-        text-align: left;
-      }
-
-      th {
-        padding: 12px 14px;
-        background: #f7f9f8;
-        color: #637168;
-        font-size: 10px;
-        font-weight: 740;
-        letter-spacing: 0.045em;
-        text-transform: uppercase;
-        white-space: nowrap;
-      }
-
-      .table-sort {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 0;
-        border: 0;
-        background: transparent;
-        color: inherit;
-        cursor: pointer;
-        font: inherit;
-        letter-spacing: inherit;
-        text-transform: inherit;
-      }
-
-      .table-sort:hover,
-      .table-sort:focus-visible {
-        color: var(--green-dark);
-      }
-
-      .table-sort:focus-visible {
-        outline: 2px solid var(--green);
-        outline-offset: 3px;
-      }
-
-      .sort-indicator {
-        color: var(--muted-light);
-        font-size: 11px;
-      }
-
-      .table-sort[aria-pressed="true"] .sort-indicator {
-        color: var(--green-dark);
-      }
-
-      td {
-        padding: 18px 14px;
-        border-top: 1px solid var(--line);
-        color: var(--muted);
-        font-size: 12px;
-        vertical-align: top;
-      }
-
-      tbody td.empty-row {
-        padding: 20px 14px;
-        text-align: center;
-      }
-
-      tbody tr:hover {
-        background: #fbfdfb;
-      }
-
-      .table-metric-na {
-        color: var(--muted-light);
-      }
-
       .mockup-footer a {
         color: var(--green-dark);
       }
 
-      .validation-panel {
-        margin-bottom: 20px;
-        padding: 20px;
-      }
-
-      .validation-heading {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 15px;
-      }
-
-      .validation-heading h2 {
-        margin: 0;
-        font-size: 16px;
-        font-weight: 740;
-      }
-
-      .validation-heading p {
-        margin: 4px 0 0;
-        color: var(--muted);
-        font-size: 12px;
-      }
-
-      .validation-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      .validation-case {
-        min-width: 0;
-        padding: 15px;
-        border: 1px solid var(--line);
-        border-radius: 13px;
-        background: #fcfdfc;
-      }
-
-      .validation-case h3 {
-        margin: 0 0 5px;
-        font-size: 13px;
-        font-weight: 740;
-      }
-
-      .validation-caption {
-        margin: 0 0 12px;
-        color: var(--muted);
-        font-size: 10px;
-      }
-
-      .validation-inputs {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 7px;
-        margin: 0 0 13px;
-      }
-
-      .validation-inputs div,
-      .validation-output {
-        min-width: 0;
-        padding: 8px;
-        border-radius: 8px;
-        background: #f2f6f3;
-      }
-
-      .validation-inputs dt,
-      .validation-output span {
-        display: block;
-        color: var(--muted-light);
-        font-size: 9px;
-        font-weight: 700;
-        text-transform: uppercase;
-      }
-
-      .validation-inputs dd {
-        margin: 2px 0 0;
-        color: #43534a;
-        font-size: 12px;
-        font-weight: 720;
-      }
-
-      .validation-results {
-        display: grid;
-        gap: 8px;
-        margin: 0;
-      }
-
-      .validation-output strong {
-        display: block;
-        margin-top: 2px;
-        color: #33473a;
-        font-size: 14px;
-        font-weight: 750;
-      }
-
-      .validation-output small {
-        display: block;
-        margin-top: 3px;
-        color: #6d7b72;
-        font-size: 10px;
-        line-height: 1.4;
-      }
-
-      .basin-test-table {
-        width: 100%;
-        min-width: 0;
-        margin: 8px 0 12px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        overflow: hidden;
-        font-size: 10px;
-      }
-
-      .basin-test-table th,
-      .basin-test-table td {
-        padding: 7px 6px;
-        font-size: 10px;
-        text-align: right;
-      }
-
-      .basin-test-table th:first-child,
-      .basin-test-table td:first-child {
-        text-align: left;
-      }
-
-      .basin-test-table th {
-        white-space: normal;
-      }
-
-      .basin-test-summary {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 7px;
-      }
-
-      .validation-result {
-        margin: 13px 0 0;
-        padding: 10px 12px;
-        border: 1px solid #d5e8dc;
-        border-radius: 9px;
-        background: #f3faf5;
-        color: #2b704c;
-        font-size: 11px;
-        font-weight: 700;
-      }
-
-      .validation-result.failed {
-        border-color: #efd0cc;
-        background: #fffafa;
-        color: #9c3e36;
-      }
-
-      .validation-edge-cases {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 12px 0 0;
-      }
-
-      .validation-edge-cases span {
-        padding: 6px 9px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: #f8faf8;
-        color: #627168;
-        font-size: 10px;
-      }
-
-      .validation-shortcut {
-        margin: 9px 0 0 22px;
-        font-size: 11px;
-      }
-
-      .validation-shortcut a {
-        color: var(--green-dark);
-      }
 
       .mockup-footer {
         margin: 16px 3px 0;
@@ -1176,8 +903,7 @@
         }
 
         .map-card,
-        .station-card,
-        .table-card {
+        .station-card {
           padding: 16px;
         }
 
@@ -1185,9 +911,6 @@
           min-height: 430px;
         }
 
-        .validation-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
       }
 
       @media (max-width: 767px) {
@@ -1254,10 +977,6 @@
           margin-left: 22px;
         }
 
-        .validation-shortcut {
-          margin-left: 22px;
-        }
-
         .coverage-errors {
           margin-left: 22px;
         }
@@ -1284,8 +1003,7 @@
         }
 
         .map-card,
-        .station-card,
-        .table-card {
+        .station-card {
           padding: 16px;
         }
 
@@ -1311,23 +1029,6 @@
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
-        .table-heading {
-          align-items: flex-start;
-        }
-
-        .validation-panel {
-          padding: 16px;
-        }
-
-        .validation-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .validation-heading {
-          flex-direction: column;
-          gap: 6px;
-        }
-
         .mockup-footer {
           text-align: left;
         }
@@ -1348,7 +1049,7 @@
             <div class="brand-mark" aria-hidden="true">UT</div>
             <p class="brand-name">Snow Survey</p>
           </div>
-          <span class="mockup-badge">Stage 6 · Validation complete</span>
+          <span class="mockup-badge">Utah snowpack</span>
         </div>
 
         <div class="intro">
@@ -1388,7 +1089,6 @@
           </div>
         </div>
         <p class="baseline-notice" id="baseline-notice" hidden></p>
-        <p class="validation-shortcut"><a href="#calculation-validation">Jump to calculation validation fixtures</a></p>
         <ul class="coverage-errors" id="coverage-errors" hidden></ul>
       </section>
 
@@ -1497,7 +1197,7 @@
               <div class="station-empty-icon" aria-hidden="true">i</div>
               <div>
                 <strong id="selection-title">Select a station</strong>
-                <p id="selection-message">Choose a map marker or table row to view station details.</p>
+                <p id="selection-message">Choose a map marker to view station details.</p>
               </div>
             </div>
 
@@ -1528,121 +1228,7 @@
         </aside>
       </div>
 
-      <section class="panel validation-panel" id="calculation-validation" aria-labelledby="validation-title">
-        <div class="validation-heading">
-          <div>
-            <h2 id="validation-title">Calculation validation</h2>
-            <p>These labeled test fixtures are calculated in the app; they are illustrative inputs, not live station observations.</p>
-          </div>
-          <span class="empty-tag">Stage 3 · test fixtures</span>
-        </div>
-        <div class="validation-grid">
-          <article class="validation-case" aria-labelledby="trial-validation-title">
-            <h3 id="trial-validation-title">Case 1 · Trial Lake</h3>
-            <p class="validation-caption">Illustrative single-station check from the spec.</p>
-            <dl class="validation-inputs">
-              <div><dt>Current SWE</dt><dd>24.6 in</dd></div>
-              <div><dt>Median SWE</dt><dd>20.5 in</dd></div>
-              <div><dt>Snow depth</dt><dd>72.0 in</dd></div>
-            </dl>
-            <div class="validation-results">
-              <div class="validation-output">
-                <span>Percent of Median</span>
-                <strong id="trial-percent">Calculating…</strong>
-                <small id="trial-percent-equation"></small>
-              </div>
-              <div class="validation-output">
-                <span>SWE anomaly</span>
-                <strong id="trial-anomaly">Calculating…</strong>
-                <small id="trial-anomaly-equation"></small>
-              </div>
-              <div class="validation-output">
-                <span>Snow density</span>
-                <strong id="trial-density">Calculating…</strong>
-                <small id="trial-density-equation"></small>
-              </div>
-              <div class="validation-output">
-                <span>Status category</span>
-                <strong id="trial-status">Calculating…</strong>
-                <small>Threshold classification uses unrounded Percent of Median.</small>
-              </div>
-            </div>
-          </article>
-
-          <article class="validation-case" aria-labelledby="spec-basin-validation-title">
-            <h3 id="spec-basin-validation-title">Case 2 · Existing spec basin test</h3>
-            <p class="validation-caption">Preserved three-station case already in spec.md.</p>
-            <div class="table-wrap">
-              <table class="basin-test-table">
-                <thead><tr><th>Station</th><th>SWE</th><th>Median</th><th>% Median</th></tr></thead>
-                <tbody id="spec-basin-rows"></tbody>
-              </table>
-            </div>
-            <div class="basin-test-summary">
-              <div class="validation-output"><span>Average SWE</span><strong id="spec-basin-swe">—</strong></div>
-              <div class="validation-output"><span>Average station %</span><strong id="spec-basin-percent">—</strong></div>
-            </div>
-          </article>
-
-          <article class="validation-case" aria-labelledby="supplied-basin-validation-title">
-            <h3 id="supplied-basin-validation-title">Case 3 · Additional basin check</h3>
-            <p class="validation-caption">Your supplied inputs; app basin Percent of Median is the mean of station percentages.</p>
-            <div class="table-wrap">
-              <table class="basin-test-table">
-                <thead><tr><th>Station</th><th>SWE</th><th>Median</th><th>% Median</th></tr></thead>
-                <tbody id="supplied-basin-rows"></tbody>
-              </table>
-            </div>
-            <div class="basin-test-summary">
-              <div class="validation-output"><span>Average SWE</span><strong id="supplied-basin-swe">—</strong></div>
-              <div class="validation-output"><span>Average Median SWE</span><strong id="supplied-basin-median">—</strong></div>
-              <div class="validation-output"><span>Mean station %</span><strong id="supplied-basin-percent">—</strong></div>
-              <div class="validation-output"><span>Mean SWE anomaly</span><strong id="supplied-basin-anomaly">—</strong></div>
-            </div>
-            <p class="validation-caption">Ratio of basin means: <strong id="supplied-basin-ratio">—</strong> (shown for comparison; not the spec's basin-percent calculation).</p>
-          </article>
-        </div>
-        <p class="validation-result" id="validation-result" role="status">Running calculation checks…</p>
-        <div class="validation-edge-cases" aria-label="Calculation edge-case checks">
-          <span id="zero-median-check">Zero median: checking…</span>
-          <span id="zero-depth-check">Zero depth: checking…</span>
-          <span id="missing-depth-check">Missing depth: checking…</span>
-          <span id="missing-swe-check">Missing SWE: checking…</span>
-        </div>
-      </section>
-
-      <section class="panel table-card" aria-labelledby="table-title">
-        <div class="table-heading">
-          <div>
-            <h2 id="table-title">Station data</h2>
-            <p id="table-caption">Daily AWDB readings for the latest available date</p>
-          </div>
-          <span class="empty-tag">AWDB data</span>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col" data-sort-header="name" aria-sort="none"><button class="table-sort" type="button" data-sort-key="name">Station Name <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
-                <th scope="col" data-sort-header="basin" aria-sort="none"><button class="table-sort" type="button" data-sort-key="basin">Basin (HUC-8) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
-                <th scope="col" data-sort-header="elevation" aria-sort="none"><button class="table-sort" type="button" data-sort-key="elevation">Elevation (ft) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
-                <th scope="col" data-sort-header="swe" aria-sort="none"><button class="table-sort" type="button" data-sort-key="swe">Current SWE (in) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
-                <th scope="col" data-sort-header="median" aria-sort="none"><button class="table-sort" type="button" data-sort-key="median">AWDB median (in; period unverified) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
-                <th scope="col" data-sort-header="depth" aria-sort="none"><button class="table-sort" type="button" data-sort-key="depth">Snow depth (in) <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
-                <th scope="col" data-sort-header="percent" aria-sort="ascending"><button class="table-sort" type="button" data-sort-key="percent" aria-pressed="true">% of 1991–2020 Median <span class="sort-indicator" aria-hidden="true">↑</span></button></th>
-                <th scope="col" data-sort-header="status" aria-sort="none"><button class="table-sort" type="button" data-sort-key="status">Status <span class="sort-indicator" aria-hidden="true">↕</span></button></th>
-              </tr>
-            </thead>
-            <tbody id="station-table-body">
-              <tr>
-                <td class="empty-row" colspan="8" id="station-table-empty">Waiting for AWDB station data…</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <p class="mockup-footer">Stage 6 validation complete · Percent of Median and SWE anomaly use medians calculated from available daily AWDB SWE observations in water years 1991–2020. The API's unlabeled 30-year median is not used for those calculations. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
+      <p class="mockup-footer">Percent of Median and SWE anomaly use medians calculated from available daily AWDB SWE observations in water years 1991–2020. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
     </main>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -1719,8 +1305,6 @@
       const elevationFilter = document.querySelector("#elevation-filter");
       const elevationValue = document.querySelector("#elevation-value");
       const metricInputs = [...document.querySelectorAll('input[name="display-metric"]')];
-      const tableCaption = document.querySelector("#table-caption");
-      const tableBody = document.querySelector("#station-table-body");
       const averageSweOutput = document.querySelector("#kpi-average-swe");
       const averagePercentOutput = document.querySelector("#kpi-average-percent");
       const stationCountOutput = document.querySelector("#kpi-station-count");
@@ -1752,8 +1336,6 @@
       let currentStationRows = [];
       let selectedStationTriplet = null;
       let stationChart = null;
-      let tableSortKey = "percent";
-      let tableSortDirection = 1;
 
       class AwdbRequestError extends Error {
         constructor(message, status = null) {
@@ -2080,7 +1662,7 @@
         selectionTitle.textContent = selected ? station.name || "Unnamed station" : "Select a station";
         selectionMessage.textContent = selected
           ? `Station ${station.stationTriplet} · readings for ${formatDate(dateFilter.value || loadedData.latestDate)}.`
-          : "Choose a map marker or table row to view station details.";
+          : "Choose a map marker to view station details.";
         detailStation.textContent = selected ? station.stationTriplet : "—";
         detailBasin.textContent = selected ? station.basinName : "—";
         detailElevation.textContent = selected ? `${formatNumber(station.elevation, 0)} ft` : "—";
@@ -2111,7 +1693,6 @@
         if (!station) return;
         selectedStationTriplet = stationTriplet;
         updateStationDetailPanel(station);
-        renderStationTable(currentStationRows);
         updateStationMap(currentStationRows);
       }
 
@@ -2208,10 +1789,7 @@
           );
         }
         renderSummaryKpis(calculateBasinSummary(stationRows));
-        renderStationTable(stationRows);
         updateStationMap(stationRows);
-        tableCaption.textContent =
-          `Daily readings as of ${formatDate(selectedDate)} · ${stationRows.length} station(s) after filters`;
       }
 
       function setLoading(message) {
@@ -2249,14 +1827,6 @@
         elevationFilter.disabled = true;
         for (const input of metricInputs) input.disabled = true;
         setMapStatus("Station data is unavailable. Use Retry data load to request it again.", true);
-        tableBody.replaceChildren();
-        const row = document.createElement("tr");
-        const cell = document.createElement("td");
-        cell.className = "empty-row";
-        cell.colSpan = 8;
-        cell.textContent = "No station data is shown because the AWDB request failed.";
-        row.append(cell);
-        tableBody.append(row);
       }
 
       function formatDate(date) {
@@ -2388,151 +1958,6 @@
           currentSweCount: currentStations.length,
           peakStation
         };
-      }
-
-      const trialLakeFixture = {
-        currentSwe: 24.6,
-        medianSwe: 20.5,
-        snowDepth: 72.0
-      };
-      const specBasinFixture = [
-        { name: "Station A", currentSwe: 10, medianSwe: 8, snowDepth: null },
-        { name: "Station B", currentSwe: 20, medianSwe: 20, snowDepth: null },
-        { name: "Station C", currentSwe: 30, medianSwe: 40, snowDepth: null }
-      ];
-      const suppliedBasinFixture = [
-        { name: "Station A", currentSwe: 18, medianSwe: 20, snowDepth: 60 },
-        { name: "Station B", currentSwe: 12, medianSwe: 15, snowDepth: 48 },
-        { name: "Station C", currentSwe: 27, medianSwe: 25, snowDepth: 80 }
-      ];
-
-      function prepareFixtureStations(stations) {
-        return stations.map(station => ({
-          ...station,
-          metrics: calculateStationMetrics(station.currentSwe, station.medianSwe, station.snowDepth)
-        }));
-      }
-
-      function renderBasinFixtureRows(stations, targetId) {
-        const target = document.querySelector(`#${targetId}`);
-        const fragment = document.createDocumentFragment();
-        for (const station of stations) {
-          const row = document.createElement("tr");
-          row.append(createCell(station.name));
-          row.append(createCell(formatFixed(station.currentSwe)));
-          row.append(createCell(formatFixed(station.medianSwe)));
-          row.append(createCell(`${formatFixed(station.metrics.percentOfMedian)}%`));
-          fragment.append(row);
-        }
-        target.replaceChildren(fragment);
-      }
-
-      function nearlyEqual(actual, expected, tolerance = 0.000001) {
-        return isFiniteNumber(actual) && Math.abs(actual - expected) <= tolerance;
-      }
-
-      function renderCalculationValidation() {
-        const trial = calculateStationMetrics(
-          trialLakeFixture.currentSwe,
-          trialLakeFixture.medianSwe,
-          trialLakeFixture.snowDepth
-        );
-        document.querySelector("#trial-percent").textContent = `${formatFixed(trial.percentOfMedian)}%`;
-        document.querySelector("#trial-percent-equation").textContent =
-          `${formatFixed(trialLakeFixture.currentSwe)} / ${formatFixed(trialLakeFixture.medianSwe)} × 100`;
-        document.querySelector("#trial-anomaly").textContent = `${formatSigned(trial.sweAnomaly)} in`;
-        document.querySelector("#trial-anomaly-equation").textContent =
-          `${formatFixed(trialLakeFixture.currentSwe)} − ${formatFixed(trialLakeFixture.medianSwe)} = ${formatSigned(trial.sweAnomaly)} in`;
-        document.querySelector("#trial-density").textContent =
-          `${formatFixed(trial.snowDensityPercent)}% (${formatFixed(trial.snowDensityLbFt3)} lb/ft³)`;
-        document.querySelector("#trial-density-equation").textContent =
-          `${formatFixed(trialLakeFixture.currentSwe)} / ${formatFixed(trialLakeFixture.snowDepth)} × 100; ` +
-          `(${formatFixed(trialLakeFixture.currentSwe)} / ${formatFixed(trialLakeFixture.snowDepth)}) × ${LIQUID_WATER_DENSITY_LB_FT3}`;
-        document.querySelector("#trial-status").textContent = trial.status
-          ? `${trial.status.label} · ${trial.status.colorName}`
-          : "N/A";
-
-        const specStations = prepareFixtureStations(specBasinFixture);
-        const specSummary = calculateBasinSummary(specStations);
-        renderBasinFixtureRows(specStations, "spec-basin-rows");
-        document.querySelector("#spec-basin-swe").textContent = `${formatFixed(specSummary.averageSwe)} in`;
-        document.querySelector("#spec-basin-percent").textContent =
-          `${formatFixed(specSummary.averagePercentOfMedian)}%`;
-
-        const suppliedStations = prepareFixtureStations(suppliedBasinFixture);
-        const suppliedSummary = calculateBasinSummary(suppliedStations);
-        renderBasinFixtureRows(suppliedStations, "supplied-basin-rows");
-        document.querySelector("#supplied-basin-swe").textContent = `${formatFixed(suppliedSummary.averageSwe)} in`;
-        document.querySelector("#supplied-basin-median").textContent =
-          `${formatFixed(suppliedSummary.averageMedianSwe)} in`;
-        document.querySelector("#supplied-basin-percent").textContent =
-          `${formatFixed(suppliedSummary.averagePercentOfMedian)}%`;
-        document.querySelector("#supplied-basin-anomaly").textContent =
-          `${formatSigned(suppliedSummary.averageSweAnomaly)} in`;
-        document.querySelector("#supplied-basin-ratio").textContent =
-          `${formatFixed(suppliedSummary.ratioOfMeans)}%`;
-
-        const zeroMedianMetrics = calculateStationMetrics(24.6, 0, 72);
-        const zeroDepthMetrics = calculateStationMetrics(24.6, 20.5, 0);
-        const missingDepthMetrics = calculateStationMetrics(24.6, 20.5, null);
-        const missingSweStations = prepareFixtureStations([
-          { name: "With SWE", currentSwe: 12, medianSwe: 10, snowDepth: 24 },
-          { name: "No SWE", currentSwe: null, medianSwe: 10, snowDepth: null }
-        ]);
-        const missingSweSummary = calculateBasinSummary(missingSweStations);
-        document.querySelector("#zero-median-check").textContent =
-          `Zero median → Percent ${zeroMedianMetrics.percentOfMedian === null ? "N/A" : "ERROR"}`;
-        document.querySelector("#zero-depth-check").textContent =
-          `Zero depth → density ${zeroDepthMetrics.snowDensityPercent === null ? "N/A" : "ERROR"}`;
-        document.querySelector("#missing-depth-check").textContent =
-          `Missing depth → density ${missingDepthMetrics.snowDensityPercent === null ? "N/A" : "ERROR"}`;
-        document.querySelector("#missing-swe-check").textContent =
-          `Missing SWE excluded → ${missingSweSummary.currentSweCount} station, ${formatFixed(missingSweSummary.averageSwe)} in avg`;
-
-        const thresholdCases = [
-          [69.99, "Well Below Normal"],
-          [70, "Below Normal"],
-          [89.99, "Below Normal"],
-          [90, "Near Normal"],
-          [109.99, "Near Normal"],
-          [110, "Above Normal"],
-          [129.99, "Above Normal"],
-          [130, "Well Above Normal"]
-        ];
-        const checks = [
-          ["Baseline median handles even samples", nearlyEqual(calculateMedian([1, 2, 3, 4]), 2.5)],
-          ["Baseline median includes zero observations", nearlyEqual(calculateMedian([0, 2, 4]), 2)],
-          ["Baseline window starts at water year 1991",
-            getWaterYearInfo("1990-10-01")?.waterYear === 1991 &&
-            getWaterYearInfo("1990-10-01")?.dayOfWaterYear === 0],
-          ["Trial Lake Percent of Median", nearlyEqual(trial.percentOfMedian, 120)],
-          ["Trial Lake SWE anomaly", nearlyEqual(trial.sweAnomaly, 4.1)],
-          ["Trial Lake density percent", nearlyEqual(trial.snowDensityPercent, 34.1666666667)],
-          ["Trial Lake bulk density", nearlyEqual(trial.snowDensityLbFt3, 21.32)],
-          ["Trial Lake category", trial.status?.label === "Above Normal" && trial.status.colorName === "Light Blue"],
-          ["Existing spec basin average SWE", nearlyEqual(specSummary.averageSwe, 20)],
-          ["Existing spec mean station percent", nearlyEqual(specSummary.averagePercentOfMedian, 100)],
-          ["Supplied basin average SWE", nearlyEqual(suppliedSummary.averageSwe, 19)],
-          ["Supplied basin average median SWE", nearlyEqual(suppliedSummary.averageMedianSwe, 20)],
-          ["Supplied mean station percentage", nearlyEqual(suppliedSummary.averagePercentOfMedian, 92.6666666667)],
-          ["Supplied ratio of means comparison", nearlyEqual(suppliedSummary.ratioOfMeans, 95)],
-          ["Supplied average SWE anomaly", nearlyEqual(suppliedSummary.averageSweAnomaly, -1)],
-          ["Zero median returns N/A percent", zeroMedianMetrics.percentOfMedian === null],
-          ["Zero snow depth returns N/A density", zeroDepthMetrics.snowDensityPercent === null],
-          ["Missing snow depth returns N/A density", missingDepthMetrics.snowDensityPercent === null],
-          ["Missing SWE is excluded from counts and averages",
-            missingSweSummary.currentSweCount === 1 && nearlyEqual(missingSweSummary.averageSwe, 12)],
-          ...thresholdCases.map(([percent, expected]) => [
-            `${percent}% status boundary`,
-            getStatusBand(percent)?.label === expected
-          ])
-        ];
-        const failedChecks = checks.filter(([, passed]) => !passed).map(([name]) => name);
-        const result = document.querySelector("#validation-result");
-        result.classList.toggle("failed", failedChecks.length > 0);
-        result.textContent = failedChecks.length
-          ? `Validation failed: ${failedChecks.join(", ")}.`
-          : `All ${checks.length} calculation, missing-value, and threshold checks passed.`;
       }
 
       function localDateString(date) {
@@ -2812,13 +2237,6 @@
         }
       }
 
-      function createCell(text, className = "") {
-        const cell = document.createElement("td");
-        if (className) cell.className = className;
-        cell.textContent = text;
-        return cell;
-      }
-
       function buildLiveStationRows(stations, readings, latestDate) {
         return stations.map(station => {
           const stationReadings = readings.get(station.stationTriplet);
@@ -2854,108 +2272,6 @@
       function getStationStatusLabel(station) {
         if (!isFiniteNumber(station.currentSwe)) return "N/A · no current SWE";
         return station.metrics.status?.label || "N/A · no valid median";
-      }
-
-      function getStationTableSortValue(station, key) {
-        switch (key) {
-          case "name":
-            return station.name || "Unnamed station";
-          case "basin":
-            return station.basinName;
-          case "elevation":
-            return station.elevation;
-          case "swe":
-            return station.currentSwe;
-          case "median":
-            return station.awdbMedian;
-          case "depth":
-            return station.snowDepth;
-          case "percent":
-            return station.metrics.percentOfMedian;
-          case "status":
-            return getStationStatusLabel(station);
-          default:
-            return null;
-        }
-      }
-
-      function compareStations(a, b) {
-        const aValue = getStationTableSortValue(a, tableSortKey);
-        const bValue = getStationTableSortValue(b, tableSortKey);
-        const aMissing = aValue === null || aValue === undefined || aValue === "" ||
-          (typeof aValue === "number" && !Number.isFinite(aValue));
-        const bMissing = bValue === null || bValue === undefined || bValue === "" ||
-          (typeof bValue === "number" && !Number.isFinite(bValue));
-        if (aMissing !== bMissing) return aMissing ? 1 : -1;
-
-        const comparison = typeof aValue === "number" && typeof bValue === "number"
-          ? aValue - bValue
-          : String(aValue).localeCompare(String(bValue));
-        if (comparison) return comparison * tableSortDirection;
-        return String(a.name || "").localeCompare(String(b.name || ""));
-      }
-
-      function updateSortHeaders() {
-        for (const header of document.querySelectorAll("[data-sort-header]")) {
-          const button = header.querySelector(".table-sort");
-          const indicator = button.querySelector(".sort-indicator");
-          const active = button.dataset.sortKey === tableSortKey;
-          header.setAttribute(
-            "aria-sort",
-            active ? tableSortDirection === 1 ? "ascending" : "descending" : "none"
-          );
-          button.setAttribute("aria-pressed", String(active));
-          indicator.textContent = active
-            ? tableSortDirection === 1 ? "↑" : "↓"
-            : "↕";
-        }
-      }
-
-      function renderStationTable(stations) {
-        const fragment = document.createDocumentFragment();
-        const orderedStations = [...stations].sort(compareStations);
-
-        for (const station of orderedStations) {
-          const row = document.createElement("tr");
-          const nameCell = document.createElement("td");
-          const selectButton = document.createElement("button");
-          selectButton.className = "station-select";
-          selectButton.type = "button";
-          selectButton.setAttribute("aria-label", `Show details for ${station.name || "unnamed station"}`);
-          const name = document.createElement("span");
-          name.textContent = station.name || "Unnamed station";
-          const id = document.createElement("span");
-          id.className = "station-id";
-          id.textContent = station.stationTriplet;
-          selectButton.append(name, id);
-          selectButton.addEventListener("click", () => selectStation(station.stationTriplet));
-          nameCell.append(selectButton);
-          row.append(nameCell);
-
-          row.append(createCell(station.basinName));
-          row.append(createCell(formatNumber(station.elevation, 0)));
-          row.append(createCell(formatNumber(station.currentSwe)));
-          row.append(createCell(formatNumber(station.awdbMedian)));
-          row.append(createCell(formatNumber(station.snowDepth)));
-          const percent = isFiniteNumber(station.metrics.percentOfMedian)
-            ? `${formatFixed(station.metrics.percentOfMedian)}%`
-            : "N/A";
-          row.append(createCell(percent, "table-metric-na"));
-          row.append(createCell(getStationStatusLabel(station), "table-metric-na"));
-          fragment.append(row);
-        }
-
-        if (!orderedStations.length) {
-          const row = document.createElement("tr");
-          const cell = document.createElement("td");
-          cell.className = "empty-row";
-          cell.colSpan = 8;
-          cell.textContent = "No stations match the selected filters.";
-          row.append(cell);
-          fragment.append(row);
-        }
-        tableBody.replaceChildren(fragment);
-        updateSortHeaders();
       }
 
       function showLoadedData(stations, readings, latestDate, stationsWithErrors, beginDate) {
@@ -3103,22 +2419,8 @@
           applyFilters();
         });
       }
-      for (const button of document.querySelectorAll(".table-sort")) {
-        button.addEventListener("click", () => {
-          if (button.dataset.sortKey === tableSortKey) {
-            tableSortDirection *= -1;
-          } else {
-            tableSortKey = button.dataset.sortKey;
-            tableSortDirection = 1;
-          }
-          renderStationTable(currentStationRows);
-        });
-      }
-
       retryButton.addEventListener("click", loadAwdbData);
       initializeMap();
-      updateSortHeaders();
-      renderCalculationValidation();
       loadAwdbData();
     </script>
   </body>

@@ -337,3 +337,17 @@
 
 - Changed: Calculated daily medians from available AWDB observations in water years 1991–2020, connected them to the map, KPIs, station details, and chart, and showed the selected date's contributing-water-year count. Clarified the baseline window and data method in `spec.md`.
 - Worked: Yes; live AWDB loaded 141 stations and calculated a median for 132 on Nov 23, 2026. Lakefork #3 (1116:UT:SNTL) now displays `+0.8 in` anomaly (`1.8 − 1.0`), based on 11 of 30 available water years. Date changes update the anomaly, mobile layout remains overflow-free, and all 27 calculation checks pass.
+
+## 27
+
+> this validation does not need to be in the app nor does the data
+
+- Changed: Removed the in-app calculation validation fixtures and live station data table, including their unused rendering, sorting, fixture, and responsive styles.
+- Worked: Yes; local verification confirmed the page loads and the removed section names and fixture/sorting code are absent.
+
+## 28
+
+> clean up my two suggested features in planning
+
+- Changed: Replaced the rough planning notes with a clean, structured description of the Ski Recommendation Finder and Selected-Station Snowflake Highlight features, preserving their inputs, calculations, outputs, behavior, and constraints.
+- Worked: Yes; verified both suggestions are now clearly formatted in `00_planning/README.md`.
