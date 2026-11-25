@@ -1,6 +1,6 @@
 # Project instructions
 
-This repository is for Problem 6, the Utah Snowpack Map, and the deliverable is a single-file web app. The app has not been built yet.
+This repository is for Problem 6, the Utah Snowpack Map, and the deliverable is a single-file web app built incrementally according to the stages in `spec.md`.
 
 ## Folder layout
 

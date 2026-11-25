@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f4f7f5">
-    <title>Utah Snowpack Map | Layout Mockup</title>
+    <title>Utah Snowpack Map</title>
     <style>
       :root {
         color-scheme: light;
@@ -169,11 +169,167 @@
         box-shadow: 0 0 0 3px #f7eddd;
       }
 
+      .data-dot.connected {
+        background: #3a9567;
+        box-shadow: 0 0 0 3px #e2f1e7;
+      }
+
+      .data-dot.failed {
+        background: #bd574d;
+        box-shadow: 0 0 0 3px #f8e9e7;
+      }
+
       .panel {
         border: 1px solid var(--line);
         border-radius: var(--radius);
         background: var(--surface);
         box-shadow: var(--shadow);
+      }
+
+      .awdb-status {
+        margin-bottom: 20px;
+        padding: 17px 20px;
+        border-color: #e4e9e5;
+        background: #fff;
+      }
+
+      .awdb-status.status-loading {
+        border-color: #e4e9e5;
+      }
+
+      .awdb-status.status-success {
+        border-color: #d8e9dd;
+        background: #fbfefc;
+      }
+
+      .awdb-status.status-warning {
+        border-color: #ecdcbf;
+        background: #fffdf9;
+      }
+
+      .awdb-status.status-error {
+        border-color: #efd0cc;
+        background: #fffafa;
+      }
+
+      .status-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .status-indicator {
+        width: 10px;
+        height: 10px;
+        flex: 0 0 auto;
+        margin-top: 6px;
+        border-radius: 50%;
+        background: #d3a154;
+        box-shadow: 0 0 0 4px #f7eddd;
+      }
+
+      .status-success .status-indicator {
+        background: #3a9567;
+        box-shadow: 0 0 0 4px #e2f1e7;
+      }
+
+      .status-warning .status-indicator {
+        background: #c28a31;
+        box-shadow: 0 0 0 4px #f8efdF;
+      }
+
+      .status-error .status-indicator {
+        background: #bd574d;
+        box-shadow: 0 0 0 4px #f8e9e7;
+      }
+
+      .status-copy {
+        min-width: 0;
+        flex: 1 1 auto;
+      }
+
+      .status-copy h2 {
+        margin: 0 0 3px;
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .status-copy p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .retry-button {
+        min-height: 36px;
+        flex: 0 0 auto;
+        padding: 0 12px;
+        border: 1px solid #cfe0d4;
+        border-radius: 9px;
+        background: white;
+        color: var(--green-dark);
+        cursor: pointer;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .retry-button:hover:not(:disabled) {
+        background: var(--green-wash);
+      }
+
+      .retry-button:disabled {
+        cursor: wait;
+        opacity: 0.6;
+      }
+
+      .status-facts {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin: 15px 0 0 22px;
+      }
+
+      .status-fact {
+        min-width: 0;
+        padding: 10px 12px;
+        border: 1px solid #edf1ee;
+        border-radius: 10px;
+        background: rgb(255 255 255 / 78%);
+      }
+
+      .status-fact span {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--muted-light);
+        font-size: 9px;
+        font-weight: 750;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .status-fact strong {
+        display: block;
+        color: #43534a;
+        font-size: 12px;
+        font-weight: 720;
+      }
+
+      .baseline-notice {
+        margin: 12px 0 0 22px;
+        color: #735b32;
+        font-size: 11px;
+      }
+
+      .coverage-errors {
+        margin: 10px 0 0 22px;
+        padding-left: 18px;
+        color: #745a35;
+        font-size: 11px;
+      }
+
+      .coverage-errors li + li {
+        margin-top: 3px;
       }
 
       .filters-panel {
@@ -608,6 +764,13 @@
         font-size: 11px;
       }
 
+      .station-id {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted-light);
+        font-size: 10px;
+      }
+
       .detail-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -729,7 +892,24 @@
         border-top: 1px solid var(--line);
         color: var(--muted);
         font-size: 12px;
+        vertical-align: top;
+      }
+
+      tbody td.empty-row {
+        padding: 20px 14px;
         text-align: center;
+      }
+
+      tbody tr:hover {
+        background: #fbfdfb;
+      }
+
+      .table-metric-na {
+        color: var(--muted-light);
+      }
+
+      .mockup-footer a {
+        color: var(--green-dark);
       }
 
       .mockup-footer {
@@ -796,6 +976,36 @@
 
         .data-note {
           margin-top: 14px;
+        }
+
+        .awdb-status {
+          padding: 15px;
+        }
+
+        .status-top {
+          flex-wrap: wrap;
+        }
+
+        .status-copy {
+          flex-basis: calc(100% - 34px);
+        }
+
+        .retry-button {
+          margin-left: 22px;
+        }
+
+        .status-facts {
+          grid-template-columns: 1fr;
+          gap: 8px;
+          margin-left: 22px;
+        }
+
+        .baseline-notice {
+          margin-left: 22px;
+        }
+
+        .coverage-errors {
+          margin-left: 22px;
         }
 
         .filters-panel {
@@ -870,7 +1080,7 @@
             <div class="brand-mark" aria-hidden="true">UT</div>
             <p class="brand-name">Snow Survey</p>
           </div>
-          <span class="mockup-badge">Stage 1 · Static mockup</span>
+          <span class="mockup-badge">Stage 2 · AWDB data</span>
         </div>
 
         <div class="intro">
@@ -880,16 +1090,43 @@
             <p class="intro-copy">Explore current snowpack across Utah and compare it with the 1991–2020 median.</p>
           </div>
           <div class="data-note">
-            <span class="data-dot" aria-hidden="true"></span>
-            Layout preview · no live data
+            <span class="data-dot" id="connection-dot" aria-hidden="true"></span>
+            <span id="connection-note">Connecting to NRCS AWDB…</span>
           </div>
         </div>
       </header>
 
+      <section class="panel awdb-status status-loading" id="awdb-status" aria-live="polite">
+        <div class="status-top">
+          <span class="status-indicator" aria-hidden="true"></span>
+          <div class="status-copy">
+            <h2 id="awdb-status-title">Connecting to NRCS AWDB</h2>
+            <p id="awdb-status-message">Loading Utah SNOTEL metadata and daily readings.</p>
+          </div>
+          <button class="retry-button" id="retry-button" type="button" hidden>Retry data load</button>
+        </div>
+        <div class="status-facts" id="status-facts" hidden>
+          <div class="status-fact">
+            <span>Active Utah stations</span>
+            <strong id="station-count">—</strong>
+          </div>
+          <div class="status-fact">
+            <span>Latest daily SWE</span>
+            <strong id="latest-date">—</strong>
+          </div>
+          <div class="status-fact">
+            <span>Readings on latest date</span>
+            <strong id="reading-count">—</strong>
+          </div>
+        </div>
+        <p class="baseline-notice" id="baseline-notice" hidden></p>
+        <ul class="coverage-errors" id="coverage-errors" hidden></ul>
+      </section>
+
       <section class="panel filters-panel" aria-labelledby="filters-title">
         <div class="filter-heading">
           <h2 id="filters-title">Map filters</h2>
-          <p class="static-note">Visual controls only in this mockup</p>
+          <p class="static-note">Filter controls become interactive in Stage 4</p>
         </div>
         <div class="filter-grid">
           <div class="filter-field">
@@ -937,12 +1174,12 @@
           <div class="section-heading">
             <div>
               <h2 id="map-title">Utah station map</h2>
-              <p>Percent of 1991–2020 median</p>
+              <p>Station locations and values · map build planned for Stage 4</p>
             </div>
             <span class="map-label">Map preview</span>
           </div>
 
-          <div class="map-canvas" role="img" aria-label="Static Utah map placeholder; station data is not connected">
+          <div class="map-canvas" role="img" aria-label="Utah station map placeholder; interactive map is planned for Stage 4">
             <div class="map-toolbar">Utah · station locations</div>
             <div class="zoom-controls" aria-hidden="true">
               <span>+</span>
@@ -950,15 +1187,15 @@
             </div>
             <div class="map-placeholder">
               <div class="map-placeholder-mark" aria-hidden="true">UT</div>
-              <h3>Station map preview</h3>
-              <p>Utah SNOTEL markers will appear here when data is connected.</p>
+              <h3 id="map-preview-title">Station inventory loading</h3>
+              <p id="map-preview-message">Station coordinates and current readings will be connected to the interactive map in Stage 4.</p>
             </div>
             <div class="legend-preview">
               <div class="legend-heading">
-                <span>Percent of Median</span>
-                <span>Legend preview</span>
+                <span>Marker color scale</span>
+                <span>Stage 4</span>
               </div>
-              <p class="legend-placeholder">Color bands appear with station data.</p>
+              <p class="legend-placeholder">Metric colors and legend are added with the interactive map.</p>
             </div>
           </div>
         </section>
@@ -1014,8 +1251,8 @@
               <h2>Water-year SWE</h2>
               <span class="static-note">Chart preview</span>
             </div>
-            <div class="chart-placeholder" role="img" aria-label="Static chart placeholder; no station data is connected">
-              <p>Current-year SWE and 1991–2020 median curves will appear here.</p>
+            <div class="chart-placeholder" role="img" aria-label="Chart placeholder; time-series display is planned for Stage 5">
+              <p>Water-year SWE series will be available for the station chart in Stage 5.</p>
               <div class="chart-axis" aria-hidden="true">
                 <span>Oct 1</span>
                 <span>Selected date</span>
@@ -1029,33 +1266,519 @@
         <div class="table-heading">
           <div>
             <h2 id="table-title">Station data</h2>
-            <p>Sortable station details for the active filters</p>
+            <p id="table-caption">Daily AWDB readings for the latest available date</p>
           </div>
-          <span class="empty-tag">Table preview</span>
+          <span class="empty-tag">AWDB data</span>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th scope="col">Station Name</th>
-                <th scope="col">Basin</th>
+                <th scope="col">Basin (HUC-8)</th>
                 <th scope="col">Elevation (ft)</th>
                 <th scope="col">Current SWE (in)</th>
-                <th scope="col">Median SWE (in)</th>
+                <th scope="col">AWDB median (in; period unverified)</th>
+                <th scope="col">Snow depth (in)</th>
                 <th scope="col">% of Median</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="station-table-body">
               <tr>
-                <td colspan="7">Station rows will appear when AWDB data is connected.</td>
+                <td class="empty-row" colspan="8" id="station-table-empty">Waiting for AWDB station data…</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <p class="mockup-footer">Static layout mockup · live data, calculations, and interactions are not part of Stage 1.</p>
+      <p class="mockup-footer">Stage 2 data view · derived metrics and interactive map/filters are added in later stages. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
     </main>
+    <script>
+      "use strict";
+
+      const AWDB_BASE = "https://wcc.sc.egov.usda.gov/awdbRestApi";
+      const REQUEST_BATCH_SIZE = 12;
+      const REQUEST_CONCURRENCY = 3;
+      const REQUEST_TIMEOUT_MS = 30000;
+      const WBD_HUC8_BASINS = {
+        "14030005": "Upper Colorado-Kane Springs",
+        "14040106": "Upper Green-Flaming Gorge Reservoir",
+        "14040107": "Blacks Fork",
+        "14060003": "Duchesne",
+        "14060004": "Strawberry",
+        "14060006": "Willow",
+        "14060007": "Price",
+        "14060009": "San Rafael",
+        "14060010": "Lower Green-Diamond",
+        "14070001": "Upper Lake Powell",
+        "14070002": "Muddy",
+        "14070003": "Fremont",
+        "14070005": "Escalante",
+        "14080201": "Lower San Juan-Four Corners",
+        "14080203": "Montezuma",
+        "15010008": "Upper Virgin",
+        "15010010": "Lower Virgin",
+        "16010101": "Upper Bear",
+        "16010201": "Bear Lake",
+        "16010202": "Middle Bear",
+        "16010203": "Little Bear-Logan",
+        "16020101": "Upper Weber",
+        "16020102": "Lower Weber",
+        "16020201": "Utah Lake",
+        "16020202": "Spanish Fork",
+        "16020203": "Provo",
+        "16020204": "Jordan",
+        "16020304": "Rush-Tooele Valleys",
+        "16020306": "Southern Great Salt Lake Desert",
+        "16030001": "Upper Sevier",
+        "16030002": "East Fork Sevier",
+        "16030003": "Middle Sevier",
+        "16030004": "San Pitch",
+        "16030005": "Lower Sevier",
+        "16030006": "Escalante Desert",
+        "16030007": "Beaver Bottoms-Upper Beaver",
+        "17040210": "Raft"
+      };
+      const CURATED_STATION_BASINS = {};
+
+      const statusPanel = document.querySelector("#awdb-status");
+      const statusTitle = document.querySelector("#awdb-status-title");
+      const statusMessage = document.querySelector("#awdb-status-message");
+      const retryButton = document.querySelector("#retry-button");
+      const connectionNote = document.querySelector("#connection-note");
+      const connectionDot = document.querySelector("#connection-dot");
+      const statusFacts = document.querySelector("#status-facts");
+      const baselineNotice = document.querySelector("#baseline-notice");
+      const coverageErrors = document.querySelector("#coverage-errors");
+      const stationCount = document.querySelector("#station-count");
+      const latestDateLabel = document.querySelector("#latest-date");
+      const readingCount = document.querySelector("#reading-count");
+      const mapPreviewTitle = document.querySelector("#map-preview-title");
+      const mapPreviewMessage = document.querySelector("#map-preview-message");
+      const tableCaption = document.querySelector("#table-caption");
+      const tableBody = document.querySelector("#station-table-body");
+
+      class AwdbRequestError extends Error {
+        constructor(message, status = null) {
+          super(message);
+          this.name = "AwdbRequestError";
+          this.status = status;
+        }
+      }
+
+      function setLoading(message) {
+        statusPanel.className = "panel awdb-status status-loading";
+        statusTitle.textContent = "Connecting to NRCS AWDB";
+        statusMessage.textContent = message;
+        retryButton.hidden = true;
+        retryButton.disabled = true;
+        connectionNote.textContent = "Loading AWDB data…";
+        connectionDot.className = "data-dot";
+        statusFacts.hidden = true;
+        baselineNotice.hidden = true;
+        coverageErrors.hidden = true;
+      }
+
+      function setFailure(error) {
+        const detail = error instanceof Error ? error.message : String(error);
+        statusPanel.className = "panel awdb-status status-error";
+        statusTitle.textContent = "AWDB data could not be loaded";
+        statusMessage.textContent = detail;
+        retryButton.hidden = false;
+        retryButton.disabled = false;
+        connectionNote.textContent = "AWDB connection failed";
+        connectionDot.className = "data-dot failed";
+        statusFacts.hidden = true;
+        baselineNotice.hidden = true;
+        coverageErrors.hidden = true;
+        mapPreviewTitle.textContent = "Station inventory unavailable";
+        mapPreviewMessage.textContent = "Use Retry data load to request the Utah station metadata and daily observations again.";
+        tableBody.replaceChildren();
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.className = "empty-row";
+        cell.colSpan = 8;
+        cell.textContent = "No station data is shown because the AWDB request failed.";
+        row.append(cell);
+        tableBody.append(row);
+      }
+
+      function formatDate(date) {
+        if (!date) return "N/A";
+        const [year, month, day] = date.split("-").map(Number);
+        return new Intl.DateTimeFormat(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          timeZone: "UTC"
+        }).format(new Date(Date.UTC(year, month - 1, day)));
+      }
+
+      function formatNumber(value, digits = 1) {
+        if (typeof value !== "number" || !Number.isFinite(value)) return "N/A";
+        return new Intl.NumberFormat(undefined, {
+          maximumFractionDigits: digits
+        }).format(value);
+      }
+
+      function localDateString(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      }
+
+      function waterYearStartDate(now = new Date()) {
+        const waterYearStartYear = now.getMonth() >= 9 ? now.getFullYear() : now.getFullYear() - 1;
+        return `${waterYearStartYear}-10-01`;
+      }
+
+      async function fetchJson(url, label) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+        let response;
+        try {
+          response = await fetch(url, {
+            headers: { Accept: "application/json" },
+            signal: controller.signal
+          });
+        } catch (error) {
+          if (error instanceof Error && error.name === "AbortError") {
+            throw new AwdbRequestError(`${label} timed out after ${REQUEST_TIMEOUT_MS / 1000} seconds.`);
+          }
+          const reason = error instanceof Error ? error.message : String(error);
+          throw new AwdbRequestError(`${label} failed: ${reason}`);
+        } finally {
+          clearTimeout(timeout);
+        }
+
+        if (!response.ok) {
+          throw new AwdbRequestError(`${label} returned HTTP ${response.status}.`, response.status);
+        }
+
+        try {
+          return await response.json();
+        } catch (error) {
+          const reason = error instanceof Error ? error.message : String(error);
+          throw new AwdbRequestError(`${label} returned invalid JSON: ${reason}`);
+        }
+      }
+
+      async function fetchMetadata() {
+        const params = new URLSearchParams({
+          stationTriplets: "*:UT:SNTL",
+          elements: "WTEQ,SNWD",
+          durations: "DAILY",
+          activeOnly: "true",
+          returnStationElements: "true"
+        });
+        const metadata = await fetchJson(`${AWDB_BASE}/services/v1/stations?${params}`, "Utah SNOTEL metadata request");
+        if (!Array.isArray(metadata)) {
+          throw new AwdbRequestError("The metadata response was not a station list.");
+        }
+
+        return metadata
+          .filter(station =>
+            station.stateCode === "UT" &&
+            station.networkCode === "SNTL" &&
+            Array.isArray(station.stationElements) &&
+            station.stationElements.some(element =>
+              element.elementCode === "WTEQ" && element.durationName === "DAILY"
+            )
+          )
+          .map(station => ({
+            ...station,
+            basinName: resolveBasin(station),
+            hasSnowDepth: station.stationElements.some(element =>
+              element.elementCode === "SNWD" && element.durationName === "DAILY"
+            )
+          }));
+      }
+
+      function resolveBasin(station) {
+        const curatedName = CURATED_STATION_BASINS[station.stationTriplet];
+        if (curatedName) return curatedName;
+
+        const huc = typeof station.huc === "string" ? station.huc : "";
+        const huc8 = huc.slice(0, 8);
+        if (huc8 && WBD_HUC8_BASINS[huc8]) return WBD_HUC8_BASINS[huc8];
+        if (huc8) return `Unmapped HUC ${huc8}`;
+        return "Unassigned (no HUC)";
+      }
+
+      function chunk(items, size) {
+        const result = [];
+        for (let index = 0; index < items.length; index += size) {
+          result.push(items.slice(index, index + size));
+        }
+        return result;
+      }
+
+      async function fetchDataBatch(stations, elements, beginDate, endDate) {
+        const params = new URLSearchParams({
+          stationTriplets: stations.map(station => station.stationTriplet).join(","),
+          elements: elements.join(","),
+          duration: "DAILY",
+          beginDate,
+          endDate,
+          periodRef: "END",
+          centralTendencyType: "MEDIAN"
+        });
+        const url = `${AWDB_BASE}/services/v1/data?${params}`;
+
+        try {
+          const data = await fetchJson(url, `Daily ${elements.join("/")} request`);
+          if (!Array.isArray(data)) {
+            throw new AwdbRequestError("The daily-data response was not a station list.");
+          }
+          return data;
+        } catch (error) {
+          if (
+            error instanceof AwdbRequestError &&
+            error.status === 413 &&
+            stations.length > 1
+          ) {
+            const midpoint = Math.ceil(stations.length / 2);
+            const [left, right] = await Promise.all([
+              fetchDataBatch(stations.slice(0, midpoint), elements, beginDate, endDate),
+              fetchDataBatch(stations.slice(midpoint), elements, beginDate, endDate)
+            ]);
+            return left.concat(right);
+          }
+          throw error;
+        }
+      }
+
+      async function fetchAllDailyData(stations, beginDate, endDate, onProgress) {
+        const requests = [];
+        const withSnowDepth = stations.filter(station => station.hasSnowDepth);
+        const withoutSnowDepth = stations.filter(station => !station.hasSnowDepth);
+        for (const batch of chunk(withSnowDepth, REQUEST_BATCH_SIZE)) {
+          requests.push({ stations: batch, elements: ["WTEQ", "SNWD"] });
+        }
+        for (const batch of chunk(withoutSnowDepth, REQUEST_BATCH_SIZE)) {
+          requests.push({ stations: batch, elements: ["WTEQ"] });
+        }
+        if (requests.length === 0) {
+          throw new AwdbRequestError("AWDB returned no Utah SNOTEL stations with daily WTEQ metadata.");
+        }
+
+        const results = new Array(requests.length);
+        let nextRequest = 0;
+        let completed = 0;
+        async function worker() {
+          while (nextRequest < requests.length) {
+            const index = nextRequest;
+            nextRequest += 1;
+            const request = requests[index];
+            results[index] = await fetchDataBatch(request.stations, request.elements, beginDate, endDate);
+            completed += 1;
+            onProgress(completed, requests.length);
+          }
+        }
+
+        const workers = Array.from(
+          { length: Math.min(REQUEST_CONCURRENCY, requests.length) },
+          () => worker()
+        );
+        const outcomes = await Promise.allSettled(workers);
+        const failure = outcomes.find(outcome => outcome.status === "rejected");
+        if (failure) throw failure.reason;
+        return results.flat();
+      }
+
+      function collectStationReadings(stations, apiData) {
+        const readings = new Map(stations.map(station => [
+          station.stationTriplet,
+          { wteq: new Map(), snwd: new Map(), median: new Map(), errors: [] }
+        ]));
+
+        for (const response of apiData) {
+          const stationTriplet = response.stationTriplet;
+          const stationReadings = readings.get(stationTriplet);
+          if (!stationReadings) continue;
+
+          if (response.error) {
+            stationReadings.errors.push(`Station data: ${response.error}`);
+          }
+
+          for (const series of response.data || []) {
+            const code = series.stationElement?.elementCode;
+            if (series.error) {
+              stationReadings.errors.push(`${code || "Unknown element"}: ${series.error}`);
+              continue;
+            }
+            if (!Array.isArray(series.values)) continue;
+
+            for (const item of series.values) {
+              if (typeof item.date !== "string") continue;
+              if (code === "WTEQ" && typeof item.value === "number" && Number.isFinite(item.value)) {
+                stationReadings.wteq.set(item.date, item.value);
+              } else if (code === "SNWD" && typeof item.value === "number" && Number.isFinite(item.value)) {
+                stationReadings.snwd.set(item.date, item.value);
+              }
+              if (code === "WTEQ" && typeof item.median === "number" && Number.isFinite(item.median)) {
+                stationReadings.median.set(item.date, item.median);
+              }
+            }
+          }
+        }
+
+        const stationsWithErrors = [];
+        for (const station of stations) {
+          const stationReadings = readings.get(station.stationTriplet);
+          if (stationReadings.errors.length) {
+            stationsWithErrors.push({
+              stationTriplet: station.stationTriplet,
+              name: station.name,
+              errors: stationReadings.errors
+            });
+          }
+        }
+        return { readings, stationsWithErrors };
+      }
+
+      function createCell(text, className = "") {
+        const cell = document.createElement("td");
+        if (className) cell.className = className;
+        cell.textContent = text;
+        return cell;
+      }
+
+      function renderStationTable(stations, readings, latestDate) {
+        const fragment = document.createDocumentFragment();
+        const orderedStations = [...stations].sort((a, b) => a.name.localeCompare(b.name));
+
+        for (const station of orderedStations) {
+          const stationReadings = readings.get(station.stationTriplet);
+          const row = document.createElement("tr");
+          const nameCell = document.createElement("td");
+          nameCell.textContent = station.name || "Unnamed station";
+          const id = document.createElement("span");
+          id.className = "station-id";
+          id.textContent = station.stationTriplet;
+          nameCell.append(id);
+          row.append(nameCell);
+
+          row.append(createCell(station.basinName));
+          row.append(createCell(formatNumber(station.elevation, 0)));
+          row.append(createCell(formatNumber(stationReadings.wteq.get(latestDate))));
+          row.append(createCell(formatNumber(stationReadings.median.get(latestDate))));
+          row.append(createCell(formatNumber(stationReadings.snwd.get(latestDate))));
+          row.append(createCell("—", "table-metric-na"));
+          row.append(createCell("Pending Stage 3", "table-metric-na"));
+          fragment.append(row);
+        }
+
+        tableBody.replaceChildren(fragment);
+      }
+
+      function showLoadedData(stations, readings, latestDate, stationsWithErrors, beginDate) {
+        if (!latestDate) {
+          throw new AwdbRequestError("AWDB returned no daily WTEQ observations in the current water year.");
+        }
+        const readingsOnLatestDate = stations.reduce((count, station) =>
+          count + (readings.get(station.stationTriplet).wteq.has(latestDate) ? 1 : 0), 0);
+        const snowDepthReadings = stations.reduce((count, station) =>
+          count + (readings.get(station.stationTriplet).snwd.has(latestDate) ? 1 : 0), 0);
+        const medianReadings = stations.reduce((count, station) =>
+          count + (readings.get(station.stationTriplet).median.has(latestDate) ? 1 : 0), 0);
+        const missingHucStations = stations.filter(station => !station.huc);
+        const unmappedHucStations = stations.filter(station =>
+          station.huc && station.basinName.startsWith("Unmapped HUC")
+        );
+        const warnings = [];
+        if (stationsWithErrors.length) {
+          warnings.push(`${stationsWithErrors.length} station(s) returned element-level errors`);
+        }
+        if (missingHucStations.length) {
+          warnings.push(`${missingHucStations.length} station(s) need curated basin assignments`);
+        }
+        if (unmappedHucStations.length) {
+          warnings.push(`${unmappedHucStations.length} station(s) have unmapped HUC-8 codes`);
+        }
+        const coverageDetails = [
+          ...stationsWithErrors.map(station =>
+            `${station.name} (${station.stationTriplet}): ${station.errors.join("; ")}`
+          ),
+          ...missingHucStations.map(station =>
+            `${station.name} (${station.stationTriplet}): no AWDB HUC; basin shown as ${station.basinName}`
+          ),
+          ...unmappedHucStations.map(station =>
+            `${station.name} (${station.stationTriplet}): ${station.basinName}`
+          )
+        ];
+
+        statusPanel.className = `panel awdb-status ${warnings.length ? "status-warning" : "status-success"}`;
+        statusTitle.textContent = warnings.length ? "AWDB data loaded with coverage warnings" : "AWDB data loaded";
+        statusMessage.textContent =
+          `Loaded daily station data from ${formatDate(beginDate)} through ${formatDate(latestDate)}. ` +
+          `${readingsOnLatestDate} of ${stations.length} active Utah stations have SWE readings on the latest date; ` +
+          `${snowDepthReadings} also have snow-depth readings. ` +
+          (warnings.length ? warnings.join("; ") + "." : "All station data requests completed.");
+        retryButton.hidden = true;
+        retryButton.disabled = true;
+        connectionNote.textContent = `${stations.length} Utah stations loaded`;
+        connectionDot.className = `data-dot${warnings.length ? "" : " connected"}`;
+        statusFacts.hidden = false;
+        stationCount.textContent = String(stations.length);
+        latestDateLabel.textContent = formatDate(latestDate);
+        readingCount.textContent =
+          `${readingsOnLatestDate} SWE · ${snowDepthReadings} depth · ${medianReadings} median`;
+        baselineNotice.hidden = false;
+        baselineNotice.textContent = medianReadings
+          ? `AWDB returned a 30-year median for ${medianReadings} stations, but its response does not identify the reference years. ` +
+            "It is not being treated as the specified 1991–2020 baseline; Percent of Median stays uncalculated until that baseline is verified."
+          : "AWDB did not return median values for the latest date. The reference period is unverified, so Percent of Median stays uncalculated.";
+        coverageErrors.replaceChildren();
+        for (const detail of coverageDetails) {
+          const item = document.createElement("li");
+          item.textContent = detail;
+          coverageErrors.append(item);
+        }
+        coverageErrors.hidden = coverageDetails.length === 0;
+        mapPreviewTitle.textContent = `${stations.length} stations loaded`;
+        mapPreviewMessage.textContent =
+          `Latest daily SWE date: ${formatDate(latestDate)}. Station coordinates and values will be mapped in Stage 4.`;
+        tableCaption.textContent =
+          `Daily readings as of ${formatDate(latestDate)} · basin names mapped from AWDB HUC-8 codes`;
+        renderStationTable(stations, readings, latestDate);
+      }
+
+      async function loadAwdbData() {
+        setLoading("Loading active Utah SNOTEL metadata and current water-year daily readings…");
+        try {
+          const stations = await fetchMetadata();
+          if (stations.length === 0) {
+            throw new AwdbRequestError("AWDB returned no active Utah SNOTEL stations with daily WTEQ metadata.");
+          }
+          const now = new Date();
+          const beginDate = waterYearStartDate(now);
+          const endDate = localDateString(now);
+          const apiData = await fetchAllDailyData(stations, beginDate, endDate, (completed, total) => {
+            statusMessage.textContent =
+              `Loaded metadata for ${stations.length} stations. Fetching daily WTEQ, snow depth, and AWDB median data ` +
+              `(${completed} of ${total} batches)…`;
+          });
+
+          const { readings, stationsWithErrors } = collectStationReadings(stations, apiData);
+          const latestDate = stations.reduce((latest, station) => {
+            const dates = [...readings.get(station.stationTriplet).wteq.keys()];
+            dates.sort();
+            const stationLatest = dates[dates.length - 1];
+            return stationLatest && (!latest || stationLatest > latest) ? stationLatest : latest;
+          }, null);
+          showLoadedData(stations, readings, latestDate, stationsWithErrors, beginDate);
+        } catch (error) {
+          setFailure(error);
+          console.error("AWDB data load failed:", error);
+        }
+      }
+
+      retryButton.addEventListener("click", loadAwdbData);
+      loadAwdbData();
+    </script>
   </body>
 </html>
