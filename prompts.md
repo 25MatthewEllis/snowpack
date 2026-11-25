@@ -173,3 +173,8 @@
 
 - Changed: Specified that snow density displays as `N/A` when snow depth is missing or non-positive.
 - Worked: Yes; the density edge case now has explicit display behavior.
+
+> compact_station_summary
+
+- Changed: Specified the marker popup fields and that selecting a popup opens the station detail panel.
+- Worked: Yes; map popup content and behavior are now explicit.

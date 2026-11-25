@@ -64,7 +64,7 @@
 
 ## 4. Outputs
 
-- **Interactive Map (Leaflet):** Utah map showing color-coded circular station markers, clickable popups, and a color-scale legend.
+- **Interactive Map (Leaflet):** Utah map showing color-coded circular station markers and a color-scale legend. Clicking a marker opens a popup with station name, current $SWE$, Percent of Median/status, elevation, and basin; selecting the popup opens that station's detail panel.
 
 - **Summary KPI Cards:** Statewide or selected-basin average $SWE$ (in), average Percent of Median (%), active station count ($n$), and the highest current SWE reading (in) among stations remaining after the active filters, with station name.
 
