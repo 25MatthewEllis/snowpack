@@ -191,7 +191,7 @@
 
 > awdb_plus_curated
 
-- Changed: Specified AWDB station basin metadata as the first mapping source, with a curated mapping for stations without assignments.
+- Changed: Specified AWDB station metadata, including HUC codes, as mapping input and a curated HUC-to-basin mapping for canonical names and missing codes.
 - Worked: Yes; basin membership now has a defined source/fallback.
 
 > visible_error_retry
