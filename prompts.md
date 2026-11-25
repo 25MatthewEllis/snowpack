@@ -270,3 +270,27 @@
 
 - Changed: Recorded the requested stage-by-stage review workflow. I will stop after Stage 2 and wait for your check before starting Stage 3; later stages will likewise be shown one at a time.
 - Worked: Pending your Stage 2 review.
+
+## 20
+
+> Let's validate the app against my hand calculation in `spec.md` (inputs: [paste exact validation inputs]; expected outputs: [paste exact expected outputs]). Walk through how the app computes those values so I can verify them in the UI, save my validation notes/results in `02_validation/`, and commit the validated version to Git.
+>
+> Here are two worked validation cases—one single-station check and one multi-station basin average check—using the exact equations from your spec so you can compare them directly against what your app displays in VS Code.
+>
+> **Case 1: Trial Lake SNOTEL**
+>
+> Inputs: current SWE = 24.6 in; median SWE = 20.5 in; snow depth = 72.0 in; liquid-water density = 62.4 lb/ft³.
+>
+> Expected: Percent of Median = (24.6 / 20.5) × 100 = 120.0%; SWE anomaly = 24.6 − 20.5 = +4.1 in; density = (24.6 / 72.0) × 100 = 34.167% ≈ 34.2%; bulk density = (24.6 / 72.0) × 62.4 = 21.32 ≈ 21.3 lb/ft³; Above Normal (Light Blue).
+>
+> **Case 2: supplied three-station basin check**
+>
+> Inputs: A = 18.0 in SWE, 20.0 in median, 60.0 in depth, 90.0%; B = 12.0 in SWE, 15.0 in median, 48.0 in depth, 80.0%; C = 27.0 in SWE, 25.0 in median, 80.0 in depth, 108.0%.
+>
+> Expected: average SWE = 19.0 in; average median SWE = 20.0 in; mean of station percentages = 92.667% ≈ 92.7%; ratio of basin means = 95.0%; mean SWE anomaly = −1.0 in. The prompt asks to confirm which Percent-of-Median aggregation the app uses.
+>
+> Edge cases: zero median must show N/A for Percent of Median; zero or missing snow depth must show N/A for density.
+
+- Clarification: Build Stage 3 calculations now, add an in-app validation panel, and include the supplied basin test as an additional case without replacing the existing spec test.
+- Changed: Added shared metric and basin-summary calculations, a labeled UI panel that computes the Trial Lake, existing spec, and supplemental basin cases, live SWE summary outputs, missing-value handling, and threshold checks. Saved hand calculations and browser results in `02_validation/stage_3_calculation_results.md`. Live Percent of Median stays unavailable because the AWDB median period is unverified.
+- Worked: Yes; the browser panel reports 24 passing calculation, missing-value, and threshold checks. The supplied basin mean-of-station-percentages result is 92.7%; 95.0% is shown as a comparison only.

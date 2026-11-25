@@ -912,6 +912,184 @@
         color: var(--green-dark);
       }
 
+      .validation-panel {
+        margin-bottom: 20px;
+        padding: 20px;
+      }
+
+      .validation-heading {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 15px;
+      }
+
+      .validation-heading h2 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 740;
+      }
+
+      .validation-heading p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .validation-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .validation-case {
+        min-width: 0;
+        padding: 15px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: #fcfdfc;
+      }
+
+      .validation-case h3 {
+        margin: 0 0 5px;
+        font-size: 13px;
+        font-weight: 740;
+      }
+
+      .validation-caption {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 10px;
+      }
+
+      .validation-inputs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+        margin: 0 0 13px;
+      }
+
+      .validation-inputs div,
+      .validation-output {
+        min-width: 0;
+        padding: 8px;
+        border-radius: 8px;
+        background: #f2f6f3;
+      }
+
+      .validation-inputs dt,
+      .validation-output span {
+        display: block;
+        color: var(--muted-light);
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .validation-inputs dd {
+        margin: 2px 0 0;
+        color: #43534a;
+        font-size: 12px;
+        font-weight: 720;
+      }
+
+      .validation-results {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+      }
+
+      .validation-output strong {
+        display: block;
+        margin-top: 2px;
+        color: #33473a;
+        font-size: 14px;
+        font-weight: 750;
+      }
+
+      .validation-output small {
+        display: block;
+        margin-top: 3px;
+        color: #6d7b72;
+        font-size: 10px;
+        line-height: 1.4;
+      }
+
+      .basin-test-table {
+        width: 100%;
+        min-width: 0;
+        margin: 8px 0 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        font-size: 10px;
+      }
+
+      .basin-test-table th,
+      .basin-test-table td {
+        padding: 7px 6px;
+        font-size: 10px;
+        text-align: right;
+      }
+
+      .basin-test-table th:first-child,
+      .basin-test-table td:first-child {
+        text-align: left;
+      }
+
+      .basin-test-table th {
+        white-space: normal;
+      }
+
+      .basin-test-summary {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+
+      .validation-result {
+        margin: 13px 0 0;
+        padding: 10px 12px;
+        border: 1px solid #d5e8dc;
+        border-radius: 9px;
+        background: #f3faf5;
+        color: #2b704c;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .validation-result.failed {
+        border-color: #efd0cc;
+        background: #fffafa;
+        color: #9c3e36;
+      }
+
+      .validation-edge-cases {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0 0;
+      }
+
+      .validation-edge-cases span {
+        padding: 6px 9px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #f8faf8;
+        color: #627168;
+        font-size: 10px;
+      }
+
+      .validation-shortcut {
+        margin: 9px 0 0 22px;
+        font-size: 11px;
+      }
+
+      .validation-shortcut a {
+        color: var(--green-dark);
+      }
+
       .mockup-footer {
         margin: 16px 3px 0;
         color: var(--muted-light);
@@ -937,6 +1115,10 @@
 
         .map-canvas {
           min-height: 430px;
+        }
+
+        .validation-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
@@ -1004,6 +1186,10 @@
           margin-left: 22px;
         }
 
+        .validation-shortcut {
+          margin-left: 22px;
+        }
+
         .coverage-errors {
           margin-left: 22px;
         }
@@ -1060,6 +1246,19 @@
           align-items: flex-start;
         }
 
+        .validation-panel {
+          padding: 16px;
+        }
+
+        .validation-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .validation-heading {
+          flex-direction: column;
+          gap: 6px;
+        }
+
         .mockup-footer {
           text-align: left;
         }
@@ -1080,7 +1279,7 @@
             <div class="brand-mark" aria-hidden="true">UT</div>
             <p class="brand-name">Snow Survey</p>
           </div>
-          <span class="mockup-badge">Stage 2 · AWDB data</span>
+          <span class="mockup-badge">Stage 3 · Calculations</span>
         </div>
 
         <div class="intro">
@@ -1120,6 +1319,7 @@
           </div>
         </div>
         <p class="baseline-notice" id="baseline-notice" hidden></p>
+        <p class="validation-shortcut"><a href="#calculation-validation">Jump to calculation validation fixtures</a></p>
         <ul class="coverage-errors" id="coverage-errors" hidden></ul>
       </section>
 
@@ -1204,23 +1404,23 @@
           <section class="kpi-grid" aria-label="Summary KPI cards">
             <article class="kpi-card">
               <p class="kpi-label">Average SWE</p>
-              <p class="kpi-value">— <small>in</small></p>
-              <p class="kpi-note">Statewide or selected basin</p>
+              <p class="kpi-value"><span id="kpi-average-swe">—</span> <small>in</small></p>
+              <p class="kpi-note">Stations with a current reading</p>
             </article>
             <article class="kpi-card">
               <p class="kpi-label">Average Percent of Median</p>
-              <p class="kpi-value">— <small>%</small></p>
-              <p class="kpi-note">1991–2020 baseline</p>
+              <p class="kpi-value"><span id="kpi-average-percent">—</span> <small>%</small></p>
+              <p class="kpi-note" id="kpi-percent-note">1991–2020 baseline</p>
             </article>
             <article class="kpi-card">
               <p class="kpi-label">Stations with readings</p>
-              <p class="kpi-value">— <small>stations</small></p>
+              <p class="kpi-value"><span id="kpi-station-count">—</span> <small>stations</small></p>
               <p class="kpi-note">Current SWE available</p>
             </article>
             <article class="kpi-card">
               <p class="kpi-label">Peak station reading</p>
-              <p class="kpi-value">— <small>in</small></p>
-              <p class="kpi-note">Station name appears here</p>
+              <p class="kpi-value"><span id="kpi-peak-swe">—</span> <small>in</small></p>
+              <p class="kpi-note" id="kpi-peak-station">Station name appears here</p>
             </article>
           </section>
 
@@ -1262,6 +1462,89 @@
         </aside>
       </div>
 
+      <section class="panel validation-panel" id="calculation-validation" aria-labelledby="validation-title">
+        <div class="validation-heading">
+          <div>
+            <h2 id="validation-title">Calculation validation</h2>
+            <p>These labeled test fixtures are calculated in the app; they are illustrative inputs, not live station observations.</p>
+          </div>
+          <span class="empty-tag">Stage 3 · test fixtures</span>
+        </div>
+        <div class="validation-grid">
+          <article class="validation-case" aria-labelledby="trial-validation-title">
+            <h3 id="trial-validation-title">Case 1 · Trial Lake</h3>
+            <p class="validation-caption">Illustrative single-station check from the spec.</p>
+            <dl class="validation-inputs">
+              <div><dt>Current SWE</dt><dd>24.6 in</dd></div>
+              <div><dt>Median SWE</dt><dd>20.5 in</dd></div>
+              <div><dt>Snow depth</dt><dd>72.0 in</dd></div>
+            </dl>
+            <div class="validation-results">
+              <div class="validation-output">
+                <span>Percent of Median</span>
+                <strong id="trial-percent">Calculating…</strong>
+                <small id="trial-percent-equation"></small>
+              </div>
+              <div class="validation-output">
+                <span>SWE anomaly</span>
+                <strong id="trial-anomaly">Calculating…</strong>
+                <small id="trial-anomaly-equation"></small>
+              </div>
+              <div class="validation-output">
+                <span>Snow density</span>
+                <strong id="trial-density">Calculating…</strong>
+                <small id="trial-density-equation"></small>
+              </div>
+              <div class="validation-output">
+                <span>Status category</span>
+                <strong id="trial-status">Calculating…</strong>
+                <small>Threshold classification uses unrounded Percent of Median.</small>
+              </div>
+            </div>
+          </article>
+
+          <article class="validation-case" aria-labelledby="spec-basin-validation-title">
+            <h3 id="spec-basin-validation-title">Case 2 · Existing spec basin test</h3>
+            <p class="validation-caption">Preserved three-station case already in spec.md.</p>
+            <div class="table-wrap">
+              <table class="basin-test-table">
+                <thead><tr><th>Station</th><th>SWE</th><th>Median</th><th>% Median</th></tr></thead>
+                <tbody id="spec-basin-rows"></tbody>
+              </table>
+            </div>
+            <div class="basin-test-summary">
+              <div class="validation-output"><span>Average SWE</span><strong id="spec-basin-swe">—</strong></div>
+              <div class="validation-output"><span>Average station %</span><strong id="spec-basin-percent">—</strong></div>
+            </div>
+          </article>
+
+          <article class="validation-case" aria-labelledby="supplied-basin-validation-title">
+            <h3 id="supplied-basin-validation-title">Case 3 · Additional basin check</h3>
+            <p class="validation-caption">Your supplied inputs; app basin Percent of Median is the mean of station percentages.</p>
+            <div class="table-wrap">
+              <table class="basin-test-table">
+                <thead><tr><th>Station</th><th>SWE</th><th>Median</th><th>% Median</th></tr></thead>
+                <tbody id="supplied-basin-rows"></tbody>
+              </table>
+            </div>
+            <div class="basin-test-summary">
+              <div class="validation-output"><span>Average SWE</span><strong id="supplied-basin-swe">—</strong></div>
+              <div class="validation-output"><span>Average Median SWE</span><strong id="supplied-basin-median">—</strong></div>
+              <div class="validation-output"><span>Mean station %</span><strong id="supplied-basin-percent">—</strong></div>
+              <div class="validation-output"><span>Mean SWE anomaly</span><strong id="supplied-basin-anomaly">—</strong></div>
+            </div>
+            <p class="validation-caption">Ratio of basin means: <strong id="supplied-basin-ratio">—</strong> (shown for comparison; not the spec's basin-percent calculation).</p>
+          </article>
+        </div>
+        <p class="validation-result" id="validation-result" role="status">Running calculation checks…</p>
+        <div class="validation-edge-cases" aria-label="Calculation edge-case checks">
+          <span id="zero-median-check">Zero median: checking…</span>
+          <span id="zero-depth-check">Zero depth: checking…</span>
+          <span id="missing-depth-check">Missing depth: checking…</span>
+          <span id="missing-swe-check">Missing SWE: checking…</span>
+        </div>
+      </section>
+
       <section class="panel table-card" aria-labelledby="table-title">
         <div class="table-heading">
           <div>
@@ -1280,7 +1563,7 @@
                 <th scope="col">Current SWE (in)</th>
                 <th scope="col">AWDB median (in; period unverified)</th>
                 <th scope="col">Snow depth (in)</th>
-                <th scope="col">% of Median</th>
+                <th scope="col">% of 1991–2020 Median</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
@@ -1293,7 +1576,7 @@
         </div>
       </section>
 
-      <p class="mockup-footer">Stage 2 data view · derived metrics and interactive map/filters are added in later stages. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
+      <p class="mockup-footer">Stage 3 calculations · live median comparisons remain unavailable until the AWDB reference period is verified. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>. Interactive map and filters arrive in Stage 4.</p>
     </main>
     <script>
       "use strict";
@@ -1302,6 +1585,8 @@
       const REQUEST_BATCH_SIZE = 12;
       const REQUEST_CONCURRENCY = 3;
       const REQUEST_TIMEOUT_MS = 30000;
+      const BASELINE_PERIOD_VERIFIED = false;
+      const LIQUID_WATER_DENSITY_LB_FT3 = 62.4;
       const WBD_HUC8_BASINS = {
         "14030005": "Upper Colorado-Kane Springs",
         "14040106": "Upper Green-Flaming Gorge Reservoir",
@@ -1359,6 +1644,12 @@
       const mapPreviewMessage = document.querySelector("#map-preview-message");
       const tableCaption = document.querySelector("#table-caption");
       const tableBody = document.querySelector("#station-table-body");
+      const averageSweOutput = document.querySelector("#kpi-average-swe");
+      const averagePercentOutput = document.querySelector("#kpi-average-percent");
+      const stationCountOutput = document.querySelector("#kpi-station-count");
+      const peakSweOutput = document.querySelector("#kpi-peak-swe");
+      const peakStationOutput = document.querySelector("#kpi-peak-station");
+      const averagePercentNote = document.querySelector("#kpi-percent-note");
 
       class AwdbRequestError extends Error {
         constructor(message, status = null) {
@@ -1421,6 +1712,235 @@
         return new Intl.NumberFormat(undefined, {
           maximumFractionDigits: digits
         }).format(value);
+      }
+
+      function isFiniteNumber(value) {
+        return typeof value === "number" && Number.isFinite(value);
+      }
+
+      function formatFixed(value, digits = 1) {
+        return isFiniteNumber(value) ? value.toFixed(digits) : "N/A";
+      }
+
+      function formatSigned(value, digits = 1) {
+        if (!isFiniteNumber(value)) return "N/A";
+        return `${value >= 0 ? "+" : ""}${formatFixed(value, digits)}`;
+      }
+
+      function getStatusBand(percentOfMedian) {
+        if (!isFiniteNumber(percentOfMedian)) return null;
+        if (percentOfMedian < 70) return { label: "Well Below Normal", colorName: "Red", color: "#c94d4d" };
+        if (percentOfMedian < 90) return { label: "Below Normal", colorName: "Orange", color: "#e79a50" };
+        if (percentOfMedian < 110) return { label: "Near Normal", colorName: "Green", color: "#59a878" };
+        if (percentOfMedian < 130) return { label: "Above Normal", colorName: "Light Blue", color: "#64b7d6" };
+        return { label: "Well Above Normal", colorName: "Dark Blue / Purple", color: "#6053a8" };
+      }
+
+      function calculateStationMetrics(currentSwe, medianSwe, snowDepth) {
+        const hasCurrentSwe = isFiniteNumber(currentSwe);
+        const hasMedianSwe = isFiniteNumber(medianSwe);
+        const hasSnowDepth = isFiniteNumber(snowDepth) && snowDepth > 0;
+        const percentOfMedian =
+          hasCurrentSwe && hasMedianSwe && medianSwe > 0
+            ? currentSwe / medianSwe * 100
+            : null;
+        const sweAnomaly =
+          hasCurrentSwe && hasMedianSwe
+            ? currentSwe - medianSwe
+            : null;
+        const snowDensityPercent =
+          hasCurrentSwe && hasSnowDepth
+            ? currentSwe / snowDepth * 100
+            : null;
+        const snowDensityLbFt3 =
+          hasCurrentSwe && hasSnowDepth
+            ? currentSwe / snowDepth * LIQUID_WATER_DENSITY_LB_FT3
+            : null;
+
+        return {
+          percentOfMedian,
+          sweAnomaly,
+          snowDensityPercent,
+          snowDensityLbFt3,
+          status: getStatusBand(percentOfMedian)
+        };
+      }
+
+      function mean(values) {
+        const available = values.filter(isFiniteNumber);
+        if (available.length === 0) return null;
+        return available.reduce((sum, value) => sum + value, 0) / available.length;
+      }
+
+      function calculateBasinSummary(stations) {
+        const currentStations = stations.filter(station => isFiniteNumber(station.currentSwe));
+        const comparableStations = stations.filter(station =>
+          isFiniteNumber(station.currentSwe) && isFiniteNumber(station.medianSwe)
+        );
+        const averageSwe = mean(currentStations.map(station => station.currentSwe));
+        const averageMedianSwe = mean(stations.map(station => station.medianSwe));
+        const averagePercentOfMedian = mean(stations.map(station => station.metrics.percentOfMedian));
+        const averageSweAnomaly = mean(stations.map(station => station.metrics.sweAnomaly));
+        const comparableAverageSwe = mean(comparableStations.map(station => station.currentSwe));
+        const comparableAverageMedianSwe = mean(comparableStations.map(station => station.medianSwe));
+        const ratioOfMeans =
+          isFiniteNumber(comparableAverageSwe) &&
+          isFiniteNumber(comparableAverageMedianSwe) &&
+          comparableAverageMedianSwe !== 0
+            ? comparableAverageSwe / comparableAverageMedianSwe * 100
+            : null;
+        const peakStation = currentStations.reduce((peak, station) =>
+          !peak || station.currentSwe > peak.currentSwe ? station : peak, null);
+
+        return {
+          averageSwe,
+          averageMedianSwe,
+          averagePercentOfMedian,
+          averageSweAnomaly,
+          ratioOfMeans,
+          currentSweCount: currentStations.length,
+          peakStation
+        };
+      }
+
+      const trialLakeFixture = {
+        currentSwe: 24.6,
+        medianSwe: 20.5,
+        snowDepth: 72.0
+      };
+      const specBasinFixture = [
+        { name: "Station A", currentSwe: 10, medianSwe: 8, snowDepth: null },
+        { name: "Station B", currentSwe: 20, medianSwe: 20, snowDepth: null },
+        { name: "Station C", currentSwe: 30, medianSwe: 40, snowDepth: null }
+      ];
+      const suppliedBasinFixture = [
+        { name: "Station A", currentSwe: 18, medianSwe: 20, snowDepth: 60 },
+        { name: "Station B", currentSwe: 12, medianSwe: 15, snowDepth: 48 },
+        { name: "Station C", currentSwe: 27, medianSwe: 25, snowDepth: 80 }
+      ];
+
+      function prepareFixtureStations(stations) {
+        return stations.map(station => ({
+          ...station,
+          metrics: calculateStationMetrics(station.currentSwe, station.medianSwe, station.snowDepth)
+        }));
+      }
+
+      function renderBasinFixtureRows(stations, targetId) {
+        const target = document.querySelector(`#${targetId}`);
+        const fragment = document.createDocumentFragment();
+        for (const station of stations) {
+          const row = document.createElement("tr");
+          row.append(createCell(station.name));
+          row.append(createCell(formatFixed(station.currentSwe)));
+          row.append(createCell(formatFixed(station.medianSwe)));
+          row.append(createCell(`${formatFixed(station.metrics.percentOfMedian)}%`));
+          fragment.append(row);
+        }
+        target.replaceChildren(fragment);
+      }
+
+      function nearlyEqual(actual, expected, tolerance = 0.000001) {
+        return isFiniteNumber(actual) && Math.abs(actual - expected) <= tolerance;
+      }
+
+      function renderCalculationValidation() {
+        const trial = calculateStationMetrics(
+          trialLakeFixture.currentSwe,
+          trialLakeFixture.medianSwe,
+          trialLakeFixture.snowDepth
+        );
+        document.querySelector("#trial-percent").textContent = `${formatFixed(trial.percentOfMedian)}%`;
+        document.querySelector("#trial-percent-equation").textContent =
+          `${formatFixed(trialLakeFixture.currentSwe)} / ${formatFixed(trialLakeFixture.medianSwe)} × 100`;
+        document.querySelector("#trial-anomaly").textContent = `${formatSigned(trial.sweAnomaly)} in`;
+        document.querySelector("#trial-anomaly-equation").textContent =
+          `${formatFixed(trialLakeFixture.currentSwe)} − ${formatFixed(trialLakeFixture.medianSwe)} = ${formatSigned(trial.sweAnomaly)} in`;
+        document.querySelector("#trial-density").textContent =
+          `${formatFixed(trial.snowDensityPercent)}% (${formatFixed(trial.snowDensityLbFt3)} lb/ft³)`;
+        document.querySelector("#trial-density-equation").textContent =
+          `${formatFixed(trialLakeFixture.currentSwe)} / ${formatFixed(trialLakeFixture.snowDepth)} × 100; ` +
+          `(${formatFixed(trialLakeFixture.currentSwe)} / ${formatFixed(trialLakeFixture.snowDepth)}) × ${LIQUID_WATER_DENSITY_LB_FT3}`;
+        document.querySelector("#trial-status").textContent = trial.status
+          ? `${trial.status.label} · ${trial.status.colorName}`
+          : "N/A";
+
+        const specStations = prepareFixtureStations(specBasinFixture);
+        const specSummary = calculateBasinSummary(specStations);
+        renderBasinFixtureRows(specStations, "spec-basin-rows");
+        document.querySelector("#spec-basin-swe").textContent = `${formatFixed(specSummary.averageSwe)} in`;
+        document.querySelector("#spec-basin-percent").textContent =
+          `${formatFixed(specSummary.averagePercentOfMedian)}%`;
+
+        const suppliedStations = prepareFixtureStations(suppliedBasinFixture);
+        const suppliedSummary = calculateBasinSummary(suppliedStations);
+        renderBasinFixtureRows(suppliedStations, "supplied-basin-rows");
+        document.querySelector("#supplied-basin-swe").textContent = `${formatFixed(suppliedSummary.averageSwe)} in`;
+        document.querySelector("#supplied-basin-median").textContent =
+          `${formatFixed(suppliedSummary.averageMedianSwe)} in`;
+        document.querySelector("#supplied-basin-percent").textContent =
+          `${formatFixed(suppliedSummary.averagePercentOfMedian)}%`;
+        document.querySelector("#supplied-basin-anomaly").textContent =
+          `${formatSigned(suppliedSummary.averageSweAnomaly)} in`;
+        document.querySelector("#supplied-basin-ratio").textContent =
+          `${formatFixed(suppliedSummary.ratioOfMeans)}%`;
+
+        const zeroMedianMetrics = calculateStationMetrics(24.6, 0, 72);
+        const zeroDepthMetrics = calculateStationMetrics(24.6, 20.5, 0);
+        const missingDepthMetrics = calculateStationMetrics(24.6, 20.5, null);
+        const missingSweStations = prepareFixtureStations([
+          { name: "With SWE", currentSwe: 12, medianSwe: 10, snowDepth: 24 },
+          { name: "No SWE", currentSwe: null, medianSwe: 10, snowDepth: null }
+        ]);
+        const missingSweSummary = calculateBasinSummary(missingSweStations);
+        document.querySelector("#zero-median-check").textContent =
+          `Zero median → Percent ${zeroMedianMetrics.percentOfMedian === null ? "N/A" : "ERROR"}`;
+        document.querySelector("#zero-depth-check").textContent =
+          `Zero depth → density ${zeroDepthMetrics.snowDensityPercent === null ? "N/A" : "ERROR"}`;
+        document.querySelector("#missing-depth-check").textContent =
+          `Missing depth → density ${missingDepthMetrics.snowDensityPercent === null ? "N/A" : "ERROR"}`;
+        document.querySelector("#missing-swe-check").textContent =
+          `Missing SWE excluded → ${missingSweSummary.currentSweCount} station, ${formatFixed(missingSweSummary.averageSwe)} in avg`;
+
+        const thresholdCases = [
+          [69.99, "Well Below Normal"],
+          [70, "Below Normal"],
+          [89.99, "Below Normal"],
+          [90, "Near Normal"],
+          [109.99, "Near Normal"],
+          [110, "Above Normal"],
+          [129.99, "Above Normal"],
+          [130, "Well Above Normal"]
+        ];
+        const checks = [
+          ["Trial Lake Percent of Median", nearlyEqual(trial.percentOfMedian, 120)],
+          ["Trial Lake SWE anomaly", nearlyEqual(trial.sweAnomaly, 4.1)],
+          ["Trial Lake density percent", nearlyEqual(trial.snowDensityPercent, 34.1666666667)],
+          ["Trial Lake bulk density", nearlyEqual(trial.snowDensityLbFt3, 21.32)],
+          ["Trial Lake category", trial.status?.label === "Above Normal" && trial.status.colorName === "Light Blue"],
+          ["Existing spec basin average SWE", nearlyEqual(specSummary.averageSwe, 20)],
+          ["Existing spec mean station percent", nearlyEqual(specSummary.averagePercentOfMedian, 100)],
+          ["Supplied basin average SWE", nearlyEqual(suppliedSummary.averageSwe, 19)],
+          ["Supplied basin average median SWE", nearlyEqual(suppliedSummary.averageMedianSwe, 20)],
+          ["Supplied mean station percentage", nearlyEqual(suppliedSummary.averagePercentOfMedian, 92.6666666667)],
+          ["Supplied ratio of means comparison", nearlyEqual(suppliedSummary.ratioOfMeans, 95)],
+          ["Supplied average SWE anomaly", nearlyEqual(suppliedSummary.averageSweAnomaly, -1)],
+          ["Zero median returns N/A percent", zeroMedianMetrics.percentOfMedian === null],
+          ["Zero snow depth returns N/A density", zeroDepthMetrics.snowDensityPercent === null],
+          ["Missing snow depth returns N/A density", missingDepthMetrics.snowDensityPercent === null],
+          ["Missing SWE is excluded from counts and averages",
+            missingSweSummary.currentSweCount === 1 && nearlyEqual(missingSweSummary.averageSwe, 12)],
+          ...thresholdCases.map(([percent, expected]) => [
+            `${percent}% status boundary`,
+            getStatusBand(percent)?.label === expected
+          ])
+        ];
+        const failedChecks = checks.filter(([, passed]) => !passed).map(([name]) => name);
+        const result = document.querySelector("#validation-result");
+        result.classList.toggle("failed", failedChecks.length > 0);
+        result.textContent = failedChecks.length
+          ? `Validation failed: ${failedChecks.join(", ")}.`
+          : `All ${checks.length} calculation, missing-value, and threshold checks passed.`;
       }
 
       function localDateString(date) {
@@ -1647,12 +2167,44 @@
         return cell;
       }
 
-      function renderStationTable(stations, readings, latestDate) {
+      function buildLiveStationRows(stations, readings, latestDate) {
+        return stations.map(station => {
+          const stationReadings = readings.get(station.stationTriplet);
+          const currentSwe = stationReadings.wteq.get(latestDate) ?? null;
+          const awdbMedian = stationReadings.median.get(latestDate) ?? null;
+          const snowDepth = stationReadings.snwd.get(latestDate) ?? null;
+          const comparableMedian = BASELINE_PERIOD_VERIFIED ? awdbMedian : null;
+          return {
+            ...station,
+            currentSwe,
+            awdbMedian,
+            medianSwe: comparableMedian,
+            snowDepth,
+            metrics: calculateStationMetrics(currentSwe, comparableMedian, snowDepth)
+          };
+        });
+      }
+
+      function renderSummaryKpis(summary) {
+        averageSweOutput.textContent = formatNumber(summary.averageSwe);
+        averagePercentOutput.textContent = formatNumber(summary.averagePercentOfMedian);
+        stationCountOutput.textContent = String(summary.currentSweCount);
+        peakSweOutput.textContent = summary.peakStation
+          ? formatNumber(summary.peakStation.currentSwe)
+          : "N/A";
+        peakStationOutput.textContent = summary.peakStation
+          ? summary.peakStation.name
+          : "No stations have current SWE";
+        averagePercentNote.textContent = BASELINE_PERIOD_VERIFIED
+          ? "1991–2020 baseline"
+          : "Unavailable: AWDB median period unverified";
+      }
+
+      function renderStationTable(stations) {
         const fragment = document.createDocumentFragment();
         const orderedStations = [...stations].sort((a, b) => a.name.localeCompare(b.name));
 
         for (const station of orderedStations) {
-          const stationReadings = readings.get(station.stationTriplet);
           const row = document.createElement("tr");
           const nameCell = document.createElement("td");
           nameCell.textContent = station.name || "Unnamed station";
@@ -1664,11 +2216,19 @@
 
           row.append(createCell(station.basinName));
           row.append(createCell(formatNumber(station.elevation, 0)));
-          row.append(createCell(formatNumber(stationReadings.wteq.get(latestDate))));
-          row.append(createCell(formatNumber(stationReadings.median.get(latestDate))));
-          row.append(createCell(formatNumber(stationReadings.snwd.get(latestDate))));
-          row.append(createCell("—", "table-metric-na"));
-          row.append(createCell("Pending Stage 3", "table-metric-na"));
+          row.append(createCell(formatNumber(station.currentSwe)));
+          row.append(createCell(formatNumber(station.awdbMedian)));
+          row.append(createCell(formatNumber(station.snowDepth)));
+          const percent = isFiniteNumber(station.metrics.percentOfMedian)
+            ? `${formatFixed(station.metrics.percentOfMedian)}%`
+            : "N/A";
+          row.append(createCell(percent, "table-metric-na"));
+          const status = !isFiniteNumber(station.currentSwe)
+            ? "N/A · no current SWE"
+            : !BASELINE_PERIOD_VERIFIED
+              ? "Baseline unverified"
+              : station.metrics.status?.label || "N/A · no valid median";
+          row.append(createCell(status, "table-metric-na"));
           fragment.append(row);
         }
 
@@ -1744,7 +2304,9 @@
           `Latest daily SWE date: ${formatDate(latestDate)}. Station coordinates and values will be mapped in Stage 4.`;
         tableCaption.textContent =
           `Daily readings as of ${formatDate(latestDate)} · basin names mapped from AWDB HUC-8 codes`;
-        renderStationTable(stations, readings, latestDate);
+        const stationRows = buildLiveStationRows(stations, readings, latestDate);
+        renderSummaryKpis(calculateBasinSummary(stationRows));
+        renderStationTable(stationRows);
       }
 
       async function loadAwdbData() {
@@ -1778,6 +2340,7 @@
       }
 
       retryButton.addEventListener("click", loadAwdbData);
+      renderCalculationValidation();
       loadAwdbData();
     </script>
   </body>
