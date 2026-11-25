@@ -178,3 +178,8 @@
 
 - Changed: Specified the marker popup fields and that selecting a popup opens the station detail panel.
 - Worked: Yes; map popup content and behavior are now explicit.
+
+> show_gaps
+
+- Changed: Specified that missing hydrograph observations appear as gaps rather than zeroes or interpolated values.
+- Worked: Yes; missing chart-data behavior is now explicit.

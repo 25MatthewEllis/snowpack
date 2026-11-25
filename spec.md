@@ -68,7 +68,7 @@
 
 - **Summary KPI Cards:** Statewide or selected-basin average $SWE$ (in), average Percent of Median (%), active station count ($n$), and the highest current SWE reading (in) among stations remaining after the active filters, with station name.
 
-- **Station Detail Panel & Time-Series Plot (Chart.js):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 1991–2020 median curve.
+- **Station Detail Panel & Time-Series Plot (Chart.js):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 1991–2020 median curve. Show gaps for missing observations; do not interpolate them or replace them with zero.
 
 - **Sortable Station Data Table:** Columns for Station Name, Basin, Elevation (ft), Current $SWE$ (in), Median $SWE$ (in), % of Median, and Status. Status uses the same Percent-of-Median categories as map markers; show `N/A` when the median comparison is unavailable. Default sort: Percent of Median ascending, with `N/A` values last.
 
