@@ -316,3 +316,10 @@
 
 - Changed: Reviewed the attached AWDB Swagger screenshot and OpenAPI schema, then continued with Stage 5: added the Chart.js water-year SWE hydrograph, omitted the unverified median curve with an explicit note, implemented sortable table columns with Percent of Median ascending and N/A last by default, and made the station count reflect the filtered active stations.
 - Worked: Yes; live browser checks confirmed the chart, date updates, sorting, station selection, 140 filtered stations, no console errors, and no mobile page overflow. The API documents a generic 30-year median but does not identify its reference years; Stage 6 remains.
+
+## 24
+
+> finish the app!
+
+- Changed: Completed Stage 6 responsive and end-to-end validation, fixed the stale map data-error message after a successful retry, marked the app complete, and clarified that 1991–2020 comparisons remain withheld until the AWDB median reference period is verified.
+- Worked: Yes; verified live AWDB load and recovery after a simulated outage, filters and no-data state, chart and station selection, mobile layout with no page overflow and a horizontally scrollable table, and all 24 calculation checks.

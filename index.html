@@ -1341,14 +1341,14 @@
             <div class="brand-mark" aria-hidden="true">UT</div>
             <p class="brand-name">Snow Survey</p>
           </div>
-          <span class="mockup-badge">Stage 5 · Station details</span>
+          <span class="mockup-badge">Stage 6 · Validation complete</span>
         </div>
 
         <div class="intro">
           <div>
             <p class="eyebrow">Utah · SNOTEL network</p>
             <h1>Utah Snowpack Map</h1>
-            <p class="intro-copy">Explore current snowpack across Utah and compare it with the 1991–2020 median.</p>
+            <p class="intro-copy">Explore current Utah snowpack. AWDB provides a 30-year median without reference years, so 1991–2020 comparisons are withheld.</p>
           </div>
           <div class="data-note">
             <span class="data-dot" id="connection-dot" aria-hidden="true"></span>
@@ -1631,7 +1631,7 @@
         </div>
       </section>
 
-      <p class="mockup-footer">Stage 5 station details · the AWDB 30-year median reference period is unverified, so 1991–2020 comparisons remain unavailable. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
+      <p class="mockup-footer">Stage 6 validation complete · the AWDB 30-year median reference period is unverified, so 1991–2020 comparisons remain unavailable. Basin labels follow the <a href="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4" target="_blank" rel="noreferrer">USGS Watershed Boundary Dataset HUC-8 names</a>.</p>
     </main>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -2933,6 +2933,11 @@
           )
         )].sort((a, b) => b.localeCompare(a));
         loadedData = { stations, readings, latestDate, dates, beginDate };
+        if (stationMap && !mapTileWarningShown) {
+          setMapStatus("");
+        } else if (!stationMap && mapStatus.textContent.startsWith("Station data is unavailable.")) {
+          setMapStatus("The interactive map is unavailable. Station data and filters remain available.", true);
+        }
         fitMapToAllStations(stations);
         populateFilters(stations, dates);
         applyFilters();
