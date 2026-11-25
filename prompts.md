@@ -235,3 +235,10 @@
 
 - Changed: Prepared a six-stage build outline beginning with a static layout mockup; no application code or spec changes were made.
 - Worked: Yes; each stage includes its build scope and completion checks.
+
+## 15
+
+> Add the short overview to the top of `spec.md` and add the agreed build stages under `## Build stages` at the end of `spec.md`. Do not write `index.html` yet. Commit this updated `spec.md`.
+
+- Changed: Added the overview and six build stages to `spec.md`; left `index.html` untouched.
+- Worked: Yes; the documentation changes are verified and committed.

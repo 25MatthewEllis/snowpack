@@ -1,5 +1,7 @@
 # Problem 6: Utah Snowpack Map
 
+This single-file, client-side app maps Utah SNOTEL stations using daily AWDB data and compares snowpack with the fixed 1991–2020 median. Users can filter stations and explore the map, KPIs, station details, water-year chart, and sortable table. The app requires internet access and excludes forecasting and backend services.
+
 ## 1. Purpose
 
 - **Overview:** Map the SNOTEL snow-monitoring sites in Utah and show how this year's snowpack compares to normal.
@@ -106,3 +108,35 @@
 - Avalanche danger ratings or slope-aspect stability modeling.
 - User accounts, custom data uploads, or backend server databases; everything runs client-side in a single `index.html` file.
 - SNOTEL stations located outside Utah, including those in multi-state border basins such as Bear River.
+
+## Build stages
+
+### 1. Mock up the page layout
+
+- **Build:** Static desktop dashboard and mobile layout with filter bar, map placeholder, KPI cards, station-detail/chart area, and table.
+- **Check:** Desktop proportions match the two-column plan; below 768 px, content follows the specified mobile order.
+
+### 2. Connect and verify AWDB data
+
+- **Build:** Load Utah station metadata and daily SWE, snow-depth, and historical-median data; create the HUC-to-basin mapping and AWDB error/retry states.
+- **Check:** Browser requests work; station coverage, basin assignments, and latest available date are correct; verify the median period is 1991–2020 or source/calculate that baseline.
+
+### 3. Implement calculations
+
+- **Build:** Percent of Median, SWE anomaly, density, basin averages, station counts, missing-value handling, and color-threshold logic.
+- **Check:** Trial Lake calculations and the synthetic three-station averages match the expected values; test zero/missing medians, missing snow depth, and threshold boundaries.
+
+### 4. Build the map and global filters
+
+- **Build:** Leaflet map with Utah stations, basin/date/elevation filters, metric toggle, marker colors and legends, popups, and station selection.
+- **Check:** Filters update all views; only Utah stations appear; marker colors, dynamic SWE legend, neutral no-data markers, and popup behavior match the spec.
+
+### 5. Add station details and summary outputs
+
+- **Build:** KPI cards, selected-station details, Chart.js water-year hydrograph, and sortable station table.
+- **Check:** KPIs use the filtered stations; chart compares daily SWE with the aligned 1991–2020 median and leaves gaps for missing observations; selection, status, and default table sort are correct.
+
+### 6. Complete responsive and end-to-end validation
+
+- **Build:** Finish mobile interactions, table scrolling, loading/error/retry states, and full user flow.
+- **Check:** Verify desktop and mobile layouts, filter combinations, no-selection and no-data states, API failures, and the complete flow from initial load through station selection.
