@@ -168,3 +168,8 @@
 
 - Changed: Set the station table's default sort to Percent of Median ascending, with unavailable values last.
 - Worked: Yes; the initial table order is now specified.
+
+> display_na
+
+- Changed: Specified that snow density displays as `N/A` when snow depth is missing or non-positive.
+- Worked: Yes; the density edge case now has explicit display behavior.

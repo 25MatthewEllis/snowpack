@@ -46,6 +46,8 @@
   \left(\frac{SWE_{\mathrm{current}}}{D_{\mathrm{snow}}}\right)\times 62.4\ \mathrm{lb/ft^3}
   $$
 
+  Display `N/A` when snow depth is missing or less than or equal to zero.
+
 - **Basin Average SWE & Percent of Median:** Compute the arithmetic mean of current SWE over stations with a non-null current SWE value, and the arithmetic mean of $P_{\mathrm{med}}$ over stations with a valid $P_{\mathrm{med}}$, within the selected basin and elevation filter.
 
 - **Station Inclusion for Counts and Averages:** Count stations with a non-null current SWE value for the selected date. Calculate each average using only stations with valid values for that metric. A missing or zero median makes $P_{\mathrm{med}}$ `N/A` and excludes that station from the Percent of Median average, but not from the current-SWE average or station count.
