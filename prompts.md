@@ -365,3 +365,10 @@
 
 - Changed: Added resort-name hints and nearest-active-station fallback pairing, showed resort distance and resort-to-SNOTEL distance, and added a transparent distance penalty to the recommendation score.
 - Worked: Yes; updated the planning and specification documents and verified live Provo results such as Snowbird paired to Snowbird (766:UT:SNTL), plus the SNOTEL sensor caveat.
+
+## 31
+
+> commit and push all to github for use there
+
+- Changed: Configured the GitHub repository `https://github.com/25MatthewEllis/snowpack.git` as `origin` and pushed the committed `main` branch.
+- Worked: Yes; `main` is tracking `origin/main`, and the repository received the latest commit.
