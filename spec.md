@@ -80,7 +80,7 @@
 
 ## 6. Validation
 
-- **Hand-Worked Test Case (e.g., Trial Lake SNOTEL — Site 828, Elevation 9,992 ft, Provo–Utah Lake–Jordan Basin):**
+- **Hand-Worked Illustrative Test Case (Trial Lake SNOTEL — Site 828; values are illustrative, not a verified observation):**
   - **Inputs:**
     - $SWE_{\mathrm{current}} = 24.6\ \mathrm{in}$
     - $SWE_{\mathrm{median}} = 20.5\ \mathrm{in}$

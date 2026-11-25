@@ -213,3 +213,8 @@
 
 - Changed: Specified the mobile content order as filters, map, KPIs, selected-station details/chart, then table.
 - Worked: Yes; mobile stack order is now clear.
+
+> keep_as_illustrative
+
+- Changed: Labeled the Trial Lake hand-worked case as illustrative and removed the unverified elevation claim, without changing its calculation inputs or results.
+- Worked: Yes; the example no longer implies the values are a verified observation.
