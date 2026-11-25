@@ -133,3 +133,8 @@
 
 - Changed: Limited included SNOTEL stations to locations physically within Utah, including for border basins.
 - Worked: Yes; geographic scope is now explicit.
+
+> all_station_basins
+
+- Changed: Replaced the open-ended basin list with all basins represented by included Utah SNOTEL stations and required a canonical station-to-basin mapping.
+- Worked: Yes; the filter scope no longer relies on an unspecified “etc.” list.

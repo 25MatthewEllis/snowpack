@@ -7,7 +7,7 @@
 
 ## 2. Inputs
 
-- **Basin / Watershed Filter:** Dropdown selector. Options include All Utah Basins, Bear, Weber, Provo–Utah Lake–Jordan, Duchesne, Price–San Rafael, Sevier, and Virgin. Default: All Utah Basins. Include only stations located within Utah.
+- **Basin / Watershed Filter:** Dropdown selector with All Utah Basins and every basin represented by included Utah SNOTEL stations. Use a canonical station-to-basin mapping. Default: All Utah Basins. Include only stations located within Utah.
 - **Target Date:** Date picker limited to dates with available AWDB data. Default: the latest available date. The selected date determines the water year (October 1–September 30) for the time-series window.
 - **Minimum Elevation Filter:** Slider or numeric box in feet. Range: 6,000–11,500 ft; step: 250 ft; default: 6,000 ft.
 - **Station Selection:** Select a SNOTEL marker on the map or choose a station from a searchable dropdown/list. Default: statewide summary with no station selected.
