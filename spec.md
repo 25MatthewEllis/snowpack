@@ -89,9 +89,16 @@
     - $P_{\mathrm{med}} = \frac{24.6}{20.5} \times 100 = 120.0\%$
     - $\Delta SWE = 24.6 - 20.5 = +4.1\ \mathrm{in}$
     - Density (%) $= \frac{24.6}{72.0} \times 100 = 34.2\%$ ($\rho_{\mathrm{snow}} = 21.3\ \mathrm{lb/ft^3}$)
-    - **Marker Color Category:** Light Blue (Above Normal, since $110\% \le 120.0\% \le 129\%$)
+    - **Marker Color Category:** Light Blue (Above Normal, since $110\% \le 120.0\% < 130\%$)
 
-- *(Plus a multi-station basin average check with 2–3 stations to verify your basin aggregation math.)*
+- **Synthetic Three-Station Basin-Average Test:** Treat all stations as active, non-null, and in the same selected basin, elevation filter, and date.
+  - **Inputs and Per-Station Percent of Median:**
+    - Station A: $SWE_{\mathrm{current}} = 10\ \mathrm{in}$, $SWE_{\mathrm{median}} = 8\ \mathrm{in}$, $P_{\mathrm{med}} = 125\%$
+    - Station B: $SWE_{\mathrm{current}} = 20\ \mathrm{in}$, $SWE_{\mathrm{median}} = 20\ \mathrm{in}$, $P_{\mathrm{med}} = 100\%$
+    - Station C: $SWE_{\mathrm{current}} = 30\ \mathrm{in}$, $SWE_{\mathrm{median}} = 40\ \mathrm{in}$, $P_{\mathrm{med}} = 75\%$
+  - **Expected Basin Averages:**
+    - Average SWE: $(10 + 20 + 30) / 3 = 20\ \mathrm{in}$
+    - Average Percent of Median: $(125 + 100 + 75) / 3 = 100\%$
 
 ## 7. Out of Scope
 

@@ -198,3 +198,8 @@
 
 - Changed: Specified a visible AWDB error and retry state, with no zero-value or success-shaped fallback.
 - Worked: Yes; external data failure behavior is now explicit.
+
+> synthetic_three_station
+
+- Changed: Added a fixed three-station synthetic basin-average validation case with hand-worked expected averages.
+- Worked: Yes; the average calculations are reproducible and distinguish mean station percentages from a ratio of means.
