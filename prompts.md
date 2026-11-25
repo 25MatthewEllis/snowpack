@@ -302,3 +302,10 @@
 - Clarification: Stage 4 was selected; build only the map and global filters, then pause for review.
 - Changed: Added a Leaflet Utah station map, AWDB-derived basin/date/elevation filters, a Percent of Median / Current SWE toggle, a data-scaled SWE legend, neutral markers while the median period remains unverified, station popups and selection, and synchronized KPI/table/detail updates. Kept map/data loading failures visible.
 - Worked: Yes; live browser testing loaded 141 stations, verified all filters and selection clearing, confirmed the statewide map and station popup, and found no horizontal overflow at 375 px.
+
+## 22
+
+> is the app done?
+
+- Changed: No application code. Clarified that Stage 4 is complete, while Stages 5 and 6 remain.
+- Worked: Yes; also noted the 1991–2020 median period is still unverified, so live median comparisons remain unavailable.
