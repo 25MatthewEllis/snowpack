@@ -203,3 +203,8 @@
 
 - Changed: Added a fixed three-station synthetic basin-average validation case with hand-worked expected averages.
 - Worked: Yes; the average calculations are reproducible and distinguish mean station percentages from a ratio of means.
+
+> Accepted the no-current-reading form without selecting a value; used the recommended default, `show_na_neutral`.
+
+- Changed: Specified that active stations with no current reading remain visible with a neutral marker and `N/A`, but are excluded from counts and averages.
+- Worked: Yes; missing-current-reading visibility is explicit.
