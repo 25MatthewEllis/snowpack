@@ -223,3 +223,8 @@
 
 - Changed: Specified that an unselected detail panel shows “Select a station” while KPIs remain visible and the station-specific chart is hidden.
 - Worked: Yes; the no-selection state is now defined.
+
+> daily_all
+
+- Changed: Specified daily AWDB data consistently for current measurements, historical medians, and all views.
+- Worked: Yes; data resolution is now explicit.

@@ -8,11 +8,11 @@
 ## 2. Inputs
 
 - **Basin / Watershed Filter:** Dropdown selector with All Utah Basins and every basin represented by included Utah SNOTEL stations. Use AWDB station basin metadata where available and a curated mapping for remaining stations. Default: All Utah Basins. Include only stations located within Utah.
-- **Target Date:** Date picker limited to dates with available AWDB data. Default: the latest available date. The selected date determines the water year (October 1–September 30) for the time-series window.
+- **Target Date:** Date picker limited to dates with available daily AWDB data. Default: the latest available date. The selected date determines the water year (October 1–September 30) for the time-series window.
 - **Minimum Elevation Filter:** Slider or numeric box in feet. Range: 6,000–11,500 ft; step: 250 ft; default: 6,000 ft.
 - **Station Selection:** Select a SNOTEL marker on the map or choose a station from a searchable dropdown/list. Default: statewide summary with no station selected.
 - **Display Metric Toggle:** Radio buttons to color-code map markers by Current SWE (in) or Percent of 1991–2020 Median (%). Default: Percent of Median.
-- **Data Source and Runtime:** Retrieve station metadata and data from the NRCS AWDB REST API directly in the browser. The app requires internet access; load Leaflet and Chart.js from a CDN. Verify AWDB browser access (CORS) before implementation. If requests fail, show a clear error with a retry option; do not present missing values as zero or as a successful load.
+- **Data Source and Runtime:** Retrieve station metadata and DAILY SWE, snow-depth, and historical-median data from the NRCS AWDB REST API directly in the browser. Use daily data consistently across the map, KPIs, table, and chart. The app requires internet access; load Leaflet and Chart.js from a CDN. Verify AWDB browser access (CORS) before implementation. If requests fail, show a clear error with a retry option; do not present missing values as zero or as a successful load.
 - **Filter Scope:** Apply basin, target-date, and elevation filters to the map, KPIs, station table, and station selection. If filters exclude the selected station, clear the selection and return to the summary state.
 
 ## 3. Calculations
