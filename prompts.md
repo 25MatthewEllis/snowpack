@@ -218,3 +218,8 @@
 
 - Changed: Labeled the Trial Lake hand-worked case as illustrative and removed the unverified elevation claim, without changing its calculation inputs or results.
 - Worked: Yes; the example no longer implies the values are a verified observation.
+
+> selection_prompt
+
+- Changed: Specified that an unselected detail panel shows “Select a station” while KPIs remain visible and the station-specific chart is hidden.
+- Worked: Yes; the no-selection state is now defined.
