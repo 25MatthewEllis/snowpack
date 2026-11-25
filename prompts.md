@@ -108,3 +108,8 @@
 
 - Changed: Set the initial station state to statewide summary with no station selected.
 - Worked: Yes; the initial selection behavior is now explicit in the spec.
+
+> valid_per_metric
+
+- Changed: Defined the active station count and metric-specific average eligibility, including handling for missing or zero medians.
+- Worked: Yes; KPI inclusion rules are now explicit in the spec.
