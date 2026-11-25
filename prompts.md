@@ -158,3 +158,8 @@
 
 - Changed: Specified that filters apply across all views and clear a station selection if it becomes excluded.
 - Worked: Yes; filter interaction behavior is now explicit.
+
+> same_percent_median_bands
+
+- Changed: Defined the table Status column to use the map's Percent-of-Median categories and show `N/A` when unavailable.
+- Worked: Yes; table status behavior now matches the map legend.

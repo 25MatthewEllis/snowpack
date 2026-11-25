@@ -68,7 +68,7 @@
 
 - **Station Detail Panel & Time-Series Plot (Chart.js):** Displays selected station name, ID, basin, elevation (ft), current $SWE$ (in), snow depth (in), snow density (%), $\Delta SWE$ (in), and a water-year hydrograph comparing the current year's $SWE$ curve against the 1991–2020 median curve.
 
-- **Sortable Station Data Table:** Columns for Station Name, Basin, Elevation (ft), Current $SWE$ (in), Median $SWE$ (in), % of Median, and Status.
+- **Sortable Station Data Table:** Columns for Station Name, Basin, Elevation (ft), Current $SWE$ (in), Median $SWE$ (in), % of Median, and Status. Status uses the same Percent-of-Median categories as map markers; show `N/A` when the median comparison is unavailable.
 
 ## 5. Look and Feel
 
