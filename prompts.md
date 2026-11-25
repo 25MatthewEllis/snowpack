@@ -128,3 +128,8 @@
 
 - Changed: Specified that AWDB medians are used only if they match 1991–2020; otherwise, the app must source or calculate the matching baseline.
 - Worked: Yes; the fallback preserves the chosen baseline rather than silently substituting another period.
+
+> utah_only
+
+- Changed: Limited included SNOTEL stations to locations physically within Utah, including for border basins.
+- Worked: Yes; geographic scope is now explicit.
