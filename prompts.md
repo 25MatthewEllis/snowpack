@@ -103,3 +103,8 @@
 
 - Changed: Specified that Current SWE marker colors use the filtered visible stations' SWE range and that the legend updates accordingly.
 - Worked: Yes; the raw-SWE marker scale is now defined in the spec.
+
+> statewide_summary
+
+- Changed: Set the initial station state to statewide summary with no station selected.
+- Worked: Yes; the initial selection behavior is now explicit in the spec.
